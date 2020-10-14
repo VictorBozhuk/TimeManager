@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.30523.141
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeManager", "TimeManager\TimeManager.csproj", "{0AC88D1C-4B09-4A53-BE0A-01E6FAAB82C0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{233732A6-9651-4944-A842-96599D33FDEE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{0AC88D1C-4B09-4A53-BE0A-01E6FAAB82C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0AC88D1C-4B09-4A53-BE0A-01E6FAAB82C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0AC88D1C-4B09-4A53-BE0A-01E6FAAB82C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{233732A6-9651-4944-A842-96599D33FDEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{233732A6-9651-4944-A842-96599D33FDEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{233732A6-9651-4944-A842-96599D33FDEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{233732A6-9651-4944-A842-96599D33FDEE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
