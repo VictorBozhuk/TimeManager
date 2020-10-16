@@ -12,16 +12,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using TimeManager.Views;
+using TimeManager.ViewModels;
 
-namespace TimeManager
+namespace TimeManager.Views
 {
-    public partial class MainWindow : Window
+    /// <summary>
+    /// Interaction logic for Menu.xaml
+    /// </summary>
+    public partial class Menu : Page
     {
-        public MainWindow()
+        public Menu()
         {
             InitializeComponent();
-            MainFrame.Navigate(new Views.Menu());
+            DataContext = new MenuViewModel();
         }
     }
 }

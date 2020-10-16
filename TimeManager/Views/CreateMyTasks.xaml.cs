@@ -12,16 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using TimeManager.Views;
 
-namespace TimeManager
+namespace TimeManager.Views
 {
-    public partial class MainWindow : Window
+    /// <summary>
+    /// Interaction logic for CreateMyTasks.xaml
+    /// </summary>
+    public partial class CreateMyTasks : Page
     {
-        public MainWindow()
+        public CreateMyTasks()
         {
             InitializeComponent();
-            MainFrame.Navigate(new Views.Menu());
         }
     }
 }
