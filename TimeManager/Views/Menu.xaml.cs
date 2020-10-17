@@ -25,6 +25,11 @@ namespace TimeManager.Views
         {
             InitializeComponent();
             DataContext = new MenuViewModel();
+            //MenuFrame.Source = new Uri("AddCommunication.xaml", UriKind.Relative);
+            //var t = new Frame();
+            //t.Navigate(new ListOfMyTasks());
+            //MenuFrame = t;
+            //MenuFrame.Source = new Uri(new ListOfMyTasks());
         }
     }
 }

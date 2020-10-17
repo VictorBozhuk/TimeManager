@@ -9,6 +9,43 @@
       Title="ListOfMyTasks">
 
     <Grid>
-        
+        <ListBox ItemsSource="{Binding MyTasks}"
+                 SelectedItem="{Binding SelectedMyTask}"
+                 Grid.Column="0"
+                 HorizontalContentAlignment="Stretch"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                >
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="2"/>
+                        </Grid.RowDefinitions>
+                        <!--<Grid
+                            Name="dofijv"
+                                Grid.RowSpan="2"
+                                Background="{Binding Path=RowColor}"
+                                Opacity="0.1"
+                                Margin="-10,0"
+                                />-->
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" FontSize="20" TextWrapping="Wrap" Margin="5,0" Text="{Binding Path=Name}"/>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </Page>

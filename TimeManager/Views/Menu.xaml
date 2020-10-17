@@ -15,11 +15,12 @@
         </Grid.RowDefinitions>
         <Menu>
             <MenuItem Header="Tasks" Command="{Binding ListCommand}" />
-            <MenuItem Header="Subjects" Command="{Binding CreateCommand}" />
-            <MenuItem Header="Create" Command="{Binding AnalyticsCommand}" />
+            <MenuItem Header="Create" Command="{Binding CreateCommand}" />
+            <MenuItem Header="Analytics" Command="{Binding AnalyticsCommand}" />
         </Menu>
         <Frame 
             Name="MenuFrame"
+            Content="{Binding MenuPage, UpdateSourceTrigger=PropertyChanged}"
             Grid.Row="1"
 			NavigationUIVisibility="Hidden"
             />

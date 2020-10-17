@@ -65,7 +65,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\MyTaskModel.cs" />
     <Compile Include="RelayCommand.cs" />
+    <Compile Include="Resource.cs" />
     <Compile Include="ViewModels\AnalyticsViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\CreateMyTaskViewModel.cs" />
@@ -139,7 +141,16 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\TimeManager.Models\TimeManager.Models.csproj">
+      <Project>{3290E77D-E09B-4401-B11E-746CD9FF1C69}</Project>
+      <Name>TimeManager.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TimeManager.Persistence\TimeManager.Persistence.csproj">
+      <Project>{fb18a6d7-3344-48e5-984d-05801beb1580}</Project>
+      <Name>TimeManager.Persistence</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
