@@ -14,7 +14,7 @@ namespace TimeManager.Ioc
         public override void Load()
         {
             Bind<IMyTaskStorage>().To<MyTaskStorage>().InSingletonScope();
-
+            
             Bind<ListOfMyTasksViewModel>().ToSelf().InTransientScope();
             Bind<MenuViewModel>().ToSelf().InTransientScope();
         }

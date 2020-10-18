@@ -27,42 +27,36 @@ namespace TimeManager.ViewModels
             }
         }
 
-        private RelayCommand listCommand;
         public RelayCommand ListCommand
         {
             get
             {
-                return listCommand ??
-                  (listCommand = new RelayCommand(obj =>
+                return new RelayCommand(obj =>
                   {
                       MenuPage = new ListOfMyTasks();
-                  }));
+                  });
             }
         }
 
-        private RelayCommand createCommand;
         public RelayCommand CreateCommand
         {
             get
             {
-                return createCommand ??
-                  (createCommand = new RelayCommand(obj =>
+                return new RelayCommand(obj =>
                   {
                       MenuPage = new CreateMyTasks();
-                  }));
+                  });
             }
         }
 
-        private RelayCommand analyticsCommand;
         public RelayCommand AnalyticsCommand
         {
             get
             {
-                return analyticsCommand ??
-                  (analyticsCommand = new RelayCommand(obj =>
+                return new RelayCommand(obj =>
                   {
                       MenuPage = new Analytics();
-                  }));
+                  });
             }
         }
     }
