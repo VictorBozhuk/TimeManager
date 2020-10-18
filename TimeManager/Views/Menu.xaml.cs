@@ -12,24 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TimeManager.Ioc;
 using TimeManager.ViewModels;
 
 namespace TimeManager.Views
 {
-    /// <summary>
-    /// Interaction logic for Menu.xaml
-    /// </summary>
     public partial class Menu : Page
     {
         public Menu()
         {
             InitializeComponent();
-            DataContext = new MenuViewModel();
-            //MenuFrame.Source = new Uri("AddCommunication.xaml", UriKind.Relative);
-            //var t = new Frame();
-            //t.Navigate(new ListOfMyTasks());
-            //MenuFrame = t;
-            //MenuFrame.Source = new Uri(new ListOfMyTasks());
+            DataContext = IocKernel.Get<MenuViewModel>();
         }
     }
 }
