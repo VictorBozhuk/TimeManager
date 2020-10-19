@@ -29,10 +29,6 @@ namespace TimeManager.Views
             DataContext = IocKernel.Get<ListOfMyTasksViewModel>();
         }
 
-        private void DB(object sender, MouseButtonEventArgs e)
-        {
-            MessageBox.Show("d");
-        }
         private void SelecteRow(object sender, RoutedEventArgs e)
         {
             GetParents(sender);

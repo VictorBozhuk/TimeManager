@@ -125,10 +125,13 @@
     <Compile Include="RelayCommand.cs" />
     <Compile Include="ViewModels\AnalyticsViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
-    <Compile Include="ViewModels\CreateMyTaskViewModel.cs" />
+    <Compile Include="ViewModels\CreateMyTasksViewModel.cs" />
     <Compile Include="ViewModels\EstimateViewModel.cs" />
     <Compile Include="ViewModels\ListOfMyTasksViewModel.cs" />
     <Compile Include="ViewModels\MenuViewModel.cs" />
+    <Compile Include="Views\CreateTask.xaml.cs">
+      <DependentUpon>CreateTask.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Estimate.xaml.cs">
       <DependentUpon>Estimate.xaml</DependentUpon>
     </Compile>
@@ -144,6 +147,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CreateMyTasks.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CreateTask.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

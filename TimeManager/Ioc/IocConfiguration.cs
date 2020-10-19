@@ -17,6 +17,7 @@ namespace TimeManager.Ioc
             
             Bind<ListOfMyTasksViewModel>().ToSelf().InTransientScope();
             Bind<MenuViewModel>().ToSelf().InTransientScope();
+            Bind<CreateMyTasksViewModel>().ToSelf().InTransientScope();
         }
     }
 }
