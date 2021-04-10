@@ -11,6 +11,7 @@ namespace TimeManager.Persistence
     public class TimeManagerDbContext : DbContext
     {
         public DbSet<MyTask> MyTasks { get; set; }
+        public DbSet<Day> Days { get; set; }
         public TimeManagerDbContext() : base("TimeManagerDB")
         { }
 

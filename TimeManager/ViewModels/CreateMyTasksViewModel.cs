@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using TimeManager.Models;
 using TimeManager.Persistence.Repository;
+using TimeManager.Views;
 
 namespace TimeManager.ViewModels
 {
@@ -14,18 +15,23 @@ namespace TimeManager.ViewModels
     {
         private readonly IMyTaskStorage myTaskStorage;
         private Page taskPage;
-        public DateTime selectedDate;
+        public DateTime pickeredDate;
         public MyTaskModel SelectedMyTask { get; set; }
-        public string SelectedDay { get; set; }
+        public string selectedDay;
+        public string Type { get; set; }
         public ObservableCollection<MyTaskModel> MyTasks { get; set; }
         public ObservableCollection<string> ListOfDays { get; set; }
+
+
 
         public CreateMyTasksViewModel(IMyTaskStorage myTaskStorage)
         {
             this.myTaskStorage = myTaskStorage;
             MyTasks = new ObservableCollection<MyTaskModel>(GetMyTasksToday());
             ListOfDays = new ObservableCollection<string>(GetDaysForUpdating());
-            SelectedDate = DateTime.Now;
+            PickeredDate = DateTime.Now;
+            Type = "Plan";
+            TaskPage = new CreateTask(myTaskStorage, Convert.ToDateTime(SelectedDay), Type, this);
         }
 
         private List<MyTaskModel> GetMyTasksToday()
@@ -36,12 +42,12 @@ namespace TimeManager.ViewModels
 
         private List<string> GetDaysForUpdating()
         {
-            var Now = DateTime.Now.AddDays(7);
+            var Now = DateTime.Now;
             var listOfDays = new List<string>();
             for(int i = 0; i <= 7; ++i)
             {
                 listOfDays.Add(Now.ToLongDateString());
-                Now = Now.AddDays(-1);
+                Now = Now.AddDays(1);
             }
             return listOfDays;
         }
@@ -64,6 +70,29 @@ namespace TimeManager.ViewModels
             }
         }
 
+        public RelayCommand EditCommand
+        {
+            get
+            {
+                return new RelayCommand(obj =>
+                {
+                    //TaskPage = new CreateTask(myTaskStorage, Type, this);
+                });
+            }
+        }
+
+        public RelayCommand DeleteCommand
+        {
+            get
+            {
+                return new RelayCommand(obj =>
+                {
+                    myTaskStorage.Delete(SelectedMyTask.Id);
+                    MyTasks.Remove(MyTasks.First(x => x.Id == SelectedMyTask.Id));
+                });
+            }
+        }
+
         public RelayCommand DayFromListDoubleClickCommand
         {
             get
@@ -75,7 +104,15 @@ namespace TimeManager.ViewModels
             }
         }
 
-
+        public string SelectedDay
+        {
+            get { return selectedDay; }
+            set
+            {
+                selectedDay = value;
+                OnPropertyChanged(nameof(SelectedDay));
+            }
+        }
         public Page TaskPage
         {
             get { return taskPage; }
@@ -85,18 +122,23 @@ namespace TimeManager.ViewModels
                 OnPropertyChanged(nameof(TaskPage));
             }
         }
-        public DateTime SelectedDate
+        public DateTime PickeredDate
         {
-            get { return selectedDate; }
+            get { return pickeredDate; }
             set
             {
-                selectedDate = value;
-                SelectedDay = selectedDate.ToLongDateString();
+                pickeredDate = value;
+                SelectedDay = pickeredDate.ToLongDateString();
                 ShowTasksInList();
-                OnPropertyChanged(nameof(SelectedDate));
+                OnPropertyChanged(nameof(PickeredDate));
             }
         }
 
-
+        internal void UpdateListOfTasks()
+        {
+            var newMyTasks = myTaskStorage.GetAllMyTasks().Where(x => x.Date.ToLongDateString() == SelectedDay).ToList();
+            MyTasks = new ObservableCollection<MyTaskModel>(newMyTasks.Select(x => new MyTaskModel(x, newMyTasks.IndexOf(x))).ToList());
+            OnPropertyChanged(nameof(MyTasks));
+        }
     }
 }

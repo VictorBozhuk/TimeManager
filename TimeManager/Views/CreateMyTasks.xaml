@@ -21,7 +21,7 @@
             <DatePicker 
                 Width="200"
                 FirstDayOfWeek="Monday"
-                SelectedDate="{Binding SelectedDate}"
+                SelectedDate="{Binding PickeredDate}"
                 />
             <ListBox 
                 Grid.Row="1"
@@ -47,7 +47,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="100"/>
+                <RowDefinition Height="120"/>
             </Grid.RowDefinitions>
             <TextBlock Text="{Binding SelectedDay}"/>
             <ListBox ItemsSource="{Binding MyTasks}"
@@ -112,7 +112,11 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-        
+            <Frame 
+                Grid.Row="2"
+                Content="{Binding TaskPage, UpdateSourceTrigger=PropertyChanged}"
+			    NavigationUIVisibility="Hidden"
+                />
         </Grid>
     </Grid>
 </Page>

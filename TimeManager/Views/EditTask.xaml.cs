@@ -12,20 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using TimeManager.Persistence.Repository;
-using TimeManager.ViewModels;
 
 namespace TimeManager.Views
 {
     /// <summary>
-    /// Interaction logic for CreateTask.xaml
+    /// Interaction logic for EditTask.xaml
     /// </summary>
-    public partial class CreateTask : Page
+    public partial class EditTask : Page
     {
-        public CreateTask(IMyTaskStorage myTaskStorage, DateTime date, string type, CreateMyTasksViewModel viewModel)
+        public EditTask()
         {
             InitializeComponent();
-            DataContext = new CreateTaskViewModel(myTaskStorage, date, type, viewModel);
         }
     }
 }

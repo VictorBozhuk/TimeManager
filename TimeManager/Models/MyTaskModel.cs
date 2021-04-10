@@ -21,6 +21,8 @@ namespace TimeManager.Models
         private ComboBoxItem selectedMark;
         public ObservableCollection<ComboBoxItem> Marks { get; set; }
 
+        public MyTaskModel() { }
+
         public MyTaskModel(MyTask task)
         {
             SetValues(task);
