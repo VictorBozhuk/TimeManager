@@ -232,10 +232,6 @@
       <Project>{3290E77D-E09B-4401-B11E-746CD9FF1C69}</Project>
       <Name>TimeManager.Models</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TimeManager.Persistence\TimeManager.Persistence.csproj">
-      <Project>{fb18a6d7-3344-48e5-984d-05801beb1580}</Project>
-      <Name>TimeManager.Persistence</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
