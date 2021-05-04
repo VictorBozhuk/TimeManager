@@ -15,5 +15,16 @@ namespace TimeManager.Storage
         public TimeManagerDbContext() : base("TimeManagerDB")
         { }
 
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Day>()
+                .HasMany(p => p.Tasks)
+                .WithRequired(p => p.Day)
+                .HasForeignKey(s => s.DayId);
+
+            base.OnModelCreating(modelBuilder);
+        }
+
+       
     }
 }

@@ -11,9 +11,10 @@ namespace TimeManager.Storage.Arguments
         public string Id { get; set; }
         public string Title { get; set; }
         public string Status { get; set; }
+        public string Mark { get; set; }
         public string Type { get; set; }
         public DateTime Date { get; set; }
-        public DateTime Start { get; set; }
-        public DateTime End { get; set; }
+        public string Start { get; set; }
+        public string End { get; set; }
     }
 }

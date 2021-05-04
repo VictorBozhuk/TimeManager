@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using TimeManager.Models;
 using TimeManager.Storage.Arguments;
+using TimeManager.Storage.Storages.Abstracts;
 
 namespace TimeManager.Storage.Storages
 {
-    public class DayStorage
+    public class DayStorage : IDayStorage
     {
         private readonly TimeManagerDbContext _context;
 
@@ -31,11 +32,11 @@ namespace TimeManager.Storage.Storages
         }
         public Day GetDay(string id)
         {
-            return _context.Days.AsEnumerable().First(x => x.Id.ToString() == id);
+            return _context.Days.First(x => x.Id.ToString() == id);
         }
         public List<Day> GetAllDays()
         {
-            return _context.Days.AsEnumerable().OrderBy(x => x.Date).ToList();
+            return _context.Days.Include("Tasks").OrderBy(x => x.Date).ToList();
         }
         public void Edit(DayArgs args)
         {

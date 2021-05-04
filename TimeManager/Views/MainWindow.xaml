@@ -7,8 +7,18 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Menu>
+            <MenuItem Header="Tasks" Command="{Binding GoToMainPageCommand}" />
+            <MenuItem Header="Create" Command="{Binding GoToCreateDayCommand}" />
+        </Menu>
         <Frame 
             Name="MainFrame"
+            Content="{Binding MainFrame, UpdateSourceTrigger=PropertyChanged}"
+            Grid.Row="1"
 			NavigationUIVisibility="Hidden"
             />
     </Grid>

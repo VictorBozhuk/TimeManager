@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using TimeManager.Models;
 using TimeManager.Storage.Arguments;
 
-namespace TimeManager.Storage.Storeges.Abstracts
+namespace TimeManager.Storage.Storages.Abstracts
 {
     public interface IMyTaskStorage
     {

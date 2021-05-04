@@ -57,6 +57,12 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="GalaSoft.MvvmLight, Version=5.4.1.0, Culture=neutral, PublicKeyToken=0ffbc31322e9d308, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibsStd10.5.4.1.1\lib\net45\GalaSoft.MvvmLight.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Platform, Version=5.4.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibsStd10.5.4.1.1\lib\net45\GalaSoft.MvvmLight.Platform.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.1.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
@@ -101,8 +107,8 @@
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.2\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Windows.Interactivity.WPF.2.0.20525\lib\net40\System.Windows.Interactivity.dll</HintPath>
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibsStd10.5.4.1.1\lib\net45\System.Windows.Interactivity.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -125,52 +131,38 @@
     <Compile Include="Ioc\IocConfiguration.cs" />
     <Compile Include="Ioc\IocKernel.cs" />
     <Compile Include="Ioc\ViewModelLocator.cs" />
+    <Compile Include="Models\DayModel.cs" />
+    <Compile Include="Models\MonthModel.cs" />
     <Compile Include="Models\MyTaskModel.cs" />
-    <Compile Include="RelayCommand.cs" />
-    <Compile Include="ViewModels\AnalyticsViewModel.cs" />
+    <Compile Include="Models\WeekModel.cs" />
+    <Compile Include="Models\YearModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
-    <Compile Include="ViewModels\CreateMyTasksViewModel.cs" />
-    <Compile Include="ViewModels\CreateTaskViewModel.cs" />
-    <Compile Include="ViewModels\EstimateViewModel.cs" />
-    <Compile Include="ViewModels\ListOfMyTasksViewModel.cs" />
-    <Compile Include="ViewModels\MenuViewModel.cs" />
-    <Compile Include="Views\CreateTask.xaml.cs">
-      <DependentUpon>CreateTask.xaml</DependentUpon>
+    <Compile Include="ViewModels\CreateDayViewModel.cs" />
+    <Compile Include="ViewModels\CreateEditTaskViewModel.cs" />
+    <Compile Include="ViewModels\MainPageViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="Views\CreateEditTask.xaml.cs">
+      <DependentUpon>CreateEditTask.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\EditTask.xaml.cs">
       <DependentUpon>EditTask.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Estimate.xaml.cs">
-      <DependentUpon>Estimate.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Menu.xaml.cs">
-      <DependentUpon>Menu.xaml</DependentUpon>
+    <Compile Include="Views\MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Page Include="Styles\Style.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Analytics.xaml">
+    <Page Include="Views\CreateDay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\CreateMyTasks.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\CreateTask.xaml">
+    <Page Include="Views\CreateEditTask.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\EditTask.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Estimate.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ListOfMyTasks.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -182,20 +174,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Views\Analytics.xaml.cs">
-      <DependentUpon>Analytics.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\CreateMyTasks.xaml.cs">
-      <DependentUpon>CreateMyTasks.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ListOfMyTasks.xaml.cs">
-      <DependentUpon>ListOfMyTasks.xaml</DependentUpon>
+    <Compile Include="Views\CreateDay.xaml.cs">
+      <DependentUpon>CreateDay.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\Menu.xaml">
+    <Page Include="Views\MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -231,6 +217,10 @@
     <ProjectReference Include="..\TimeManager.Models\TimeManager.Models.csproj">
       <Project>{3290E77D-E09B-4401-B11E-746CD9FF1C69}</Project>
       <Name>TimeManager.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TimeManager.Storage\TimeManager.Storage.csproj">
+      <Project>{327AA027-ABBB-4895-90ED-542DD6D97B89}</Project>
+      <Name>TimeManager.Storage</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

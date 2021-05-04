@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using TimeManager.Models;
 using TimeManager.Storage.Arguments;
-using TimeManager.Storage.Storeges.Abstracts;
+using TimeManager.Storage.Storages.Abstracts;
 
-namespace TimeManager.Storage.Storeges
+namespace TimeManager.Storage.Storages
 {
     public class MyTaskStorage : IMyTaskStorage
     {
@@ -25,6 +25,7 @@ namespace TimeManager.Storage.Storeges
                 Id = Guid.NewGuid(),
                 Title = args.Title,
                 Status = args.Status,
+                Mark = args.Mark,
                 Type = args.Type,
                 Date = args.Date,
                 Start = args.Start,
@@ -47,6 +48,7 @@ namespace TimeManager.Storage.Storeges
             var myTask = GetMyTask(args.Id);
             myTask.Title = args.Title;
             myTask.Status = args.Status;
+            myTask.Mark = args.Mark;
             myTask.Type = args.Type;
             myTask.Date = args.Date;
             myTask.Start = args.Start;

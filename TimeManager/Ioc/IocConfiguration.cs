@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TimeManager.Persistence.Repository;
+using TimeManager.Storage.Storages;
+using TimeManager.Storage.Storages.Abstracts;
 using TimeManager.ViewModels;
 
 namespace TimeManager.Ioc
@@ -14,10 +15,12 @@ namespace TimeManager.Ioc
         public override void Load()
         {
             Bind<IMyTaskStorage>().To<MyTaskStorage>().InSingletonScope();
-            
-            Bind<ListOfMyTasksViewModel>().ToSelf().InTransientScope();
-            Bind<MenuViewModel>().ToSelf().InTransientScope();
-            Bind<CreateMyTasksViewModel>().ToSelf().InTransientScope();
+            Bind<IDayStorage>().To<DayStorage>().InSingletonScope();
+
+            Bind<MainPageViewModel>().ToSelf().InTransientScope();
+            Bind<MainViewModel>().ToSelf().InTransientScope();
+            Bind<CreateDayViewModel>().ToSelf().InTransientScope();
+            Bind<CreateEditTaskViewModel>().ToSelf().InTransientScope();
         }
     }
 }

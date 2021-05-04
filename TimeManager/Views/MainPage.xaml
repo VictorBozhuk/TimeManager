@@ -1,0 +1,271 @@
+﻿<Page x:Class="TimeManager.Views.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TimeManager.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Menu">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid>
+            <TabControl>
+                <TabItem Header="List" Width="90">
+                    <Grid Background="#FFE5E5E5">
+                        <ListBox 
+                            ItemsSource="{Binding MainPageVM.ListOfDays}"
+                            SelectedItem="{Binding MainPageVM.SelectedDay}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <ContentControl Content="{Binding DateShortString}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="MouseDoubleClick">
+                                                <i:InvokeCommandAction 
+                                                    Command="{Binding Path=DataContext.ShowTasksOfDayCommand,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
+                                                    />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </ContentControl>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="All time" Width="90">
+                    <Grid Background="#FFE5E5E5">
+                        <TabControl>
+                            <TabItem Header="Weeks">
+                                <ListBox 
+                                    SelectedItem="{Binding MainPageVM.SelectedWeek}"
+                                    ItemsSource="{Binding MainPageVM.ListOfWeeks}">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <Expander Header="{Binding Number}">
+                                                <ListBox
+                                                    ItemsSource="{Binding Days}"
+                                                    SelectedItem="{Binding SelectedDay}">
+                                                    <ListBox.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <ContentControl Content="{Binding Date}">
+                                                                <i:Interaction.Triggers>
+                                                                    <i:EventTrigger EventName="MouseDoubleClick">
+                                                                        <i:InvokeCommandAction 
+                                                                            Command="{Binding Path=DataContext.ShowTasksOfDayCommand,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
+                                                                            />
+                                                                    </i:EventTrigger>
+                                                                </i:Interaction.Triggers>
+                                                            </ContentControl>
+                                                        </DataTemplate>
+                                                    </ListBox.ItemTemplate>
+                                                </ListBox>
+                                            </Expander>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </TabItem>
+                            <TabItem Header="Months">
+                                <ListBox 
+                                    SelectedItem="{Binding MainPageVM.SelectedMonth}"
+                                    ItemsSource="{Binding MainPageVM.ListOfMonths}">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <Expander Header="{Binding Number}">
+                                                <ListBox
+                                                    ItemsSource="{Binding Days}"
+                                                    SelectedItem="{Binding SelectedDay}">
+                                                    <ListBox.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <ContentControl Content="{Binding Date}">
+                                                                <i:Interaction.Triggers>
+                                                                    <i:EventTrigger EventName="MouseDoubleClick">
+                                                                        <i:InvokeCommandAction 
+                                                                            Command="{Binding Path=DataContext.ShowTasksOfDayCommand,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
+                                                                            />
+                                                                    </i:EventTrigger>
+                                                                </i:Interaction.Triggers>
+                                                            </ContentControl>
+                                                        </DataTemplate>
+                                                    </ListBox.ItemTemplate>
+                                                </ListBox>
+                                            </Expander>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </TabItem>
+                        </TabControl>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+        </Grid>
+        <Grid Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <ListBox 
+                ItemsSource="{Binding MainPageVM.MyPlans}"
+                SelectedItem="{Binding MainPageVM.SelectedMyPlan}"
+                HorizontalContentAlignment="Stretch"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="2"/>
+                            </Grid.RowDefinitions>
+                            <!--<Grid
+                                Name="dofijv"
+                                    Grid.RowSpan="2"
+                                    Background="{Binding Path=RowColor}"
+                                    Opacity="0.1"
+                                    Margin="-10,0"
+                                    />-->
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock FontSize="20" TextWrapping="Wrap" Margin="5,0" Text="{Binding Path=Title}"/>
+                                <Grid Grid.Row="1">
+                                    <StackPanel
+                                        Grid.Column="1"
+                                        Orientation="Horizontal"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Top"
+                                        Margin="0,2.5,0,0">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="Інтервал: "/>
+                                                <TextBlock Text="{Binding Interval}"/>
+                                            </StackPanel>
+                                        </Grid>
+                                        <Button Content="estimate" 
+                                                Grid.Row="0" 
+                                                Click="SelecteRow" 
+                                                Width="50"
+                                                VerticalAlignment="Center" 
+                                                HorizontalAlignment="Right"
+                                                Command="{Binding Path=DataContext.EstimateCommand,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
+                                                />
+                                        <Button Content="Edit" 
+                                                Grid.Row="0" 
+                                                Click="SelecteRow" 
+                                                Width="50"
+                                                VerticalAlignment="Center" 
+                                                HorizontalAlignment="Right"
+                                                Command="{Binding Path=DataContext.EditCommand,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
+                                                />
+                                        <Button Content="Delete" 
+                                                Grid.Row="0" 
+                                                Click="SelecteRow" 
+                                                Width="50"
+                                                Margin="5,0,10,0"
+                                                VerticalAlignment="Center" 
+                                                Command="{Binding Path=DataContext.DeleteCommand,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
+                                                HorizontalAlignment="Right"
+                                                />
+                                    </StackPanel>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <ListBox 
+                Grid.Column="1"
+                ItemsSource="{Binding MainPageVM.MyTasks}"
+                SelectedItem="{Binding MainPageVM.SelectedMyTask}"
+                HorizontalContentAlignment="Stretch"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="2"/>
+                            </Grid.RowDefinitions>
+                            <!--<Grid
+                                Name="dofijv"
+                                    Grid.RowSpan="2"
+                                    Background="{Binding Path=RowColor}"
+                                    Opacity="0.1"
+                                    Margin="-10,0"
+                                    />-->
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock FontSize="20" TextWrapping="Wrap" Margin="5,0" Text="{Binding Path=Title}"/>
+                                <Grid Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Column="0" Margin="100,0,0,0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="Інтервал: "/>
+                                            <TextBlock Text="{Binding Interval}"/>
+                                        </StackPanel>
+                                    </Grid>
+                                    <StackPanel
+                                        Grid.Column="1"
+                                        Orientation="Horizontal"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Top"
+                                        Margin="0,2.5,0,0"
+                                        >
+                                        <Button Content="estimate" 
+                                                Grid.Row="0" 
+                                                Click="SelecteRow" 
+                                                Width="50"
+                                                VerticalAlignment="Center" 
+                                                HorizontalAlignment="Right"
+                                                Command="{Binding Path=DataContext.EstimateCommand,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
+                                                />
+                                        <Button Content="Edit" 
+                                                Grid.Row="0" 
+                                                Click="SelecteRow" 
+                                                Width="50"
+                                                VerticalAlignment="Center" 
+                                                HorizontalAlignment="Right"
+                                                Command="{Binding Path=DataContext.EditCommand,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
+                                                />
+                                        <Button Content="Delete" 
+                                                Grid.Row="0" 
+                                                Click="SelecteRow" 
+                                                Width="50"
+                                                Margin="5,0,10,0"
+                                                VerticalAlignment="Center" 
+                                                Command="{Binding Path=DataContext.DeleteCommand,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
+                                                HorizontalAlignment="Right"
+                                                />
+                                    </StackPanel>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+    </Grid>
+</Page>

@@ -1,5 +1,4 @@
-﻿using CommonServiceLocator;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,15 +17,12 @@ using TimeManager.ViewModels;
 
 namespace TimeManager.Views
 {
-    /// <summary>
-    /// Interaction logic for ListOfMyTasks.xaml
-    /// </summary>
-    public partial class ListOfMyTasks : Page
+    public partial class CreateDay : Page
     {
-        public ListOfMyTasks()
+        public CreateDay(MainViewModel vm)
         {
             InitializeComponent();
-            DataContext = IocKernel.Get<ListOfMyTasksViewModel>();
+            DataContext = vm;
         }
 
         private void SelecteRow(object sender, RoutedEventArgs e)

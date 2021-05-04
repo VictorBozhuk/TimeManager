@@ -1,18 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using TimeManager.Views;
+﻿using System.Windows;
+using TimeManager.Ioc;
+using TimeManager.ViewModels;
 
 namespace TimeManager
 {
@@ -21,7 +9,7 @@ namespace TimeManager
         public MainWindow()
         {
             InitializeComponent();
-            MainFrame.Navigate(new Views.Menu());
+            DataContext = ViewModelLocator.MainViewModel;
         }
     }
 }
