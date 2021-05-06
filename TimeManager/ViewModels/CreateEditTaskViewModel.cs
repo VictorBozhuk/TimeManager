@@ -1,11 +1,7 @@
 ﻿using GalaSoft.MvvmLight.CommandWpf;
 using PropertyChanged;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using TimeManager.Models;
 using TimeManager.Storage.Arguments;
@@ -25,7 +21,10 @@ namespace TimeManager.ViewModels
         {
             set
             {
-                Task.Type = value.Content.ToString();
+                if(value != null)
+                {
+                    Task.Type = value.Content.ToString();
+                }
             }
         }
         public ObservableCollection<ComboBoxItem> Types { get; set; }
@@ -37,12 +36,13 @@ namespace TimeManager.ViewModels
             _myTaskStorage = myTaskStorage;
             _dayStorage = dayStorage;
             _main = main;
-            Types = new ObservableCollection<ComboBoxItem>(myTaskStorage.GetAllMyTasks().Select(x => x.Type).Distinct().Select(x => new ComboBoxItem() { Content = x }));
+            Load();
             ExecuteCommand = new RelayCommand(Execute);
-            Task = new MyTaskModel();
+            CancelCommand = new RelayCommand(Load);
         }
 
         public RelayCommand ExecuteCommand { get; set; }
+        public RelayCommand CancelCommand { get; set; }
 
         private void Execute()
         {
@@ -81,8 +81,14 @@ namespace TimeManager.ViewModels
                 };
                 _myTaskStorage.Create(taskArgs);
             }
-
+            Load();
             _main.CreateEditDayVM.ShowTasks();
+        }
+
+        private void Load()
+        {
+            Task = new MyTaskModel();
+            Types = new ObservableCollection<ComboBoxItem>(_myTaskStorage.GetAllMyTasks().Select(x => x.Type).Distinct().Select(x => new ComboBoxItem() { Content = x }));
         }
 
     }

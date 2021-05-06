@@ -31,13 +31,12 @@ namespace TimeManager.ViewModels
             _taskStorage = new MyTaskStorage(_dbContext);
             Initializer();
             MainFrame = new MainPage(this);
-            MainPageVM = new MainPageViewModel(_dayStorage);
+            MainPageVM = new MainPageViewModel(this, _dayStorage, _taskStorage);
             CreateDayCommand = new RelayCommand(GoToCreateDay);
             GoToMainPageCommand = new RelayCommand(GoToMainPage);
         }
 
         public RelayCommand GoToMainPageCommand { get; set; }
-
         public RelayCommand CreateEditDayCommand { get; set; }
         public RelayCommand CreateDayCommand { get; set; }
 

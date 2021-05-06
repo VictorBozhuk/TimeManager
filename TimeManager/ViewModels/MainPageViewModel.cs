@@ -19,7 +19,9 @@ namespace TimeManager.ViewModels
     [AddINotifyPropertyChangedInterface]
     public class MainPageViewModel : BaseViewModel
     {
-        private readonly IDayStorage dayStorage;
+        private readonly IDayStorage _dayStorage;
+        private readonly IMyTaskStorage _myTaskStorage;
+        private MainViewModel _main;
         private DayModel _selectedDay;
         public ObservableCollection<MyTaskModel> MyTasks { get; set; }
         public ObservableCollection<DayModel> ListOfDays { get; set; }
@@ -34,17 +36,24 @@ namespace TimeManager.ViewModels
             get { return _selectedDay; }
             set
             {
-                _selectedDay = value;
-                MyPlans = new ObservableCollection<MyTaskModel>(value.Plans);
-                MyTasks = new ObservableCollection<MyTaskModel>(value.Tasks);
+                if(value != null)
+                {
+                    _selectedDay = value;
+                    MyPlans = new ObservableCollection<MyTaskModel>(value.Plans);
+                    MyTasks = new ObservableCollection<MyTaskModel>(value.Tasks);
+                }
             }
         }
 
-        public MainPageViewModel(IDayStorage dayStorage)
+        public MainPageViewModel(MainViewModel main, IDayStorage dayStorage, IMyTaskStorage myTaskStorage)
         {
-            this.dayStorage = dayStorage;
+            _dayStorage = dayStorage;
+            _myTaskStorage = myTaskStorage;
+            _main = main;
             LoadDays();
             ShowTasksOfDayCommand = new RelayCommand(ShowTasksOfSelectedDay);
+            CreateEditPlanCommand = new RelayCommand(EditPlansOfDay);
+            CreateEditTaskCommand = new RelayCommand(EditTasksOfDay);
         }
 
         #region Commands
@@ -68,8 +77,20 @@ namespace TimeManager.ViewModels
 
         public void LoadDays()
         {
-            ListOfDays = new ObservableCollection<DayModel>(this.dayStorage.GetAllDays().Select(x => new DayModel(x)).ToList());
+            ListOfDays = new ObservableCollection<DayModel>(_dayStorage.GetAllDays().Select(x => new DayModel(x)).ToList());
             SelectedDay = ListOfDays.OrderBy(x => x.Date).FirstOrDefault();
+        }
+
+        private void EditPlansOfDay()
+        {
+            _main.MainFrame = new CreateEditDay(_main);
+            _main.CreateEditDayVM = new CreateEditDayViewModel(_main, _dayStorage, _myTaskStorage, SelectedDay, true);
+        }
+
+        private void EditTasksOfDay()
+        {
+            _main.MainFrame = new CreateEditDay(_main);
+            _main.CreateEditDayVM = new CreateEditDayViewModel(_main, _dayStorage, _myTaskStorage, SelectedDay, false);
         }
     }
 }

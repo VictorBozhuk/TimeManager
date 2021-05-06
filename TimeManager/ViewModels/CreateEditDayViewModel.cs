@@ -19,15 +19,15 @@ namespace TimeManager.ViewModels
         private readonly IMyTaskStorage _myTaskStorage;
         private readonly IDayStorage _dayStorage;
         public DateTime pickeredDate;
-        public bool PlansVisible { get; set; }
+        public bool PlansVisible { get; set; } = true;
         public string TypeOfTasks { get; set; }
-        public MyTaskModel SelectedMyTask { get; set; }
+        public MyTaskModel SelectedTask { get; set; }
         public DayModel Day { get; set; }
 
         public ObservableCollection<MyTaskModel> Tasks { get; set; }
         public Page CreateEditTaskFrame { get; set; }
         public CreateEditTaskViewModel CreateEditTaskVM { get; set; }
-        public CreateEditDayViewModel(MainViewModel main, IDayStorage dayStorage, IMyTaskStorage myTaskStorage, DayModel day = null)
+        public CreateEditDayViewModel(MainViewModel main, IDayStorage dayStorage, IMyTaskStorage myTaskStorage, DayModel day = null, bool isPlans = true)
         {
             _myTaskStorage = myTaskStorage;
             _dayStorage = dayStorage;
@@ -35,6 +35,8 @@ namespace TimeManager.ViewModels
             CreateEditTaskVM = new CreateEditTaskViewModel(main, dayStorage, myTaskStorage);
             ShowPlansCommand = new RelayCommand(ShowPlans);
             ShowTasksCommand = new RelayCommand(ShowDoneTasks);
+            DeleteCommand = new RelayCommand(Delete);
+            EditCommand = new RelayCommand(Edit);
             if (day == null)
             {
                 var h = dayStorage.GetAllDays();
@@ -52,13 +54,18 @@ namespace TimeManager.ViewModels
             }
             else
             {
-
+                Day = day;
+                PickeredDate = day.Date;
+                PlansVisible = isPlans;
+                ShowTasks();
             }
 
         }
 
         public RelayCommand ShowPlansCommand { get; set; }
         public RelayCommand ShowTasksCommand { get; set; }
+        public RelayCommand DeleteCommand { get; set; }
+        public RelayCommand EditCommand { get; set; }
 
         public DateTime PickeredDate
         {
@@ -87,6 +94,21 @@ namespace TimeManager.ViewModels
             {
                 ShowDoneTasks();
             }
+        }
+
+        private void Delete()
+        {
+            _myTaskStorage.Delete(SelectedTask.Id);
+            if(_dayStorage.GetAllDays().FirstOrDefault(x => x.Date == SelectedTask.Day.Date).Tasks.Count == 0)
+            {
+                _dayStorage.Delete(SelectedTask.Day.Id.ToString());
+            }
+            ShowTasks();
+        }
+
+        private void Edit()
+        {
+            CreateEditTaskVM.Task = SelectedTask;
         }
 
         private void ShowDoneTasks()

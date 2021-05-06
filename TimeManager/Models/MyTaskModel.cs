@@ -18,33 +18,16 @@ namespace TimeManager.Models
         public string Status { get; set; }
         public string Type { get; set; }
         public string Mark { get; set; }
-        public string Date { get; set; }
         public string Start { get; set; }
         public string End { get; set; }
         public string Interval { get; set; }
-        public ComboBoxItem SelectedStatus { get; set; }
-        public ComboBoxItem SelectedMark { get; set; }
-        public ObservableCollection<ComboBoxItem> Statuses { get; set; }
-        public ObservableCollection<ComboBoxItem> Marks { get; set; }
+        public Day Day { get; set; }
 
         public MyTaskModel() { }
 
         public MyTaskModel(MyTask task)
         {
             SetValues(task);
-            Marks = GetMarks();
-            if(Mark != null)
-            {
-                SelectedMark = Marks.FirstOrDefault(x => x.Content.ToString() == Mark);
-                if(SelectedMark == null)
-                {
-                    SelectedMark = Marks.First();
-                }
-            }
-            else
-            {
-                SelectedMark = Marks.First();
-            }
         }
 
         public MyTaskModel(MyTask task, int index = 1)
@@ -61,18 +44,8 @@ namespace TimeManager.Models
             Mark = task.Mark;
             Start = task.Start;
             End = task.End;
+            Day = task.Day;
             Interval = $"{Start} - {End}";
-        }
-
-        private ObservableCollection<ComboBoxItem> GetMarks()
-        {
-            return new ObservableCollection<ComboBoxItem>()
-            {
-                new ComboBoxItem() {Content = "Badly"},
-                new ComboBoxItem() {Content = "Satisfactorily"},
-                new ComboBoxItem() {Content = "Good"},
-                new ComboBoxItem() {Content = "Excellent"},
-            };
         }
     }
 }
