@@ -65,6 +65,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TimeManager.Abstract\TimeManager.Abstracts.csproj">
+      <Project>{28803181-B040-40A5-A561-25B6B3F86AC2}</Project>
+      <Name>TimeManager.Abstracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TimeManager.Models\TimeManager.Models.csproj">
       <Project>{3290e77d-e09b-4401-b11e-746cd9ff1c69}</Project>
       <Name>TimeManager.Models</Name>

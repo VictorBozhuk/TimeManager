@@ -19,7 +19,7 @@ namespace TimeManager.Ioc
 
             Bind<MainPageViewModel>().ToSelf().InTransientScope();
             Bind<MainViewModel>().ToSelf().InTransientScope();
-            Bind<CreateDayViewModel>().ToSelf().InTransientScope();
+            Bind<CreateEditDayViewModel>().ToSelf().InTransientScope();
             Bind<CreateEditTaskViewModel>().ToSelf().InTransientScope();
         }
     }

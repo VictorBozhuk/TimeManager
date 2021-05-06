@@ -16,7 +16,6 @@ namespace TimeManager.Models
         // Excellent, Good, Satisfactorily, Badly
         public string Mark { get; set; }
         public bool IsPlan { get; set; }
-        public DateTime Date { get; set; }
         public string Start { get; set; }
         public string End { get; set; }
         public Guid DayId { get; set; }

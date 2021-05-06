@@ -13,8 +13,10 @@ namespace TimeManager.Storage.Arguments
         public string Status { get; set; }
         public string Mark { get; set; }
         public string Type { get; set; }
-        public DateTime Date { get; set; }
         public string Start { get; set; }
         public string End { get; set; }
+        public bool IsPlan { get; set; }
+        public Guid DayId { get; set; }
+
     }
 }

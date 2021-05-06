@@ -17,9 +17,9 @@ using TimeManager.ViewModels;
 
 namespace TimeManager.Views
 {
-    public partial class CreateDay : Page
+    public partial class CreateEditDay : Page
     {
-        public CreateDay(MainViewModel vm)
+        public CreateEditDay(MainViewModel vm)
         {
             InitializeComponent();
             DataContext = vm;

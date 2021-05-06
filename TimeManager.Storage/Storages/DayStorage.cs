@@ -24,7 +24,6 @@ namespace TimeManager.Storage.Storages
             {
                 Id = Guid.NewGuid(),
                 Date = args.Date,
-                Tasks = args.Tasks,
             };
 
             _context.Days.Add(day);
@@ -36,7 +35,7 @@ namespace TimeManager.Storage.Storages
         }
         public List<Day> GetAllDays()
         {
-            return _context.Days.Include("Tasks").OrderBy(x => x.Date).ToList();
+            return _context.Days.Include("Tasks").OrderByDescending(x => x.Date).ToList();
         }
         public void Edit(DayArgs args)
         {

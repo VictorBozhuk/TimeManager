@@ -14,27 +14,26 @@
         <StackPanel>
             <StackPanel Margin="20" Orientation="Horizontal">
                 <TextBlock Text="Title: " />
-                <TextBox Width="300" Text="{Binding CreateEditTaskVM.Task.Title}" />
+                <TextBox Width="300" Text="{Binding CreateEditDayVM.CreateEditTaskVM.Task.Title}" />
             </StackPanel>
             <StackPanel Margin="20" Orientation="Horizontal">
                 <TextBlock Text="Start: " />
-                <TextBox Width="100" Text="{Binding CreateEditTaskVM.Task.Start}" />
+                <TextBox Width="100" Text="{Binding CreateEditDayVM.CreateEditTaskVM.Task.Start}" />
                 <TextBlock Margin="30,0,0,0" Text="End: " />
-                <TextBox Width="100" Text="{Binding CreateEditTaskVM.Task.End}" />
+                <TextBox Width="100" Text="{Binding CreateEditDayVM.CreateEditTaskVM.Task.End}" />
             </StackPanel>
             <StackPanel Margin="20" Orientation="Horizontal">
                 <TextBlock Text="Type: " />
-                <TextBox Width="300" Text="{Binding CreateEditTaskVM.Task.Type}" />
+                <TextBox Width="150" Margin="0,0,10,0" Text="{Binding CreateEditDayVM.CreateEditTaskVM.Task.Type, Mode=TwoWay}"/>
+                <ComboBox Width="150"
+                          ItemsSource="{Binding CreateEditDayVM.CreateEditTaskVM.Types}" 
+                          SelectedValue="{Binding CreateEditDayVM.CreateEditTaskVM.SelectedType}" />
             </StackPanel>
-            <ListBox
-                    Margin="30"
-                    ItemsSource="{Binding CreateEditTaskVM.Types}"
-                    SelectedItem="{Binding CreateEditTaskVM.SelectedType}" />
 
             <Button 
-                Content="{Binding CreateEditTaskVM.NamePage}" 
+                Content="{Binding CreateEditDayVM.CreateEditTaskVM.NamePage}" 
                 Width="100"
-                Command="{Binding CreateEditTaskVM.ExecuteCommand}"
+                Command="{Binding CreateEditDayVM.CreateEditTaskVM.ExecuteCommand}"
                 HorizontalAlignment="Center"/>
         </StackPanel>
     </Grid>

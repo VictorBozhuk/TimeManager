@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TimeManager.Abstracts;
 using TimeManager.Models;
 using TimeManager.Storage.Arguments;
 using TimeManager.Storage.Storages.Abstracts;
@@ -24,12 +25,12 @@ namespace TimeManager.Storage.Storages
             {
                 Id = Guid.NewGuid(),
                 Title = args.Title,
-                Status = args.Status,
-                Mark = args.Mark,
+                Status = Statuses.InProgress,
                 Type = args.Type,
-                Date = args.Date,
                 Start = args.Start,
                 End = args.End,
+                IsPlan = args.IsPlan,
+                DayId = args.DayId,
             };
 
             _context.MyTasks.Add(myTask);
@@ -37,11 +38,11 @@ namespace TimeManager.Storage.Storages
         }
         public MyTask GetMyTask(string id)
         {
-            return _context.MyTasks.AsEnumerable().First(x => x.Id.ToString() == id);
+            return _context.MyTasks.Include("Day").AsEnumerable().First(x => x.Id.ToString() == id);
         }
         public List<MyTask> GetAllMyTasks()
         {
-            return _context.MyTasks.AsEnumerable().OrderBy(x => x.Date).ToList();
+            return _context.MyTasks.Include("Day").AsEnumerable().OrderBy(x => x.Day.Date).ToList();
         }
         public void Edit(MyTaskArgs args)
         {
@@ -50,7 +51,6 @@ namespace TimeManager.Storage.Storages
             myTask.Status = args.Status;
             myTask.Mark = args.Mark;
             myTask.Type = args.Type;
-            myTask.Date = args.Date;
             myTask.Start = args.Start;
             myTask.End = args.End;
 

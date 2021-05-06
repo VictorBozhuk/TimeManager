@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PropertyChanged;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -9,6 +10,7 @@ using TimeManager.ViewModels;
 
 namespace TimeManager.Models
 {
+    [AddINotifyPropertyChangedInterface]
     public class MyTaskModel : BaseViewModel
     {
         public string Id { get; set; }
@@ -57,7 +59,6 @@ namespace TimeManager.Models
             Type = task.Type;
             Status = task.Status;
             Mark = task.Mark;
-            Date = task.Date.ToShortDateString();
             Start = task.Start;
             End = task.End;
             Interval = $"{Start} - {End}";

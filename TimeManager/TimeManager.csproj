@@ -137,7 +137,7 @@
     <Compile Include="Models\WeekModel.cs" />
     <Compile Include="Models\YearModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
-    <Compile Include="ViewModels\CreateDayViewModel.cs" />
+    <Compile Include="ViewModels\CreateEditDayViewModel.cs" />
     <Compile Include="ViewModels\CreateEditTaskViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
@@ -154,7 +154,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\CreateDay.xaml">
+    <Page Include="Views\CreateEditDay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -174,8 +174,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Views\CreateDay.xaml.cs">
-      <DependentUpon>CreateDay.xaml</DependentUpon>
+    <Compile Include="Views\CreateEditDay.xaml.cs">
+      <DependentUpon>CreateEditDay.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

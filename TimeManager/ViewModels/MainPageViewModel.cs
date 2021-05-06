@@ -43,17 +43,13 @@ namespace TimeManager.ViewModels
         public MainPageViewModel(IDayStorage dayStorage)
         {
             this.dayStorage = dayStorage;
-            ListOfDays = new ObservableCollection<DayModel>(this.dayStorage.GetAllDays().Select(x => new DayModel(x)).ToList());
-            var todayPlans = ListOfDays.FirstOrDefault(x => x.DateShortString == DateTime.Now.ToShortDateString())?.Plans;
-            if(todayPlans != null)
-            {
-                MyPlans = new ObservableCollection<MyTaskModel>(todayPlans);
-            }
-
+            LoadDays();
             ShowTasksOfDayCommand = new RelayCommand(ShowTasksOfSelectedDay);
         }
 
         #region Commands
+        public RelayCommand CreateEditPlanCommand { get; set; }
+        public RelayCommand CreateEditTaskCommand { get; set; }
         public RelayCommand DeleteCommand { get; set; }
         public RelayCommand EditCommand { get; set; }
         public RelayCommand EstimateCommand { get; set; }
@@ -63,6 +59,17 @@ namespace TimeManager.ViewModels
         private void ShowTasksOfSelectedDay()
         {
             MyTasks = new ObservableCollection<MyTaskModel>(SelectedDay.Tasks);
+        }
+
+        private void GoToCreateEditPlan()
+        {
+
+        }
+
+        public void LoadDays()
+        {
+            ListOfDays = new ObservableCollection<DayModel>(this.dayStorage.GetAllDays().Select(x => new DayModel(x)).ToList());
+            SelectedDay = ListOfDays.OrderBy(x => x.Date).FirstOrDefault();
         }
     }
 }

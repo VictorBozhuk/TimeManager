@@ -21,10 +21,8 @@ namespace TimeManager.ViewModels
         private IDayStorage _dayStorage;
         private IMyTaskStorage _taskStorage;
         public MainPageViewModel MainPageVM { get; set; }
-        public CreateDayViewModel CreateDayVM { get; set; }
-        public CreateEditTaskViewModel CreateEditTaskVM { get; set; }
+        public CreateEditDayViewModel CreateEditDayVM { get; set; }
 
-        public Page CreateEditTaskFrame { get; set; }
         public Page MainFrame { get; set; }
         public MainViewModel()
         {
@@ -33,15 +31,34 @@ namespace TimeManager.ViewModels
             _taskStorage = new MyTaskStorage(_dbContext);
             Initializer();
             MainFrame = new MainPage(this);
-            CreateEditTaskFrame = new CreateEditTask(this);
             MainPageVM = new MainPageViewModel(_dayStorage);
+            CreateDayCommand = new RelayCommand(GoToCreateDay);
+            GoToMainPageCommand = new RelayCommand(GoToMainPage);
         }
 
         public RelayCommand GoToMainPageCommand { get; set; }
 
-        public RelayCommand GoToCreateDayCommand { get; set; }
+        public RelayCommand CreateEditDayCommand { get; set; }
+        public RelayCommand CreateDayCommand { get; set; }
 
 
+        private void GoToCreateDay()
+        {
+            MainFrame = new CreateEditDay(this);
+            CreateEditDayVM = new CreateEditDayViewModel(this, _dayStorage, _taskStorage);
+        }
+
+        private void GoToEditDay()
+        {
+            MainFrame = new CreateEditDay(this);
+            CreateEditDayVM = new CreateEditDayViewModel(this, _dayStorage, _taskStorage);
+        }
+
+        private void GoToMainPage()
+        {
+            MainFrame = new MainPage(this);
+            MainPageVM.LoadDays();
+        }
 
         private void Initializer()
         {
@@ -110,11 +127,10 @@ namespace TimeManager.ViewModels
             return new MyTask()
             {
                 Id = Guid.NewGuid(),
-                Date = DateTime.Now,
                 IsPlan = false,
                 Mark = "Mark1",
                 Status = "Status1",
-                Type = "Type1",
+                Type = "Type2",
                 Title = "Title1",
                 Start = "00:00",
                 End = "00:50",
@@ -127,7 +143,6 @@ namespace TimeManager.ViewModels
             return new MyTask()
             {
                 Id = Guid.NewGuid(),
-                Date = DateTime.Now,
                 IsPlan = true,
                 Mark = "Mark1",
                 Status = "Status1",
