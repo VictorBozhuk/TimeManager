@@ -21,8 +21,8 @@ namespace TimeManager.Models
         {
             Id = day.Id;
             Date = day.Date;
-            Plans = day.Tasks.Where(x => x.IsPlan).Select(x => new MyTaskModel(x)).ToList();
-            Tasks = day.Tasks.Where(x => !x.IsPlan).Select(x => new MyTaskModel(x)).ToList();
+            DailyTasks = day.DailyTasks.Where(x => x.IsPlan).Select(x => new DailyTaskModel(x)).ToList();
+            DailyTasks = day.DailyTasks.Where(x => !x.IsPlan).Select(x => new DailyTaskModel(x)).ToList();
         }
         public string DateShortString { get; set; }
         public DateTime Date
@@ -34,8 +34,8 @@ namespace TimeManager.Models
                 DateShortString = value.ToShortDateString();
             }
         }
-        public List<MyTaskModel> Plans { get; set; }
-        public List<MyTaskModel> Tasks { get; set; }
+        public List<DailyTaskModel> DailyPlans { get; set; }
+        public List<DailyTaskModel> DailyTasks { get; set; }
 
         public override string ToString()
         {

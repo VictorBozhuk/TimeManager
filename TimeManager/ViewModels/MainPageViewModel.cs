@@ -20,17 +20,17 @@ namespace TimeManager.ViewModels
     public class MainPageViewModel : BaseViewModel
     {
         private readonly IDayStorage _dayStorage;
-        private readonly IMyTaskStorage _myTaskStorage;
+        private readonly IDailyTaskStorage _dailyTaskStorage;
         private MainViewModel _main;
         private DayModel _selectedDay;
-        public ObservableCollection<MyTaskModel> MyTasks { get; set; }
+        public ObservableCollection<DailyTaskModel> DailyTasks { get; set; }
         public ObservableCollection<DayModel> ListOfDays { get; set; }
         public ObservableCollection<WeekModel> ListOfWeeks { get; set; }
         public ObservableCollection<MonthModel> ListOfMonths { get; set; }
         public ObservableCollection<YearModel> ListOfYears { get; set; }
-        public ObservableCollection<MyTaskModel> MyPlans { get; set; }
-        public MyTaskModel SelectedMyTask { get; set; }
-        public MyTaskModel SelectedMyPlan { get; set; }
+        public ObservableCollection<DailyTaskModel> DailyPlans { get; set; }
+        public DailyTaskModel SelectedDailyTask { get; set; }
+        public DailyTaskModel SelectedDailyPlan { get; set; }
         public DayModel SelectedDay
         {
             get { return _selectedDay; }
@@ -39,40 +39,69 @@ namespace TimeManager.ViewModels
                 if(value != null)
                 {
                     _selectedDay = value;
-                    MyPlans = new ObservableCollection<MyTaskModel>(value.Plans);
-                    MyTasks = new ObservableCollection<MyTaskModel>(value.Tasks);
+                    DailyPlans = new ObservableCollection<DailyTaskModel>(value.DailyPlans);
+                    DailyTasks = new ObservableCollection<DailyTaskModel>(value.DailyTasks);
                 }
             }
         }
 
-        public MainPageViewModel(MainViewModel main, IDayStorage dayStorage, IMyTaskStorage myTaskStorage)
+        public MainPageViewModel(MainViewModel main, IDayStorage dayStorage, IDailyTaskStorage dailyTaskStorage)
         {
             _dayStorage = dayStorage;
-            _myTaskStorage = myTaskStorage;
+            _dailyTaskStorage = dailyTaskStorage;
             _main = main;
             LoadDays();
-            ShowTasksOfDayCommand = new RelayCommand(ShowTasksOfSelectedDay);
-            CreateEditPlanCommand = new RelayCommand(EditPlansOfDay);
-            CreateEditTaskCommand = new RelayCommand(EditTasksOfDay);
+            ShowDailyTasksOfDayCommand = new RelayCommand(ShowDailyTasksOfSelectedDay);
+            CreateEditDailyPlanCommand = new RelayCommand(() => EditDailyTasksOfDay(true));
+            CreateEditDailyTaskCommand = new RelayCommand(() => EditDailyTasksOfDay(false));
+            DeleteDayCommand = new RelayCommand(DeleteDay);
+            DeleteDailyPlanCommand = new RelayCommand(() => DeleteDailyTask(SelectedDailyPlan, SelectedDay.DailyPlans, DailyPlans));
+            DeleteDailyTaskCommand = new RelayCommand(() => DeleteDailyTask(SelectedDailyTask, SelectedDay.DailyTasks, DailyTasks));
+            EditDailyPlanCommand = new RelayCommand(() => EditDailyTask(true, SelectedDailyPlan));
+            EditDailyTaskCommand = new RelayCommand(() => EditDailyTask(false, SelectedDailyTask));
         }
 
         #region Commands
-        public RelayCommand CreateEditPlanCommand { get; set; }
-        public RelayCommand CreateEditTaskCommand { get; set; }
-        public RelayCommand DeleteCommand { get; set; }
-        public RelayCommand EditCommand { get; set; }
-        public RelayCommand EstimateCommand { get; set; }
-        public RelayCommand GetAllTasksCommand { get; set; }
-        public RelayCommand ShowTasksOfDayCommand { get; set; }
+        public RelayCommand CreateEditDailyPlanCommand { get; set; }
+        public RelayCommand CreateEditDailyTaskCommand { get; set; }
+        public RelayCommand GetAllDailyTasksCommand { get; set; }
+        public RelayCommand ShowDailyTasksOfDayCommand { get; set; }
+        public RelayCommand DeleteDayCommand { get; set; }
+        public RelayCommand EditDailyPlanCommand { get; set; }
+        public RelayCommand DeleteDailyPlanCommand { get; set; }
+        public RelayCommand EditDailyTaskCommand { get; set; }
+        public RelayCommand DeleteDailyTaskCommand { get; set; }
         #endregion
-        private void ShowTasksOfSelectedDay()
+        private void ShowDailyTasksOfSelectedDay()
         {
-            MyTasks = new ObservableCollection<MyTaskModel>(SelectedDay.Tasks);
+            DailyTasks = new ObservableCollection<DailyTaskModel>(SelectedDay.DailyTasks);
         }
 
-        private void GoToCreateEditPlan()
+        private void EditDailyTask(bool isPlans, DailyTaskModel task)
         {
+            _main.MainFrame = new CreateEditDay(_main);
+            _main.CreateEditDayVM = new CreateEditDayViewModel(_main, _dayStorage, _dailyTaskStorage, SelectedDay, isPlans, task);
+        }
 
+        private void DeleteDailyTask(DailyTaskModel selectedTask, List<DailyTaskModel> myTaskModelsFromDay, ObservableCollection<DailyTaskModel> myTaskModels)
+        {
+            _dailyTaskStorage.Delete(selectedTask.Id);
+            if (_dayStorage.GetAllDays().FirstOrDefault(x => x.Date == selectedTask.Day.Date).DailyTasks.Count == 0)
+            {
+                _dayStorage.Delete(selectedTask.Day.Id.ToString());
+                LoadDays();
+            }
+            else
+            {
+                myTaskModelsFromDay.RemoveAll(x => x.Id == selectedTask.Id);
+                myTaskModels.Remove(selectedTask);
+            }
+        }
+
+        private void DeleteDay()
+        {
+            _dayStorage.Delete(SelectedDay.Id.ToString());
+            LoadDays();
         }
 
         public void LoadDays()
@@ -81,16 +110,10 @@ namespace TimeManager.ViewModels
             SelectedDay = ListOfDays.OrderBy(x => x.Date).FirstOrDefault();
         }
 
-        private void EditPlansOfDay()
+        private void EditDailyTasksOfDay(bool isPlans)
         {
             _main.MainFrame = new CreateEditDay(_main);
-            _main.CreateEditDayVM = new CreateEditDayViewModel(_main, _dayStorage, _myTaskStorage, SelectedDay, true);
-        }
-
-        private void EditTasksOfDay()
-        {
-            _main.MainFrame = new CreateEditDay(_main);
-            _main.CreateEditDayVM = new CreateEditDayViewModel(_main, _dayStorage, _myTaskStorage, SelectedDay, false);
+            _main.CreateEditDayVM = new CreateEditDayViewModel(_main, _dayStorage, _dailyTaskStorage, SelectedDay, isPlans);
         }
     }
 }

@@ -52,12 +52,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Arguments\DayArgs.cs" />
-    <Compile Include="Arguments\MyTaskArgs.cs" />
+    <Compile Include="Arguments\DailyTaskArgs.cs" />
+    <Compile Include="Arguments\GlobalTaskArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Storages\Abstracts\IDayStorage.cs" />
-    <Compile Include="Storages\Abstracts\IMyTaskStorage.cs" />
+    <Compile Include="Storages\Abstracts\IDailyTaskStorage.cs" />
+    <Compile Include="Storages\Abstracts\IGlobalTaskStorage.cs" />
     <Compile Include="Storages\DayStorage.cs" />
-    <Compile Include="Storages\MyTaskStorage.cs" />
+    <Compile Include="Storages\DailyTaskStorage.cs" />
+    <Compile Include="Storages\GlobalTaskStorage.cs" />
     <Compile Include="TimeManagerDbContext.cs" />
   </ItemGroup>
   <ItemGroup>

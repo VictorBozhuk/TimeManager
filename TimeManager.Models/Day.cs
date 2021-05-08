@@ -10,6 +10,6 @@ namespace TimeManager.Models
     {
         public Guid Id { get; set; }
         public DateTime Date { get; set; }
-        public List<MyTask> Tasks { get; set; }
+        public List<DailyTask> DailyTasks { get; set; }
     }
 }

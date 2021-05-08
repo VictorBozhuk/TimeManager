@@ -27,17 +27,19 @@
                             SelectedItem="{Binding MainPageVM.SelectedDay}">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
-                                    <ContentControl Content="{Binding DateShortString}">
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="MouseDoubleClick">
-                                                <i:InvokeCommandAction 
-                                                    Command="{Binding Path=DataContext.ShowTasksOfDayCommand,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
-                                                    />
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
-                                    </ContentControl>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="{Binding DateShortString}"/>
+                                        <Button Grid.Column="1" Content="Delete"
+                                                Command="{Binding Path=DataContext.MainPageVM.DeleteDayCommand,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"/>
+                                    </Grid>
+                                  
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
+                            
                         </ListBox>
                         <Button 
                             Grid.Row="1"
@@ -139,8 +141,8 @@
                                HorizontalAlignment="Center"/>
                     <ListBox 
                         Grid.Row="1"
-                        ItemsSource="{Binding MainPageVM.MyPlans}"
-                        SelectedItem="{Binding MainPageVM.SelectedMyPlan}"
+                        ItemsSource="{Binding MainPageVM.Plans}"
+                        SelectedItem="{Binding MainPageVM.SelectedPlan}"
                         HorizontalContentAlignment="Stretch"
                         ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                         <ListBox.ItemTemplate>
@@ -194,7 +196,7 @@
                                                         Width="50"
                                                         VerticalAlignment="Center" 
                                                         HorizontalAlignment="Right"
-                                                        Command="{Binding Path=DataContext.EditCommand,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
+                                                        Command="{Binding Path=DataContext.MainPageVM.EditPlanCommand,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
                                                         />
                                                 <Button Content="Delete" 
                                                         Grid.Row="0" 
@@ -202,7 +204,7 @@
                                                         Width="50"
                                                         Margin="5,0,10,0"
                                                         VerticalAlignment="Center" 
-                                                        Command="{Binding Path=DataContext.DeleteCommand,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
+                                                        Command="{Binding Path=DataContext.MainPageVM.DeletePlanCommand,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
                                                         HorizontalAlignment="Right"
                                                         />
                                             </StackPanel>
@@ -228,8 +230,8 @@
                                HorizontalAlignment="Center"/>
                     <ListBox 
                         Grid.Row="1"
-                        ItemsSource="{Binding MainPageVM.MyTasks}"
-                        SelectedItem="{Binding MainPageVM.SelectedMyTask}"
+                        ItemsSource="{Binding MainPageVM.DailyTasks}"
+                        SelectedItem="{Binding MainPageVM.SelectedDailyTask}"
                         HorizontalContentAlignment="Stretch"
                         ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                         <ListBox.ItemTemplate>
@@ -288,7 +290,7 @@
                                                         Width="50"
                                                         VerticalAlignment="Center" 
                                                         HorizontalAlignment="Right"
-                                                        Command="{Binding Path=DataContext.EditCommand,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
+                                                        Command="{Binding Path=DataContext.MainPageVM.EditDailyTaskCommand,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
                                                         />
                                                 <Button Content="Delete" 
                                                         Grid.Row="0" 
@@ -296,7 +298,7 @@
                                                         Width="50"
                                                         Margin="5,0,10,0"
                                                         VerticalAlignment="Center" 
-                                                        Command="{Binding Path=DataContext.DeleteCommand,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
+                                                        Command="{Binding Path=DataContext.MainPageVM.DeleteDailyTaskCommand,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
                                                         HorizontalAlignment="Right"
                                                         />
                                             </StackPanel>
@@ -308,7 +310,7 @@
                     </ListBox>
                     <Button 
                         Content="create\Edit task"
-                        Command="{Binding MainPageVM.CreateEditTaskCommand}"
+                        Command="{Binding MainPageVM.CreateEditDailyTaskCommand}"
                         Grid.Row="2"/>
                 </Grid>
             </Grid>

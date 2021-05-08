@@ -11,7 +11,7 @@ using TimeManager.ViewModels;
 namespace TimeManager.Models
 {
     [AddINotifyPropertyChangedInterface]
-    public class MyTaskModel : BaseViewModel
+    public class DailyTaskModel : BaseViewModel
     {
         public string Id { get; set; }
         public string Title { get; set; }
@@ -23,19 +23,19 @@ namespace TimeManager.Models
         public string Interval { get; set; }
         public Day Day { get; set; }
 
-        public MyTaskModel() { }
+        public DailyTaskModel() { }
 
-        public MyTaskModel(MyTask task)
+        public DailyTaskModel(DailyTask task)
         {
             SetValues(task);
         }
 
-        public MyTaskModel(MyTask task, int index = 1)
+        public DailyTaskModel(DailyTask task, int index = 1)
         {
             SetValues(task);
         }
 
-        private void SetValues(MyTask task)
+        private void SetValues(DailyTask task)
         {
             Id = task.Id.ToString();
             Title = task.Title;

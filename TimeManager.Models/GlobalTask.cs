@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace TimeManager.Models
 {
-    public class MyTask
+    public class GlobalTask
     {
         public Guid Id { get; set; }
         // брати шаблони, якщо ввів першу букву М, то викидає всі де є ця буква в пріорітеті ті,
@@ -16,9 +19,8 @@ namespace TimeManager.Models
         // Excellent, Good, Satisfactorily, Badly
         public string Mark { get; set; }
         public bool IsPlan { get; set; }
-        public string Start { get; set; }
-        public string End { get; set; }
-        public Guid DayId { get; set; }
-        public Day Day { get; set; }
+        public float TimeSpent { get; set; }
+        public DateTime DeadLine { get; set; }
+        public ICollection<DailyTask> DailyTasks { get; set; }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TimeManager.Storage.Arguments
 {
-    public class MyTaskArgs
+    public class DailyTaskArgs
     {
         public string Id { get; set; }
         public string Title { get; set; }
@@ -17,6 +17,5 @@ namespace TimeManager.Storage.Arguments
         public string End { get; set; }
         public bool IsPlan { get; set; }
         public Guid DayId { get; set; }
-
     }
 }

@@ -35,12 +35,12 @@ namespace TimeManager.Storage.Storages
         }
         public List<Day> GetAllDays()
         {
-            return _context.Days.Include("Tasks").OrderByDescending(x => x.Date).ToList();
+            return _context.Days.Include("DailyTasks").OrderByDescending(x => x.Date).ToList();
         }
         public void Edit(DayArgs args)
         {
             var day = GetDay(args.Id);
-            day.Tasks = args.Tasks;
+            day.DailyTasks = args.DailyTasks;
             day.Date = args.Date;
 
             _context.SaveChanges();

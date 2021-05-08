@@ -19,7 +19,7 @@ namespace TimeManager.ViewModels
     {
         private TimeManagerDbContext _dbContext;
         private IDayStorage _dayStorage;
-        private IMyTaskStorage _taskStorage;
+        private IDailyTaskStorage _dailyTaskStorage;
         public MainPageViewModel MainPageVM { get; set; }
         public CreateEditDayViewModel CreateEditDayVM { get; set; }
 
@@ -28,10 +28,10 @@ namespace TimeManager.ViewModels
         {
             _dbContext = new TimeManagerDbContext();
             _dayStorage = new DayStorage(_dbContext);
-            _taskStorage = new MyTaskStorage(_dbContext);
+            _dailyTaskStorage = new DailyTaskStorage(_dbContext);
             Initializer();
             MainFrame = new MainPage(this);
-            MainPageVM = new MainPageViewModel(this, _dayStorage, _taskStorage);
+            MainPageVM = new MainPageViewModel(this, _dayStorage, _dailyTaskStorage);
             CreateDayCommand = new RelayCommand(GoToCreateDay);
             GoToMainPageCommand = new RelayCommand(GoToMainPage);
         }
@@ -44,13 +44,13 @@ namespace TimeManager.ViewModels
         private void GoToCreateDay()
         {
             MainFrame = new CreateEditDay(this);
-            CreateEditDayVM = new CreateEditDayViewModel(this, _dayStorage, _taskStorage);
+            CreateEditDayVM = new CreateEditDayViewModel(this, _dayStorage, _dailyTaskStorage);
         }
 
         private void GoToEditDay()
         {
             MainFrame = new CreateEditDay(this);
-            CreateEditDayVM = new CreateEditDayViewModel(this, _dayStorage, _taskStorage);
+            CreateEditDayVM = new CreateEditDayViewModel(this, _dayStorage, _dailyTaskStorage);
         }
 
         private void GoToMainPage()
@@ -79,22 +79,22 @@ namespace TimeManager.ViewModels
                     Id = Guid.NewGuid(),
                 };
 
-                var plan1 = GetPlan(day1);
-                var plan2 = GetPlan(day1);
-                var plan3 = GetPlan(day1);
-                var plan4 = GetPlan(day2);
-                var plan5 = GetPlan(day2);
-                var plan6 = GetPlan(day2);
-                var plan7 = GetPlan(day3);
-                var plan8 = GetPlan(day3);
-                var plan9 = GetPlan(day3);
+                var plan1 = GetDailyPlan(day1);
+                var plan2 = GetDailyPlan(day1);
+                var plan3 = GetDailyPlan(day1);
+                var plan4 = GetDailyPlan(day2);
+                var plan5 = GetDailyPlan(day2);
+                var plan6 = GetDailyPlan(day2);
+                var plan7 = GetDailyPlan(day3);
+                var plan8 = GetDailyPlan(day3);
+                var plan9 = GetDailyPlan(day3);
 
-                var task1 = GetTask(day1);
-                var task2 = GetTask(day1);
-                var task3 = GetTask(day1);
-                var task4 = GetTask(day2);
-                var task5 = GetTask(day2);
-                var task6 = GetTask(day2);
+                var task1 = GetDailyTask(day1);
+                var task2 = GetDailyTask(day1);
+                var task3 = GetDailyTask(day1);
+                var task4 = GetDailyTask(day2);
+                var task5 = GetDailyTask(day2);
+                var task6 = GetDailyTask(day2);
 
 
 
@@ -102,28 +102,28 @@ namespace TimeManager.ViewModels
                 _dbContext.Days.Add(day2);
                 _dbContext.Days.Add(day3);
 
-                _dbContext.MyTasks.Add(plan1);
-                _dbContext.MyTasks.Add(plan2);
-                _dbContext.MyTasks.Add(plan3);
-                _dbContext.MyTasks.Add(plan4);
-                _dbContext.MyTasks.Add(plan5);
-                _dbContext.MyTasks.Add(plan6);
-                _dbContext.MyTasks.Add(plan7);
-                _dbContext.MyTasks.Add(plan8);
-                _dbContext.MyTasks.Add(plan9);
-                _dbContext.MyTasks.Add(task1);
-                _dbContext.MyTasks.Add(task2);
-                _dbContext.MyTasks.Add(task3);
-                _dbContext.MyTasks.Add(task4);
-                _dbContext.MyTasks.Add(task5);
-                _dbContext.MyTasks.Add(task6);
+                _dbContext.DailyTasks.Add(plan1);
+                _dbContext.DailyTasks.Add(plan2);
+                _dbContext.DailyTasks.Add(plan3);
+                _dbContext.DailyTasks.Add(plan4);
+                _dbContext.DailyTasks.Add(plan5);
+                _dbContext.DailyTasks.Add(plan6);
+                _dbContext.DailyTasks.Add(plan7);
+                _dbContext.DailyTasks.Add(plan8);
+                _dbContext.DailyTasks.Add(plan9);
+                _dbContext.DailyTasks.Add(task1);
+                _dbContext.DailyTasks.Add(task2);
+                _dbContext.DailyTasks.Add(task3);
+                _dbContext.DailyTasks.Add(task4);
+                _dbContext.DailyTasks.Add(task5);
+                _dbContext.DailyTasks.Add(task6);
                 _dbContext.SaveChanges();
             }
 
         }
-        private MyTask GetTask(Day day)
+        private DailyTask GetDailyTask(Day day)
         {
-            return new MyTask()
+            return new DailyTask()
             {
                 Id = Guid.NewGuid(),
                 IsPlan = false,
@@ -137,9 +137,9 @@ namespace TimeManager.ViewModels
             };
         }
 
-        private MyTask GetPlan(Day day)
+        private DailyTask GetDailyPlan(Day day)
         {
-            return new MyTask()
+            return new DailyTask()
             {
                 Id = Guid.NewGuid(),
                 IsPlan = true,

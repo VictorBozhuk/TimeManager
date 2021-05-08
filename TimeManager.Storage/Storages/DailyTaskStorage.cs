@@ -10,18 +10,18 @@ using TimeManager.Storage.Storages.Abstracts;
 
 namespace TimeManager.Storage.Storages
 {
-    public class MyTaskStorage : IMyTaskStorage
+    public class DailyTaskStorage : IDailyTaskStorage
     {
         private readonly TimeManagerDbContext _context;
 
-        public MyTaskStorage(TimeManagerDbContext context)
+        public DailyTaskStorage(TimeManagerDbContext context)
         {
             _context = context;
         }
 
-        public void Create(MyTaskArgs args)
+        public void Create(DailyTaskArgs args)
         {
-            var myTask = new MyTask()
+            var myTask = new DailyTask()
             {
                 Id = Guid.NewGuid(),
                 Title = args.Title,
@@ -33,33 +33,34 @@ namespace TimeManager.Storage.Storages
                 DayId = args.DayId,
             };
 
-            _context.MyTasks.Add(myTask);
+            _context.DailyTasks.Add(myTask);
             _context.SaveChanges();
         }
-        public MyTask GetMyTask(string id)
+        public DailyTask GetDailyTask(string id)
         {
-            return _context.MyTasks.Include("Day").AsEnumerable().First(x => x.Id.ToString() == id);
+            return GetAllDailyTasks().FirstOrDefault(x => x.Id.ToString() == id);
         }
-        public List<MyTask> GetAllMyTasks()
+        public List<DailyTask> GetAllDailyTasks()
         {
-            return _context.MyTasks.Include("Day").AsEnumerable().OrderBy(x => x.Day.Date).ToList();
+            return _context.DailyTasks.Include("Day").AsEnumerable().OrderBy(x => x.Day.Date).ToList();
         }
-        public void Edit(MyTaskArgs args)
+        public void Edit(DailyTaskArgs args)
         {
-            var myTask = GetMyTask(args.Id);
+            var myTask = GetDailyTask(args.Id);
             myTask.Title = args.Title;
             myTask.Status = args.Status;
             myTask.Mark = args.Mark;
             myTask.Type = args.Type;
             myTask.Start = args.Start;
             myTask.End = args.End;
+            myTask.IsPlan = args.IsPlan;
 
             _context.SaveChanges();
         }
         public void Delete(string id)
         {
-            var myTask = GetMyTask(id);
-            _context.MyTasks.Remove(myTask);
+            var myTask = GetDailyTask(id);
+            _context.DailyTasks.Remove(myTask);
             _context.SaveChanges();
         }
     }

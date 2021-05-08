@@ -14,13 +14,13 @@ namespace TimeManager.Ioc
     {
         public override void Load()
         {
-            Bind<IMyTaskStorage>().To<MyTaskStorage>().InSingletonScope();
+            Bind<IDailyTaskStorage>().To<DailyTaskStorage>().InSingletonScope();
             Bind<IDayStorage>().To<DayStorage>().InSingletonScope();
 
             Bind<MainPageViewModel>().ToSelf().InTransientScope();
             Bind<MainViewModel>().ToSelf().InTransientScope();
             Bind<CreateEditDayViewModel>().ToSelf().InTransientScope();
-            Bind<CreateEditTaskViewModel>().ToSelf().InTransientScope();
+            Bind<CreateEditDailyTaskViewModel>().ToSelf().InTransientScope();
         }
     }
 }

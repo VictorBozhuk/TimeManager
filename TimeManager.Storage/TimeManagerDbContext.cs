@@ -10,7 +10,8 @@ namespace TimeManager.Storage
 {
     public class TimeManagerDbContext : DbContext
     {
-        public DbSet<MyTask> MyTasks { get; set; }
+        public DbSet<DailyTask> DailyTasks { get; set; }
+        public DbSet<GlobalTask> GlobalTasks { get; set; }
         public DbSet<Day> Days { get; set; }
         public TimeManagerDbContext() : base("TimeManagerDB")
         { }
@@ -18,9 +19,10 @@ namespace TimeManager.Storage
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Day>()
-                .HasMany(p => p.Tasks)
+                .HasMany(p => p.DailyTasks)
                 .WithRequired(p => p.Day)
-                .HasForeignKey(s => s.DayId);
+                .HasForeignKey(s => s.DayId)
+                .WillCascadeOnDelete(true);
 
             base.OnModelCreating(modelBuilder);
         }

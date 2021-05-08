@@ -8,12 +8,12 @@ using TimeManager.Storage.Arguments;
 
 namespace TimeManager.Storage.Storages.Abstracts
 {
-    public interface IMyTaskStorage
+    public interface IDailyTaskStorage
     {
-        void Create(MyTaskArgs args);
-        MyTask GetMyTask(string id);
-        List<MyTask> GetAllMyTasks();
-        void Edit(MyTaskArgs args);
+        void Create(DailyTaskArgs args);
+        DailyTask GetDailyTask(string id);
+        List<DailyTask> GetAllDailyTasks();
+        void Edit(DailyTaskArgs args);
         void Delete(string id);
     }
 }

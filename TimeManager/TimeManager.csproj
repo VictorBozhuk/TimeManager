@@ -18,6 +18,21 @@
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -133,19 +148,16 @@
     <Compile Include="Ioc\ViewModelLocator.cs" />
     <Compile Include="Models\DayModel.cs" />
     <Compile Include="Models\MonthModel.cs" />
-    <Compile Include="Models\MyTaskModel.cs" />
+    <Compile Include="Models\DailyTaskModel.cs" />
     <Compile Include="Models\WeekModel.cs" />
     <Compile Include="Models\YearModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\CreateEditDayViewModel.cs" />
-    <Compile Include="ViewModels\CreateEditTaskViewModel.cs" />
+    <Compile Include="ViewModels\CreateEditDailyTaskViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
-    <Compile Include="Views\CreateEditTask.xaml.cs">
-      <DependentUpon>CreateEditTask.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\EditTask.xaml.cs">
-      <DependentUpon>EditTask.xaml</DependentUpon>
+    <Compile Include="Views\CreateEditDailyTask.xaml.cs">
+      <DependentUpon>CreateEditDailyTask.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -158,11 +170,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\CreateEditTask.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\EditTask.xaml">
+    <Page Include="Views\CreateEditDailyTask.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -214,6 +222,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TimeManager.Abstract\TimeManager.Abstracts.csproj">
+      <Project>{28803181-B040-40A5-A561-25B6B3F86AC2}</Project>
+      <Name>TimeManager.Abstracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TimeManager.Models\TimeManager.Models.csproj">
       <Project>{3290E77D-E09B-4401-B11E-746CD9FF1C69}</Project>
       <Name>TimeManager.Models</Name>
@@ -222,6 +234,18 @@
       <Project>{327AA027-ABBB-4895-90ED-542DD6D97B89}</Project>
       <Name>TimeManager.Storage</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.8">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.8 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

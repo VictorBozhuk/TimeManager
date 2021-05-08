@@ -11,6 +11,6 @@ namespace TimeManager.Storage.Arguments
     {
         public string Id { get; set; }
         public DateTime Date { get; set; }
-        public List<MyTask> Tasks { get; set; }
+        public List<DailyTask> DailyTasks { get; set; }
     }
 }
