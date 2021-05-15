@@ -12,8 +12,8 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Menu>
-            <MenuItem Header="Tasks" Command="{Binding GoToMainPageCommand}" />
-            <MenuItem Header="Create" Command="{Binding GoToCreateDayCommand}" />
+            <MenuItem Header="Daily tasks" Command="{Binding GoToDailyTasksCommand}" />
+            <MenuItem Header="Global tasks" Command="{Binding GoToGlobalTasksCommand}" />
         </Menu>
         <Frame 
             Name="MainFrame"

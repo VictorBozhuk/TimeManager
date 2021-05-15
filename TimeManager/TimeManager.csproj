@@ -147,20 +147,29 @@
     <Compile Include="Ioc\IocKernel.cs" />
     <Compile Include="Ioc\ViewModelLocator.cs" />
     <Compile Include="Models\DayModel.cs" />
-    <Compile Include="Models\MonthModel.cs" />
+    <Compile Include="Models\GlobalTaskModel.cs" />
     <Compile Include="Models\DailyTaskModel.cs" />
-    <Compile Include="Models\WeekModel.cs" />
-    <Compile Include="Models\YearModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\Base\CreateEditBase.cs" />
+    <Compile Include="ViewModels\Base\GlobalBaseViewModel.cs" />
     <Compile Include="ViewModels\CreateEditDayViewModel.cs" />
     <Compile Include="ViewModels\CreateEditDailyTaskViewModel.cs" />
-    <Compile Include="ViewModels\MainPageViewModel.cs" />
+    <Compile Include="ViewModels\CreateEditGlobalTaskViewModel.cs" />
+    <Compile Include="ViewModels\GlobalTasksViewModel.cs" />
+    <Compile Include="ViewModels\DailyTasksViewModel.cs" />
+    <Compile Include="ViewModels\GlobalTemplatesViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Views\CreateEditDailyTask.xaml.cs">
       <DependentUpon>CreateEditDailyTask.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
+    <Compile Include="Views\CreateEditGlobalTask.xaml.cs">
+      <DependentUpon>CreateEditGlobalTask.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GlobalTasks.xaml.cs">
+      <DependentUpon>GlobalTasks.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DailyTasks.xaml.cs">
+      <DependentUpon>DailyTasks.xaml</DependentUpon>
     </Compile>
     <Page Include="Styles\Style.xaml">
       <SubType>Designer</SubType>
@@ -171,6 +180,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CreateEditDailyTask.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CreateEditGlobalTask.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\GlobalTasks.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\GlobalTemplates.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -185,11 +206,14 @@
     <Compile Include="Views\CreateEditDay.xaml.cs">
       <DependentUpon>CreateEditDay.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\GlobalTemplates.xaml.cs">
+      <DependentUpon>GlobalTemplates.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\MainPage.xaml">
+    <Page Include="Views\DailyTasks.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

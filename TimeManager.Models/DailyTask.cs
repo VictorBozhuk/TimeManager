@@ -9,6 +9,7 @@ namespace TimeManager.Models
         // брати шаблони, якщо ввів першу букву М, то викидає всі де є ця буква в пріорітеті ті,
         // де М перша, Молоко, що всі назви були максимально схожі
         public string Title { get; set; }
+        public string Description { get; set; }
         // Виконано, не виконано, в процесі
         public string Status { get; set; }
         // робота, дозвілля, розвиток, їжа, відпочинок
@@ -18,11 +19,9 @@ namespace TimeManager.Models
         public bool IsPlan { get; set; }
         public string Start { get; set; }
         public string End { get; set; }
-        public float TimeSpent { get; set; }
-        // global or dayle
         public Guid DayId { get; set; }
         public Day Day { get; set; }
-        public Guid GlobalTaskId { get; set; }
+        public Guid? GlobalTaskId { get; set; }
         public GlobalTask GlobalTask { get; set; }
     }
 }

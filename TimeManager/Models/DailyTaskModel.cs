@@ -11,10 +11,11 @@ using TimeManager.ViewModels;
 namespace TimeManager.Models
 {
     [AddINotifyPropertyChangedInterface]
-    public class DailyTaskModel : BaseViewModel
+    public class DailyTaskModel
     {
         public string Id { get; set; }
         public string Title { get; set; }
+        public string Description { get; set; }
         public string Status { get; set; }
         public string Type { get; set; }
         public string Mark { get; set; }
@@ -30,6 +31,13 @@ namespace TimeManager.Models
             SetValues(task);
         }
 
+        public DailyTaskModel(GlobalTaskModel task)
+        {
+            Title = task.Title;
+            Description = task.Description;
+            Type = task.Type;
+        }
+
         public DailyTaskModel(DailyTask task, int index = 1)
         {
             SetValues(task);
@@ -39,6 +47,7 @@ namespace TimeManager.Models
         {
             Id = task.Id.ToString();
             Title = task.Title;
+            Description = task.Description;
             Type = task.Type;
             Status = task.Status;
             Mark = task.Mark;

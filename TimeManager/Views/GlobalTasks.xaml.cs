@@ -1,14 +1,27 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using TimeManager.Ioc;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 using TimeManager.ViewModels;
 
 namespace TimeManager.Views
 {
-    public partial class MainPage : Page
+    /// <summary>
+    /// Interaction logic for GlobalTasksViewModel.xaml
+    /// </summary>
+    public partial class GlobalTasks : Page
     {
-        public MainPage(MainViewModel vm)
+        public GlobalTasks(MainViewModel vm)
         {
             DataContext = vm;
             InitializeComponent();

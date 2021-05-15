@@ -20,8 +20,11 @@ namespace TimeManager.ViewModels
         private TimeManagerDbContext _dbContext;
         private IDayStorage _dayStorage;
         private IDailyTaskStorage _dailyTaskStorage;
-        public MainPageViewModel MainPageVM { get; set; }
+        private IGlobalTaskStorage _globalTaskStorage;
+        public DailyTasksViewModel DailyTasksVM { get; set; }
+        public GlobalTasksViewModel GlobalTasksVM { get; set; }
         public CreateEditDayViewModel CreateEditDayVM { get; set; }
+        public CreateEditGlobalTaskViewModel CreateEditGlobalTaskVM { get; set; }
 
         public Page MainFrame { get; set; }
         public MainViewModel()
@@ -29,35 +32,51 @@ namespace TimeManager.ViewModels
             _dbContext = new TimeManagerDbContext();
             _dayStorage = new DayStorage(_dbContext);
             _dailyTaskStorage = new DailyTaskStorage(_dbContext);
+            _globalTaskStorage = new GlobalTaskStorage(_dbContext);
             Initializer();
-            MainFrame = new MainPage(this);
-            MainPageVM = new MainPageViewModel(this, _dayStorage, _dailyTaskStorage);
+            MainFrame = new DailyTasks(this);
+            DailyTasksVM = new DailyTasksViewModel(this, _dayStorage, _dailyTaskStorage, _globalTaskStorage);
+            GlobalTasksVM = new GlobalTasksViewModel(this, _dayStorage, _dailyTaskStorage, _globalTaskStorage);
             CreateDayCommand = new RelayCommand(GoToCreateDay);
-            GoToMainPageCommand = new RelayCommand(GoToMainPage);
+            GoToDailyTasksCommand = new RelayCommand(GoToDailyTasks);
+            GoToGlobalTasksCommand = new RelayCommand(GoToGlobalTasks);
+            CreateGlobalTaskCommand = new RelayCommand(GoToCreateGlobalTask);
         }
 
-        public RelayCommand GoToMainPageCommand { get; set; }
+        public RelayCommand GoToDailyTasksCommand { get; set; }
+        public RelayCommand GoToGlobalTasksCommand { get; set; }
         public RelayCommand CreateEditDayCommand { get; set; }
         public RelayCommand CreateDayCommand { get; set; }
-
+        public RelayCommand CreateGlobalTaskCommand { get; set; }
 
         private void GoToCreateDay()
         {
             MainFrame = new CreateEditDay(this);
-            CreateEditDayVM = new CreateEditDayViewModel(this, _dayStorage, _dailyTaskStorage);
+            CreateEditDayVM = new CreateEditDayViewModel(this, _dayStorage, _dailyTaskStorage, _globalTaskStorage);
         }
 
         private void GoToEditDay()
         {
             MainFrame = new CreateEditDay(this);
-            CreateEditDayVM = new CreateEditDayViewModel(this, _dayStorage, _dailyTaskStorage);
+            CreateEditDayVM = new CreateEditDayViewModel(this, _dayStorage, _dailyTaskStorage, _globalTaskStorage);
         }
 
-        private void GoToMainPage()
+        private void GoToDailyTasks()
         {
-            MainFrame = new MainPage(this);
-            MainPageVM.LoadDays();
+            MainFrame = new DailyTasks(this);
+            DailyTasksVM.LoadDays();
         }
+        public void GoToGlobalTasks()
+        {
+            MainFrame = new GlobalTasks(this);
+            GlobalTasksVM.LoadGlobalTasks();
+        }
+        private void GoToCreateGlobalTask()
+        {
+            MainFrame = new CreateEditGlobalTask(this);
+            CreateEditGlobalTaskVM = new CreateEditGlobalTaskViewModel(this, _dayStorage, _dailyTaskStorage, _globalTaskStorage);
+        }
+
 
         private void Initializer()
         {
@@ -96,6 +115,15 @@ namespace TimeManager.ViewModels
                 var task5 = GetDailyTask(day2);
                 var task6 = GetDailyTask(day2);
 
+                var gTask1 = GetGlobalTask(2);
+                var gTask2 = GetGlobalTask(3);
+                var gTask3 = GetGlobalTask(15);
+                var gTask4 = GetGlobalTask(100);
+
+                var gPlan1 = GetGlobalPlan(34);
+                var gPlan2 = GetGlobalPlan(45);
+                var gPlan3 = GetGlobalPlan(140);
+                var gPlan4 = GetGlobalPlan(4);
 
 
                 _dbContext.Days.Add(day1);
@@ -117,6 +145,16 @@ namespace TimeManager.ViewModels
                 _dbContext.DailyTasks.Add(task4);
                 _dbContext.DailyTasks.Add(task5);
                 _dbContext.DailyTasks.Add(task6);
+
+                _dbContext.GlobalTasks.Add(gTask1);
+                _dbContext.GlobalTasks.Add(gTask2);
+                _dbContext.GlobalTasks.Add(gTask3);
+                _dbContext.GlobalTasks.Add(gTask4);
+                _dbContext.GlobalTasks.Add(gPlan1);
+                _dbContext.GlobalTasks.Add(gPlan2);
+                _dbContext.GlobalTasks.Add(gPlan3);
+                _dbContext.GlobalTasks.Add(gPlan4);
+
                 _dbContext.SaveChanges();
             }
 
@@ -134,6 +172,34 @@ namespace TimeManager.ViewModels
                 Start = "00:00",
                 End = "00:50",
                 DayId = day.Id,
+            };
+        }
+
+        private GlobalTask GetGlobalTask(int days)
+        {
+            return new GlobalTask()
+            {
+                Id = Guid.NewGuid(),
+                IsPlan = false,
+                Mark = "Mark1",
+                Status = "Status1",
+                Type = "Type2",
+                Title = "Title1",
+                DeadLine = DateTime.Now.AddDays(days),
+            };
+        }
+
+        private GlobalTask GetGlobalPlan(int days)
+        {
+            return new GlobalTask()
+            {
+                Id = Guid.NewGuid(),
+                IsPlan = true,
+                Mark = "Mark1",
+                Status = "Status1",
+                Type = "Type2",
+                Title = "Title1",
+                DeadLine = DateTime.Now.AddDays(days),
             };
         }
 

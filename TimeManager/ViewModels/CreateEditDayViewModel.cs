@@ -17,25 +17,25 @@ namespace TimeManager.ViewModels
     [AddINotifyPropertyChangedInterface]
     public class CreateEditDayViewModel : BaseViewModel
     {
-        private readonly IDailyTaskStorage _dailyTaskStorage;
-        private readonly IDayStorage _dayStorage;
+        private string selectedTemplateTab;
         public DateTime pickeredDate;
         public bool DailyPlansVisible { get; set; } = true;
         public string TypeOfDailyTasks { get; set; }
         public DailyTaskModel SelectedDailyTask { get; set; }
         public DayModel Day { get; set; }
-
         public ObservableCollection<DailyTaskModel> DailyTasks { get; set; }
-        public Page CreateEditDailyTaskFrame { get; set; }
+        public Page CreateEditDailyTaskOrGetTemplatesFrame { get; set; }
         public CreateEditDailyTaskViewModel CreateEditDailyTaskVM { get; set; }
-        public CreateEditDayViewModel(MainViewModel main, IDayStorage dayStorage, IDailyTaskStorage dayliTaskStorage, DayModel day = null, bool isPlans = true, DailyTaskModel task = null)
+        public GlobalTemplatesViewModel GlobalTemplatesVM { get; set; }
+        public List<string> TemplateTabs { get; set; } = new List<string>() { Texts.CreateForm, Texts.Templates, };
+        public CreateEditDayViewModel(MainViewModel main, IDayStorage dayStorage, IDailyTaskStorage dailyTaskStorage, IGlobalTaskStorage globalTaskStorage, DayModel day = null, bool isPlans = true, DailyTaskModel task = null) 
+            : base(main, dayStorage, dailyTaskStorage)
         {
-            _dailyTaskStorage = dayliTaskStorage;
-            _dayStorage = dayStorage;
-            CreateEditDailyTaskFrame = new CreateEditDailyTask(main);
-            CreateEditDailyTaskVM = new CreateEditDailyTaskViewModel(main, dayStorage, dayliTaskStorage);
-            ShowDailyPlansCommand = new RelayCommand(() => ShowDailyTasks(Texts.Plans, true));
-            ShowDailyTasksCommand = new RelayCommand(() => ShowDailyTasks(Texts.Tasks, false));
+            CreateEditDailyTaskOrGetTemplatesFrame = new CreateEditDailyTask(main);
+            CreateEditDailyTaskVM = new CreateEditDailyTaskViewModel(main, dayStorage, dailyTaskStorage, globalTaskStorage);
+            GlobalTemplatesVM = new GlobalTemplatesViewModel(main, dayStorage, dailyTaskStorage, globalTaskStorage);
+            ShowDailyPlansCommand = new RelayCommand(ShowDailyPlans);
+            ShowDailyTasksCommand = new RelayCommand(ShowDailyDoneTasks);
             DeleteDailyTaskCommand = new RelayCommand(DeleteDailyTask);
             EditDailyTaskCommand = new RelayCommand(EditDailyTask);
             if (day == null)
@@ -65,14 +65,12 @@ namespace TimeManager.ViewModels
                     EditDailyTask();
                 }
             }
-
         }
 
         public RelayCommand ShowDailyPlansCommand { get; set; }
         public RelayCommand ShowDailyTasksCommand { get; set; }
         public RelayCommand DeleteDailyTaskCommand { get; set; }
         public RelayCommand EditDailyTaskCommand { get; set; }
-
         public DateTime PickeredDate
         {
             get { return pickeredDate; }
@@ -84,6 +82,25 @@ namespace TimeManager.ViewModels
             }
         }
 
+        public string SelectedTemplateTab
+        {
+            get { return selectedTemplateTab; }
+            set
+            {
+                if(selectedTemplateTab != value && value == Texts.CreateForm)
+                {
+                    CreateEditDailyTaskOrGetTemplatesFrame = new CreateEditDailyTask(_main);
+                }
+                else if(selectedTemplateTab != value && value == Texts.Templates)
+                {
+                    CreateEditDailyTaskOrGetTemplatesFrame = new GlobalTemplates(_main);
+                }
+
+                selectedTemplateTab = value;
+            }
+        }
+
+
         public void RefreshDay()
         {
             var dayFromStorage = _dayStorage.GetAllDays().FirstOrDefault(x => x.Date.ToShortDateString() == Day.DateShortString);
@@ -94,11 +111,11 @@ namespace TimeManager.ViewModels
         {
             if (DailyPlansVisible)
             {
-                ShowDailyTasks(Texts.Plans, true);
+                ShowDailyPlans();
             }
             else
             {
-                ShowDailyTasks(Texts.Tasks, false);
+                ShowDailyDoneTasks();
             }
         }
 
@@ -117,11 +134,19 @@ namespace TimeManager.ViewModels
             CreateEditDailyTaskVM.PrepareEditDailyTask(SelectedDailyTask);
         }
 
-        private void ShowDailyTasks(string typeOfDailyTask, bool isPlan)
+        private void ShowDailyDoneTasks()
         {
-            TypeOfDailyTasks = typeOfDailyTask;
-            DailyPlansVisible = isPlan;
-            var newMyTasks = _dailyTaskStorage.GetAllDailyTasks().Where(x => x.Day.Date.ToShortDateString() == Day.Date.ToShortDateString() && x.IsPlan == isPlan).ToList();
+            TypeOfDailyTasks = Texts.Tasks;
+            DailyPlansVisible = false;
+            var newMyTasks = _dailyTaskStorage.GetAllDailyTasks().Where(x => x.Day.Date.ToShortDateString() == Day.Date.ToShortDateString() && x.IsPlan == false).ToList();
+            DailyTasks = new ObservableCollection<DailyTaskModel>(newMyTasks.Select(x => new DailyTaskModel(x, newMyTasks.IndexOf(x))).ToList());
+        }
+
+        private void ShowDailyPlans()
+        {
+            TypeOfDailyTasks = Texts.Plans;
+            DailyPlansVisible = true;
+            var newMyTasks = _dailyTaskStorage.GetAllDailyTasks().Where(x => x.Day.Date.ToShortDateString() == Day.Date.ToShortDateString() && x.IsPlan == true).ToList();
             DailyTasks = new ObservableCollection<DailyTaskModel>(newMyTasks.Select(x => new DailyTaskModel(x, newMyTasks.IndexOf(x))).ToList());
         }
     }

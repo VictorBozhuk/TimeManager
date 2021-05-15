@@ -21,7 +21,7 @@ namespace TimeManager.Models
         {
             Id = day.Id;
             Date = day.Date;
-            DailyTasks = day.DailyTasks.Where(x => x.IsPlan).Select(x => new DailyTaskModel(x)).ToList();
+            DailyPlans = day.DailyTasks.Where(x => x.IsPlan).Select(x => new DailyTaskModel(x)).ToList();
             DailyTasks = day.DailyTasks.Where(x => !x.IsPlan).Select(x => new DailyTaskModel(x)).ToList();
         }
         public string DateShortString { get; set; }

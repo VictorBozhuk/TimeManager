@@ -112,7 +112,7 @@
                                                         Width="50"
                                                         VerticalAlignment="Center" 
                                                         HorizontalAlignment="Right"
-                                                        Command="{Binding Path=DataContext.CreateEditDayVM.EditCommand,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
+                                                        Command="{Binding Path=DataContext.CreateEditDayVM.EditDailyTaskCommand,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
                                                         />
                                             <Button Content="Delete" 
                                                         Grid.Row="0" 
@@ -120,7 +120,7 @@
                                                         Width="50"
                                                         Margin="5,0,10,0"
                                                         VerticalAlignment="Center" 
-                                                        Command="{Binding Path=DataContext.CreateEditDayVM.DeleteCommand,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
+                                                        Command="{Binding Path=DataContext.CreateEditDayVM.DeleteDailyTaskCommand,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
                                                         HorizontalAlignment="Right"
                                                         />
                                         </StackPanel>
@@ -132,9 +132,23 @@
                 </ListBox>
             </Grid>
             <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <ListBox
+                    ItemsSource="{Binding CreateEditDayVM.TemplateTabs}"
+                    SelectedItem="{Binding CreateEditDayVM.SelectedTemplateTab}"
+                    HorizontalAlignment="Right">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation='Horizontal'/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                </ListBox>
                 <Frame
                     Grid.Row="1"
-                    Content="{Binding CreateEditDayVM.CreateEditDailyTaskFrame, UpdateSourceTrigger=PropertyChanged}"
+                    Content="{Binding CreateEditDayVM.CreateEditDailyTaskOrGetTemplatesFrame, UpdateSourceTrigger=PropertyChanged}"
                     NavigationUIVisibility="Hidden" />
             </Grid>
         </Grid>

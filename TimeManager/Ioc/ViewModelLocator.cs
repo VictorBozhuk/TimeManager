@@ -9,9 +9,9 @@ namespace TimeManager.Ioc
 {
     public class ViewModelLocator
     {
-        public static MainPageViewModel MainPageViewModel
+        public static DailyTasksViewModel MainPageViewModel
         {
-            get { return IocKernel.Get<MainPageViewModel>(); }
+            get { return IocKernel.Get<DailyTasksViewModel>(); }
         }
 
         public static MainViewModel MainViewModel

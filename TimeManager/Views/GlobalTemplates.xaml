@@ -1,0 +1,97 @@
+﻿<Page x:Class="TimeManager.Views.GlobalTemplates"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TimeManager.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="GlobalTemplates">
+    
+    <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <ListBox
+            ItemsSource="{Binding CreateEditDayVM.GlobalTemplatesVM.GlobalPeriods}"
+            SelectedItem="{Binding CreateEditDayVM.GlobalTemplatesVM.SelectedGlobalPeriod}"
+            >
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation='Horizontal'/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+        </Grid>
+        <ListBox 
+            Grid.Row="1"
+            ItemsSource="{Binding CreateEditDayVM.GlobalTemplatesVM.GlobalTasks}"
+            SelectedItem="{Binding CreateEditDayVM.GlobalTemplatesVM.SelectedGlobalTask}"
+            HorizontalContentAlignment="Stretch"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="2"/>
+                        </Grid.RowDefinitions>
+                        <!--<Grid
+                                        Name="dofijv"
+                                            Grid.RowSpan="2"
+                                            Background="{Binding Path=RowColor}"
+                                            Opacity="0.1"
+                                            Margin="-10,0"
+                                            />-->
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock FontSize="20" TextWrapping="Wrap" Margin="5,0" Text="{Binding Path=Title}"/>
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0" Margin="100,0,0,0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Deadline: "/>
+                                        <TextBlock Text="{Binding DeadLine}"/>
+                                    </StackPanel>
+                                </Grid>
+                                <StackPanel
+                                    Grid.Column="1"
+                                    Orientation="Horizontal"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Top"
+                                    Margin="0,2.5,0,0"
+                                    >
+                                    <Button Content="Select" 
+                                        Grid.Row="0" 
+                                        Click="SelecteRow" 
+                                        Width="50"
+                                        Margin="5,0,10,0"
+                                        VerticalAlignment="Center" 
+                                        Command="{Binding Path=DataContext.CreateEditDayVM.GlobalTemplatesVM.SelectGlobalTaskCommand,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
+                                        HorizontalAlignment="Right"
+                                        />
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid> 
+</Page>

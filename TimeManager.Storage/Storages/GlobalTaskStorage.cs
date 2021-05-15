@@ -25,6 +25,7 @@ namespace TimeManager.Storage.Storages
             {
                 Id = Guid.NewGuid(),
                 Title = args.Title,
+                Description = args.Description,
                 Status = Statuses.InProgress,
                 Type = args.Type,
                 IsPlan = args.IsPlan,
@@ -46,6 +47,7 @@ namespace TimeManager.Storage.Storages
         {
             var myTask = GetGlobalTask(args.Id);
             myTask.Title = args.Title;
+            myTask.Description = args.Description;
             myTask.Status = args.Status;
             myTask.Mark = args.Mark;
             myTask.Type = args.Type;

@@ -14,20 +14,24 @@
         <StackPanel>
             <StackPanel Margin="20" Orientation="Horizontal">
                 <TextBlock Text="Title: " />
-                <TextBox Width="300" Text="{Binding CreateEditDayVM.CreateEditDailyTaskVM.Task.Title}" />
+                <TextBox Width="300" Text="{Binding CreateEditDayVM.CreateEditDailyTaskVM.DailyTask.Title}" />
+            </StackPanel>
+            <StackPanel Margin="20" Orientation="Horizontal">
+                <TextBlock Text="Description: " />
+                <TextBox Width="255" Text="{Binding CreateEditDayVM.CreateEditDailyTaskVM.DailyTask.Description}" />
             </StackPanel>
             <StackPanel Margin="20" Orientation="Horizontal">
                 <TextBlock Text="Start: " />
-                <TextBox Width="100" Text="{Binding CreateEditDayVM.CreateEditDailyTaskVM.Task.Start}" />
+                <TextBox Width="100" Text="{Binding CreateEditDayVM.CreateEditDailyTaskVM.DailyTask.Start}" />
                 <TextBlock Margin="30,0,0,0" Text="End: " />
-                <TextBox Width="100" Text="{Binding CreateEditDayVM.CreateEditDailyTaskVM.Task.End}" />
+                <TextBox Width="100" Text="{Binding CreateEditDayVM.CreateEditDailyTaskVM.DailyTask.End}" />
             </StackPanel>
             <StackPanel Margin="20" Orientation="Horizontal">
                 <TextBlock Text="Type: " />
                 <TextBox
                     Width="150"
                     Margin="0,0,10,0"
-                    Text="{Binding CreateEditDayVM.CreateEditDailyTaskVM.Task.Type, Mode=TwoWay}" />
+                    Text="{Binding CreateEditDayVM.CreateEditDailyTaskVM.DailyTask.Type, Mode=TwoWay}" />
                 <ComboBox
                     Width="150"
                     ItemsSource="{Binding CreateEditDayVM.CreateEditDailyTaskVM.Types}"

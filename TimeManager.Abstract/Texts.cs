@@ -12,5 +12,7 @@ namespace TimeManager.Abstract
         public static readonly string Edit = "Edit";
         public static readonly string Tasks = "Tasks";
         public static readonly string Plans = "Plans";
+        public static readonly string Templates = "Templates";
+        public static readonly string CreateForm = "Create form";
     }
 }

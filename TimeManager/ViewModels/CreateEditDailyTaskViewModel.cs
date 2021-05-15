@@ -7,16 +7,13 @@ using TimeManager.Abstract;
 using TimeManager.Models;
 using TimeManager.Storage.Arguments;
 using TimeManager.Storage.Storages.Abstracts;
+using TimeManager.ViewModels.Base;
 
 namespace TimeManager.ViewModels
 {
     [AddINotifyPropertyChangedInterface]
-    public class CreateEditDailyTaskViewModel
+    public class CreateEditDailyTaskViewModel : CreateEditBase
     {
-        private readonly IDailyTaskStorage _dailyTaskStorage;
-        private readonly IDayStorage _dayStorage;
-        private MainViewModel _main;
-        public string NamePage { get; set; } = Texts.Create;
         public ComboBoxItem SelectedType
         {
             set
@@ -27,15 +24,12 @@ namespace TimeManager.ViewModels
                 }
             }
         }
-        public ObservableCollection<ComboBoxItem> Types { get; set; }
 
         public DailyTaskModel DailyTask { get; set; }
 
-        public CreateEditDailyTaskViewModel(MainViewModel main, IDayStorage dayStorage, IDailyTaskStorage dailyTaskStorage)
+        public CreateEditDailyTaskViewModel(MainViewModel main, IDayStorage dayStorage, IDailyTaskStorage dailyTaskStorage, IGlobalTaskStorage globalTaskStorage)
+            : base(main, dayStorage, dailyTaskStorage, globalTaskStorage)
         {
-            _dailyTaskStorage = dailyTaskStorage;
-            _dayStorage = dayStorage;
-            _main = main;
             Load();
             ExecuteCommand = new RelayCommand(Execute);
             CancelCommand = new RelayCommand(Load);
@@ -48,6 +42,12 @@ namespace TimeManager.ViewModels
         {
             DailyTask = task;
             NamePage = Texts.Edit;
+        }
+
+        public void SetGlobalTask(GlobalTaskModel globalTask)
+        {
+            Load();
+            DailyTask = new DailyTaskModel(globalTask);
         }
 
         private void Execute()
@@ -73,6 +73,7 @@ namespace TimeManager.ViewModels
                 var taskArgs = new DailyTaskArgs()
                 {
                     Title = DailyTask.Title,
+                    Description = DailyTask.Description,
                     Type = DailyTask.Type,
                     Start = DailyTask.Start,
                     End = DailyTask.End,
@@ -94,6 +95,7 @@ namespace TimeManager.ViewModels
                 var taskArgs = new DailyTaskArgs()
                 {
                     Title = DailyTask.Title,
+                    Description = DailyTask.Description,
                     Type = DailyTask.Type,
                     Start = DailyTask.Start,
                     End = DailyTask.End,
@@ -126,7 +128,8 @@ namespace TimeManager.ViewModels
         {
             NamePage = Texts.Create;
             DailyTask = new DailyTaskModel();
-            Types = new ObservableCollection<ComboBoxItem>(_dailyTaskStorage.GetAllDailyTasks().Select(x => x.Type).Distinct().Select(x => new ComboBoxItem() { Content = x }));
+            LoadTypes();
         }
+
     }
 }

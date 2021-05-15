@@ -17,7 +17,7 @@ namespace TimeManager.Ioc
             Bind<IDailyTaskStorage>().To<DailyTaskStorage>().InSingletonScope();
             Bind<IDayStorage>().To<DayStorage>().InSingletonScope();
 
-            Bind<MainPageViewModel>().ToSelf().InTransientScope();
+            Bind<DailyTasksViewModel>().ToSelf().InTransientScope();
             Bind<MainViewModel>().ToSelf().InTransientScope();
             Bind<CreateEditDayViewModel>().ToSelf().InTransientScope();
             Bind<CreateEditDailyTaskViewModel>().ToSelf().InTransientScope();

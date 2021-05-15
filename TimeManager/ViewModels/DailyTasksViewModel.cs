@@ -17,17 +17,12 @@ using TimeManager.Views;
 namespace TimeManager.ViewModels
 {
     [AddINotifyPropertyChangedInterface]
-    public class MainPageViewModel : BaseViewModel
+    public class DailyTasksViewModel : BaseViewModel
     {
-        private readonly IDayStorage _dayStorage;
-        private readonly IDailyTaskStorage _dailyTaskStorage;
-        private MainViewModel _main;
+
         private DayModel _selectedDay;
         public ObservableCollection<DailyTaskModel> DailyTasks { get; set; }
         public ObservableCollection<DayModel> ListOfDays { get; set; }
-        public ObservableCollection<WeekModel> ListOfWeeks { get; set; }
-        public ObservableCollection<MonthModel> ListOfMonths { get; set; }
-        public ObservableCollection<YearModel> ListOfYears { get; set; }
         public ObservableCollection<DailyTaskModel> DailyPlans { get; set; }
         public DailyTaskModel SelectedDailyTask { get; set; }
         public DailyTaskModel SelectedDailyPlan { get; set; }
@@ -45,11 +40,9 @@ namespace TimeManager.ViewModels
             }
         }
 
-        public MainPageViewModel(MainViewModel main, IDayStorage dayStorage, IDailyTaskStorage dailyTaskStorage)
+        public DailyTasksViewModel(MainViewModel main, IDayStorage dayStorage, IDailyTaskStorage dailyTaskStorage, IGlobalTaskStorage globalTaskStorage)
+            :base(main, dayStorage, dailyTaskStorage, globalTaskStorage)
         {
-            _dayStorage = dayStorage;
-            _dailyTaskStorage = dailyTaskStorage;
-            _main = main;
             LoadDays();
             ShowDailyTasksOfDayCommand = new RelayCommand(ShowDailyTasksOfSelectedDay);
             CreateEditDailyPlanCommand = new RelayCommand(() => EditDailyTasksOfDay(true));
@@ -80,7 +73,7 @@ namespace TimeManager.ViewModels
         private void EditDailyTask(bool isPlans, DailyTaskModel task)
         {
             _main.MainFrame = new CreateEditDay(_main);
-            _main.CreateEditDayVM = new CreateEditDayViewModel(_main, _dayStorage, _dailyTaskStorage, SelectedDay, isPlans, task);
+            _main.CreateEditDayVM = new CreateEditDayViewModel(_main, _dayStorage, _dailyTaskStorage, _globalTaskStorage, SelectedDay, isPlans, task);
         }
 
         private void DeleteDailyTask(DailyTaskModel selectedTask, List<DailyTaskModel> myTaskModelsFromDay, ObservableCollection<DailyTaskModel> myTaskModels)
@@ -113,7 +106,7 @@ namespace TimeManager.ViewModels
         private void EditDailyTasksOfDay(bool isPlans)
         {
             _main.MainFrame = new CreateEditDay(_main);
-            _main.CreateEditDayVM = new CreateEditDayViewModel(_main, _dayStorage, _dailyTaskStorage, SelectedDay, isPlans);
+            _main.CreateEditDayVM = new CreateEditDayViewModel(_main, _dayStorage, _dailyTaskStorage, _globalTaskStorage, SelectedDay, isPlans);
         }
     }
 }

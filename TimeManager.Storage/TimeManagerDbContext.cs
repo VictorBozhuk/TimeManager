@@ -24,6 +24,12 @@ namespace TimeManager.Storage
                 .HasForeignKey(s => s.DayId)
                 .WillCascadeOnDelete(true);
 
+            modelBuilder.Entity<GlobalTask>()
+                .HasMany(p => p.DailyTasks)
+                .WithOptional(p => p.GlobalTask)
+                .HasForeignKey(s => s.GlobalTaskId)
+                .WillCascadeOnDelete(false);
+
             base.OnModelCreating(modelBuilder);
         }
 
