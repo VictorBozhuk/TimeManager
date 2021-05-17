@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using TimeManager.Abstract;
+using TimeManager.Abstracts;
 using TimeManager.Models;
 using TimeManager.Storage.Arguments;
 using TimeManager.Storage.Storages.Abstracts;
@@ -16,7 +17,7 @@ using TimeManager.ViewModels.Base;
 namespace TimeManager.ViewModels
 {
     [AddINotifyPropertyChangedInterface]
-    public class CreateEditGlobalTaskViewModel : CreateEditBase
+    public class CreateEditGlobalTaskViewModel : CreateEditBaseViewModel
     {
 
         public ComboBoxItem SelectedType
@@ -31,11 +32,12 @@ namespace TimeManager.ViewModels
         }
         public bool IsTemplateChecked { get; set; }
         public GlobalTaskModel GlobalTask { get; set; }
-        public CreateEditGlobalTaskViewModel(MainViewModel main, IDayStorage dayStorage, IDailyTaskStorage dailyTaskStorage, IGlobalTaskStorage globalTaskStorage, GlobalTaskModel globalTask = null)
+        public CreateEditGlobalTaskViewModel(MainViewModel main, IDayStorage dayStorage, IDailyTaskStorage dailyTaskStorage, IGlobalTaskStorage globalTaskStorage, GlobalTaskModel globalTask = null, bool isTemplate = false)
             : base(main, dayStorage, dailyTaskStorage, globalTaskStorage)
         {
             if(globalTask != null)
             {
+                IsTemplateChecked = isTemplate;
                 GlobalTask = globalTask;
                 NamePage = Texts.Edit;
                 LoadTypes();
@@ -94,6 +96,7 @@ namespace TimeManager.ViewModels
                 IsPlan = true,
                 Description = GlobalTask.Description,
                 DeadLine = deadLine,
+                Status = Statuses.InProgress,
             };
             _globalTaskStorage.Create(taskArgs);
         }
@@ -104,12 +107,10 @@ namespace TimeManager.ViewModels
             {
                 Id = GlobalTask.Id.ToString(),
                 Title = GlobalTask.Title,
-                Mark = GlobalTask.Mark,
                 Status = GlobalTask.Status,
                 Type = GlobalTask.Type,
                 IsPlan = GlobalTask.IsPlan,
                 Description = GlobalTask.Description,
-                TimeSpent = GlobalTask.TimeSpent,
                 DeadLine = deadLine,
             };
 

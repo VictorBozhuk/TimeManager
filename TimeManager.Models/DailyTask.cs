@@ -14,8 +14,6 @@ namespace TimeManager.Models
         public string Status { get; set; }
         // робота, дозвілля, розвиток, їжа, відпочинок
         public string Type { get; set; }
-        // Excellent, Good, Satisfactorily, Badly
-        public string Mark { get; set; }
         public bool IsPlan { get; set; }
         public string Start { get; set; }
         public string End { get; set; }

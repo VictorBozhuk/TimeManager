@@ -14,6 +14,10 @@
         <Menu>
             <MenuItem Header="Daily tasks" Command="{Binding GoToDailyTasksCommand}" />
             <MenuItem Header="Global tasks" Command="{Binding GoToGlobalTasksCommand}" />
+            <MenuItem Header="Statistic" Command="{Binding GoToStatisticCommand}" />
+            <MenuItem Header="Settings" />
+            <MenuItem Header="About" />
+            <MenuItem Header="Help" />
         </Menu>
         <Frame 
             Name="MainFrame"

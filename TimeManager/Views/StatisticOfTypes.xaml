@@ -1,0 +1,78 @@
+﻿<Page x:Class="TimeManager.Views.StatisticOfTypes"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TimeManager.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="StatisticOfTypes">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <ListBox
+            ItemsSource="{Binding StatisticVM.StatisticTypesVM.TypePeriods}"
+            SelectedItem="{Binding StatisticVM.StatisticTypesVM.SelectedTypePeriod}"
+            >
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation='Horizontal'/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>
+        <Grid Grid.Row="1">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <TextBlock Text="From: "/>
+                <TextBlock
+                    Text="{Binding StatisticVM.StatisticTypesVM.DateFrom}"
+                    />
+                <TextBlock Margin="20,0,0,0" Text="To: "/>
+                <TextBlock
+                    Text="{Binding StatisticVM.StatisticTypesVM.DateTo}"
+                    />
+
+            </StackPanel>
+        </Grid>
+        <ListBox 
+            Grid.Row="2"
+            ItemsSource="{Binding StatisticVM.StatisticTypesVM.Types}"
+            HorizontalContentAlignment="Stretch"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="2"/>
+                        </Grid.RowDefinitions>
+                        <!--<Grid
+                                        Name="dofijv"
+                                            Grid.RowSpan="2"
+                                            Background="{Binding Path=RowColor}"
+                                            Opacity="0.1"
+                                            Margin="-10,0"
+                                            />-->
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock FontSize="20" TextWrapping="Wrap" Margin="5,0" Text="{Binding Path=Title}"/>
+                            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                                <TextBlock Text="TimeSpent: "/>
+                                <TextBlock Text="{Binding TimeSpent}"/>
+                                <TextBlock Text="                           "/>
+                                <TextBlock Text="TimeSpentByProcents: "/>
+                                <TextBlock Text="{Binding TimeSpentByProcents}"/>
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</Page>

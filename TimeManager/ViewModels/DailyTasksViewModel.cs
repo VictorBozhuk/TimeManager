@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using TimeManager.Abstract;
 using TimeManager.Models;
 using TimeManager.Storage.Arguments;
 using TimeManager.Storage.Storages;
@@ -64,6 +65,7 @@ namespace TimeManager.ViewModels
         public RelayCommand DeleteDailyPlanCommand { get; set; }
         public RelayCommand EditDailyTaskCommand { get; set; }
         public RelayCommand DeleteDailyTaskCommand { get; set; }
+        public RelayCommand ShowEstimateOfPlanPanelCommand { get; set; }
         #endregion
         private void ShowDailyTasksOfSelectedDay()
         {

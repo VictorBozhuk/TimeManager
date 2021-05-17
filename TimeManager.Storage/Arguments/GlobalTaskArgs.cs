@@ -13,7 +13,6 @@ namespace TimeManager.Storage.Arguments
         public string Description { get; set; }
         public string Status { get; set; }
         public string Type { get; set; }
-        public string Mark { get; set; }
         public bool IsPlan { get; set; }
         public float TimeSpent { get; set; }
         public DateTime DeadLine { get; set; }

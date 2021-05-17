@@ -16,6 +16,8 @@ namespace TimeManager.Abstract
         public const string Year = "Year";
         public const string OverYear = "Over Year";
         public const string Templates = "Templates";
+        public const string Future = "Future";
+        public const string Previous = "Previous";
 
         public static readonly DateTime TemplateDateTime = new DateTime(1970, 1, 1);
     }

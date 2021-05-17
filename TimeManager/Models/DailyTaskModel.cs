@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using TimeManager.Abstract;
 using TimeManager.ViewModels;
 
 namespace TimeManager.Models
@@ -18,11 +19,11 @@ namespace TimeManager.Models
         public string Description { get; set; }
         public string Status { get; set; }
         public string Type { get; set; }
-        public string Mark { get; set; }
         public string Start { get; set; }
         public string End { get; set; }
         public string Interval { get; set; }
         public Day Day { get; set; }
+        public string GlobalTaskId { get; set; }
 
         public DailyTaskModel() { }
 
@@ -36,6 +37,7 @@ namespace TimeManager.Models
             Title = task.Title;
             Description = task.Description;
             Type = task.Type;
+            GlobalTaskId = task.Id.ToString();
         }
 
         public DailyTaskModel(DailyTask task, int index = 1)
@@ -50,7 +52,6 @@ namespace TimeManager.Models
             Description = task.Description;
             Type = task.Type;
             Status = task.Status;
-            Mark = task.Mark;
             Start = task.Start;
             End = task.End;
             Day = task.Day;

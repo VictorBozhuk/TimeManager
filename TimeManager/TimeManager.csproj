@@ -149,8 +149,9 @@
     <Compile Include="Models\DayModel.cs" />
     <Compile Include="Models\GlobalTaskModel.cs" />
     <Compile Include="Models\DailyTaskModel.cs" />
+    <Compile Include="Models\StatisticModels\StatisticType.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
-    <Compile Include="ViewModels\Base\CreateEditBase.cs" />
+    <Compile Include="ViewModels\Base\CreateEditBaseViewModel.cs" />
     <Compile Include="ViewModels\Base\GlobalBaseViewModel.cs" />
     <Compile Include="ViewModels\CreateEditDayViewModel.cs" />
     <Compile Include="ViewModels\CreateEditDailyTaskViewModel.cs" />
@@ -159,6 +160,9 @@
     <Compile Include="ViewModels\DailyTasksViewModel.cs" />
     <Compile Include="ViewModels\GlobalTemplatesViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\StatisticGlobalTasksViewModel.cs" />
+    <Compile Include="ViewModels\StatisticTypesViewModel.cs" />
+    <Compile Include="ViewModels\StatisticViewModel.cs" />
     <Compile Include="Views\CreateEditDailyTask.xaml.cs">
       <DependentUpon>CreateEditDailyTask.xaml</DependentUpon>
     </Compile>
@@ -170,6 +174,15 @@
     </Compile>
     <Compile Include="Views\DailyTasks.xaml.cs">
       <DependentUpon>DailyTasks.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Statistic.xaml.cs">
+      <DependentUpon>Statistic.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StatisticOfGlobalTasks.xaml.cs">
+      <DependentUpon>StatisticOfGlobalTasks.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StatisticOfTypes.xaml.cs">
+      <DependentUpon>StatisticOfTypes.xaml</DependentUpon>
     </Compile>
     <Page Include="Styles\Style.xaml">
       <SubType>Designer</SubType>
@@ -214,6 +227,18 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\DailyTasks.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Statistic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\StatisticOfGlobalTasks.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\StatisticOfTypes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

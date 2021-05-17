@@ -15,12 +15,13 @@ namespace TimeManager.Models
         public string Description { get; set; }
         public string Status { get; set; }
         public string Type { get; set; }
-        public string Mark { get; set; }
         public bool IsPlan { get; set; }
-        public float TimeSpent { get; set; }
         public string DeadLine { get; set; }
         public string DeadLineDate { get; set; }
         public string DeadLineTime { get; set; }
+        public string TimeSpent { get; set; }
+        public string TimeSpentByProcents { get; set; }
+        public List<DailyTaskModel> DailyTasks { get; set; }
 
         public GlobalTaskModel() { }
 
@@ -41,12 +42,11 @@ namespace TimeManager.Models
             Description = task.Description;
             Type = task.Type;
             Status = task.Status;
-            Mark = task.Mark;
             IsPlan = task.IsPlan;
-            TimeSpent = task.TimeSpent;
             DeadLineDate = task.DeadLine.ToShortDateString();
             DeadLineTime = task.DeadLine.ToShortTimeString();
             DeadLine = $"{DeadLineDate} {DeadLineTime}";
+            DailyTasks = task.DailyTasks.Select(x => new DailyTaskModel(x)).ToList();
         }
     }
 }

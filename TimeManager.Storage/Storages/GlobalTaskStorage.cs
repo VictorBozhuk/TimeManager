@@ -49,7 +49,6 @@ namespace TimeManager.Storage.Storages
             myTask.Title = args.Title;
             myTask.Description = args.Description;
             myTask.Status = args.Status;
-            myTask.Mark = args.Mark;
             myTask.Type = args.Type;
             myTask.IsPlan = args.IsPlan;
             myTask.DeadLine = args.DeadLine;

@@ -163,6 +163,7 @@
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="auto"/>
                                             <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="auto"/>
                                         </Grid.RowDefinitions>
                                         <TextBlock FontSize="20" TextWrapping="Wrap" Margin="5,0" Text="{Binding Path=Title}"/>
                                         <Grid Grid.Row="1">
@@ -188,7 +189,7 @@
                                                         Width="50"
                                                         VerticalAlignment="Center" 
                                                         HorizontalAlignment="Right"
-                                                        Command="{Binding Path=DataContext.EstimateCommand,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
+                                                        Command="{Binding Path=DataContext.DailyTasksVM.ShowEstimateOfPlanPanelCommand,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
                                                         />
                                                 <Button Content="Edit" 
                                                         Grid.Row="0" 
@@ -209,6 +210,9 @@
                                                         />
                                             </StackPanel>
                                         </Grid>
+                                        <Expander Grid.Row="2" Header="Description">
+                                            <TextBlock Text="{Binding Description}" TextWrapping="Wrap"/>
+                                        </Expander>
                                     </Grid>
                                 </Grid>
                             </DataTemplate>

@@ -13,14 +13,14 @@ namespace TimeManager.ViewModels.Base
 {
     [AddINotifyPropertyChangedInterface]
 
-    public abstract class CreateEditBase : BaseViewModel
+    public abstract class CreateEditBaseViewModel : BaseViewModel
     {
         protected readonly IDailyTaskStorage _dailyTaskStorage;
         protected readonly IGlobalTaskStorage _globalTaskStorage;
         protected readonly IDayStorage _dayStorage;
         protected MainViewModel _main;
 
-        public CreateEditBase(MainViewModel main, IDayStorage dayStorage, IDailyTaskStorage dailyTaskStorage, IGlobalTaskStorage globalTaskStorage)
+        public CreateEditBaseViewModel(MainViewModel main, IDayStorage dayStorage, IDailyTaskStorage dailyTaskStorage, IGlobalTaskStorage globalTaskStorage)
             : base(main, dayStorage, dailyTaskStorage, globalTaskStorage)
         {
             _dailyTaskStorage = dailyTaskStorage;

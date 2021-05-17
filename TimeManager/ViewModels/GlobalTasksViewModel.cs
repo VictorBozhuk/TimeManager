@@ -34,8 +34,9 @@ namespace TimeManager.ViewModels
 
         private void EditGlobalTask()
         {
+            var isTemplate = SelectedGlobalPeriod == Periods.Templates;
             _main.MainFrame = new CreateEditGlobalTask(_main);
-            _main.CreateEditGlobalTaskVM = new CreateEditGlobalTaskViewModel(_main, _dayStorage, _dailyTaskStorage, _globalTaskStorage, SelectedGlobalTask);
+            _main.CreateEditGlobalTaskVM = new CreateEditGlobalTaskViewModel(_main, _dayStorage, _dailyTaskStorage, _globalTaskStorage, SelectedGlobalTask, isTemplate);
         }
 
     }

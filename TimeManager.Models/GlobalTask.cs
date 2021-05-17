@@ -17,10 +17,7 @@ namespace TimeManager.Models
         public string Status { get; set; }
         // робота, дозвілля, розвиток, їжа, відпочинок
         public string Type { get; set; }
-        // Excellent, Good, Satisfactorily, Badly
-        public string Mark { get; set; }
         public bool IsPlan { get; set; }
-        public float TimeSpent { get; set; }
         public DateTime DeadLine { get; set; }
         public ICollection<DailyTask> DailyTasks { get; set; }
     }

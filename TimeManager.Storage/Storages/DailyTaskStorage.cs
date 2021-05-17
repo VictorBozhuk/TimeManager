@@ -32,6 +32,7 @@ namespace TimeManager.Storage.Storages
                 End = args.End,
                 IsPlan = args.IsPlan,
                 DayId = args.DayId,
+                GlobalTaskId = args.GlobalTaskId,
             };
 
             _context.DailyTasks.Add(myTask);
@@ -51,7 +52,6 @@ namespace TimeManager.Storage.Storages
             myTask.Title = args.Title;
             myTask.Description = args.Description;
             myTask.Status = args.Status;
-            myTask.Mark = args.Mark;
             myTask.Type = args.Type;
             myTask.Start = args.Start;
             myTask.End = args.End;

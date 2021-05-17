@@ -25,6 +25,7 @@ namespace TimeManager.ViewModels
         public GlobalTasksViewModel GlobalTasksVM { get; set; }
         public CreateEditDayViewModel CreateEditDayVM { get; set; }
         public CreateEditGlobalTaskViewModel CreateEditGlobalTaskVM { get; set; }
+        public StatisticViewModel StatisticVM { get; set; }
 
         public Page MainFrame { get; set; }
         public MainViewModel()
@@ -41,10 +42,12 @@ namespace TimeManager.ViewModels
             GoToDailyTasksCommand = new RelayCommand(GoToDailyTasks);
             GoToGlobalTasksCommand = new RelayCommand(GoToGlobalTasks);
             CreateGlobalTaskCommand = new RelayCommand(GoToCreateGlobalTask);
+            GoToStatisticCommand = new RelayCommand(GoToStatistic);
         }
 
         public RelayCommand GoToDailyTasksCommand { get; set; }
         public RelayCommand GoToGlobalTasksCommand { get; set; }
+        public RelayCommand GoToStatisticCommand { get; set; }
         public RelayCommand CreateEditDayCommand { get; set; }
         public RelayCommand CreateDayCommand { get; set; }
         public RelayCommand CreateGlobalTaskCommand { get; set; }
@@ -77,7 +80,11 @@ namespace TimeManager.ViewModels
             CreateEditGlobalTaskVM = new CreateEditGlobalTaskViewModel(this, _dayStorage, _dailyTaskStorage, _globalTaskStorage);
         }
 
-
+        private void GoToStatistic()
+        {
+            MainFrame = new Statistic(this);
+            StatisticVM = new StatisticViewModel(this, _dayStorage, _dailyTaskStorage, _globalTaskStorage);
+        }
         private void Initializer()
         {
             if(_dayStorage.GetAllDays().Count == 0)
@@ -165,7 +172,6 @@ namespace TimeManager.ViewModels
             {
                 Id = Guid.NewGuid(),
                 IsPlan = false,
-                Mark = "Mark1",
                 Status = "Status1",
                 Type = "Type2",
                 Title = "Title1",
@@ -181,7 +187,6 @@ namespace TimeManager.ViewModels
             {
                 Id = Guid.NewGuid(),
                 IsPlan = false,
-                Mark = "Mark1",
                 Status = "Status1",
                 Type = "Type2",
                 Title = "Title1",
@@ -195,7 +200,6 @@ namespace TimeManager.ViewModels
             {
                 Id = Guid.NewGuid(),
                 IsPlan = true,
-                Mark = "Mark1",
                 Status = "Status1",
                 Type = "Type2",
                 Title = "Title1",
@@ -209,7 +213,6 @@ namespace TimeManager.ViewModels
             {
                 Id = Guid.NewGuid(),
                 IsPlan = true,
-                Mark = "Mark1",
                 Status = "Status1",
                 Type = "Type1",
                 Title = "Title1",

@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Controls;
 using TimeManager.Abstract;
+using TimeManager.Abstracts;
 using TimeManager.Models;
 using TimeManager.Storage.Arguments;
 using TimeManager.Storage.Storages.Abstracts;
@@ -12,7 +13,7 @@ using TimeManager.ViewModels.Base;
 namespace TimeManager.ViewModels
 {
     [AddINotifyPropertyChangedInterface]
-    public class CreateEditDailyTaskViewModel : CreateEditBase
+    public class CreateEditDailyTaskViewModel : CreateEditBaseViewModel
     {
         public ComboBoxItem SelectedType
         {
@@ -70,17 +71,7 @@ namespace TimeManager.ViewModels
             var day = _main.CreateEditDayVM.Day.Date.ToShortDateString();
             if (_dayStorage.GetAllDays().Any(x => x.Date.ToShortDateString() == day))
             {
-                var taskArgs = new DailyTaskArgs()
-                {
-                    Title = DailyTask.Title,
-                    Description = DailyTask.Description,
-                    Type = DailyTask.Type,
-                    Start = DailyTask.Start,
-                    End = DailyTask.End,
-                    DayId = _main.CreateEditDayVM.Day.Id,
-                    IsPlan = _main.CreateEditDayVM.DailyPlansVisible,
-                };
-                _dailyTaskStorage.Create(taskArgs);
+                _dailyTaskStorage.Create(GetDailyTaskArgs());
             }
             else
             {
@@ -91,19 +82,24 @@ namespace TimeManager.ViewModels
 
                 _dayStorage.Create(newDay);
                 _main.CreateEditDayVM.RefreshDay();
-
-                var taskArgs = new DailyTaskArgs()
-                {
-                    Title = DailyTask.Title,
-                    Description = DailyTask.Description,
-                    Type = DailyTask.Type,
-                    Start = DailyTask.Start,
-                    End = DailyTask.End,
-                    DayId = _main.CreateEditDayVM.Day.Id,
-                    IsPlan = _main.CreateEditDayVM.DailyPlansVisible,
-                };
-                _dailyTaskStorage.Create(taskArgs);
+                _dailyTaskStorage.Create(GetDailyTaskArgs());
             }
+        }
+
+        private DailyTaskArgs GetDailyTaskArgs()
+        {
+            return new DailyTaskArgs()
+            {
+                Title = DailyTask.Title,
+                Description = DailyTask.Description,
+                Type = DailyTask.Type,
+                Start = DailyTask.Start,
+                End = DailyTask.End,
+                DayId = _main.CreateEditDayVM.Day.Id,
+                IsPlan = _main.CreateEditDayVM.DailyPlansVisible,
+                Status = Statuses.InProgress,
+                GlobalTaskId = _globalTaskStorage.GetGlobalTask(DailyTask.GlobalTaskId)?.Id,
+            };
         }
 
         private void EditDailyTask()
@@ -112,7 +108,6 @@ namespace TimeManager.ViewModels
             {
                 Id = DailyTask.Id,
                 Title = DailyTask.Title,
-                Mark = DailyTask.Mark,
                 Status = DailyTask.Status,
                 Type = DailyTask.Type,
                 Start = DailyTask.Start,
