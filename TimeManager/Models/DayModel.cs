@@ -21,10 +21,14 @@ namespace TimeManager.Models
         {
             Id = day.Id;
             Date = day.Date;
-            DailyPlans = day.DailyTasks.Where(x => x.IsPlan).Select(x => new DailyTaskModel(x)).ToList();
-            DailyTasks = day.DailyTasks.Where(x => !x.IsPlan).Select(x => new DailyTaskModel(x)).ToList();
+            var plans = day.DailyTasks.Where(x => x.IsPlan).ToList();
+            var tasks = day.DailyTasks.Where(x => !x.IsPlan).ToList();
+            DailyPlans = plans.Select(x => new DailyTaskModel(x, plans.IndexOf(x))).ToList();
+            DailyTasks = tasks.Select(x => new DailyTaskModel(x, tasks.IndexOf(x))).ToList();
         }
         public string DateShortString { get; set; }
+        public string DateLongString { get; set; }
+        public string DayOfWeek { get; set; }
         public DateTime Date
         { 
             get { return date; }
@@ -32,6 +36,8 @@ namespace TimeManager.Models
             {
                 date = value;
                 DateShortString = value.ToShortDateString();
+                DateLongString = value.ToLongDateString();
+                DayOfWeek = TranslateDayOfWeek(value.DayOfWeek.ToString());
             }
         }
         public List<DailyTaskModel> DailyPlans { get; set; }
@@ -40,6 +46,29 @@ namespace TimeManager.Models
         public override string ToString()
         {
             return DateShortString;
+        }
+
+        private string TranslateDayOfWeek(string day)
+        {
+            switch(day)
+            {
+                case "Monday":
+                    return "Понеділок";
+                case "Tuesday":
+                    return "Вівторок";
+                case "Wednesday":
+                    return "Середа";
+                case "Thursday":
+                    return "Четвер";
+                case "Friday":
+                    return "П'ятниця";
+                case "Saturday":
+                    return "Субота";
+                case "Sunday":
+                    return "Неділя";
+                default:
+                    return "None";
+            }
         }
     }
 }

@@ -18,6 +18,7 @@ namespace TimeManager.ViewModels
     public class CreateEditDayViewModel : BaseViewModel
     {
         private string selectedTemplateTab;
+        private string selectedTaskTab;
         public DateTime pickeredDate;
         public bool DailyPlansVisible { get; set; } = true;
         public string TypeOfDailyTasks { get; set; }
@@ -28,6 +29,7 @@ namespace TimeManager.ViewModels
         public CreateEditDailyTaskViewModel CreateEditDailyTaskVM { get; set; }
         public GlobalTemplatesViewModel GlobalTemplatesVM { get; set; }
         public List<string> TemplateTabs { get; set; } = new List<string>() { Texts.CreateForm, Texts.Templates, };
+        public List<string> TaskTabs { get; set; } = new List<string>() { Texts.Plans, Texts.Tasks, };
         public CreateEditDayViewModel(MainViewModel main, IDayStorage dayStorage, IDailyTaskStorage dailyTaskStorage, IGlobalTaskStorage globalTaskStorage, DayModel day = null, bool isPlans = true, DailyTaskModel task = null) 
             : base(main, dayStorage, dailyTaskStorage)
         {
@@ -38,6 +40,8 @@ namespace TimeManager.ViewModels
             ShowDailyTasksCommand = new RelayCommand(ShowDailyDoneTasks);
             DeleteDailyTaskCommand = new RelayCommand(DeleteDailyTask);
             EditDailyTaskCommand = new RelayCommand(EditDailyTask);
+            SelectedTemplateTab = TemplateTabs.FirstOrDefault();
+            SelectedTaskTab = TaskTabs.FirstOrDefault();
             if (day == null)
             {
                 var h = dayStorage.GetAllDays();
@@ -97,6 +101,24 @@ namespace TimeManager.ViewModels
                 }
 
                 selectedTemplateTab = value;
+            }
+        }
+
+        public string SelectedTaskTab
+        {
+            get { return selectedTaskTab; }
+            set
+            {
+                if (selectedTaskTab != value && value == Texts.Plans)
+                {
+                    ShowDailyPlans();
+                }
+                else if (selectedTaskTab != value && value == Texts.Tasks)
+                {
+                    ShowDailyDoneTasks();
+                }
+
+                selectedTaskTab = value;
             }
         }
 

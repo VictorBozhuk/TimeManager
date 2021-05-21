@@ -7,6 +7,25 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/TimeManager;component/Styles/Style.xaml" />
+
+                <ResourceDictionary Source="pack://application:,,,/TimeManager;component/Styles/BlueTheme/Core.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/TimeManager;component/Styles/Brushes.xaml"/>
+
+
+                <ResourceDictionary Source="pack://application:,,,/TimeManager;component/Styles/Colors.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/TimeManager;component/Styles/Test.xaml" />
+
+
+                <!--
+                <ResourceDictionary Source="pack://application:,,,/TimeManager;component/Styles/MetroDark/MetroDark.MSControls.Core.Implicit.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/TimeManager;component/Styles/MetroDark/MetroDark.MSControls.Toolkit.Implicit.xaml" />
+                -->
+                
+                <!--
+                <ResourceDictionary Source="pack://application:,,,/TimeManager;component/Styles/BlueTheme/Core.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/TimeManager;component/Styles/BlueTheme/Brushes.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/TimeManager;component/Styles/BlueTheme/Icons.xaml"/>
+                -->
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

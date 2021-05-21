@@ -102,7 +102,7 @@ namespace TimeManager.ViewModels
         public void LoadDays()
         {
             ListOfDays = new ObservableCollection<DayModel>(_dayStorage.GetAllDays().Select(x => new DayModel(x)).ToList());
-            SelectedDay = ListOfDays.OrderBy(x => x.Date).FirstOrDefault();
+            SelectedDay = ListOfDays.OrderBy(x => x.Date).LastOrDefault();
         }
 
         private void EditDailyTasksOfDay(bool isPlans)

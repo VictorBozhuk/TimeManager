@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Media;
 using TimeManager.Abstract;
 using TimeManager.ViewModels;
 
@@ -24,6 +25,7 @@ namespace TimeManager.Models
         public string Interval { get; set; }
         public Day Day { get; set; }
         public string GlobalTaskId { get; set; }
+        public Brush RowColor { get; set; }
 
         public DailyTaskModel() { }
 
@@ -42,6 +44,11 @@ namespace TimeManager.Models
 
         public DailyTaskModel(DailyTask task, int index = 1)
         {
+            if(index % 2 == 0)
+            {
+                //RowColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ff363636"));
+                RowColor = new SolidColorBrush(Colors.Black);
+            }
             SetValues(task);
         }
 

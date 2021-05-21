@@ -10,11 +10,12 @@
     
     <Grid >
         <Grid.RowDefinitions>
-            <RowDefinition Height="20"/>
-            <RowDefinition Height="20"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="30"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <ListBox
+            Style="{StaticResource ListWithHeaders}"
             ItemsSource="{Binding CreateEditDayVM.GlobalTemplatesVM.GlobalPeriods}"
             SelectedItem="{Binding CreateEditDayVM.GlobalTemplatesVM.SelectedGlobalPeriod}"
             >
@@ -23,14 +24,22 @@
                     <StackPanel Orientation='Horizontal'/>
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Margin="2,0" Text="{Binding}"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
         </ListBox>
-        <Grid Grid.Row="1">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <TextBlock Text="From: "/>
+        <Grid Grid.Row="1" VerticalAlignment="Center" Margin="0,0,20,0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"  Margin="0,0,130,0">
+                <TextBlock Text="From: " Foreground="{StaticResource ColorTetBlockInList}"/>
                 <TextBlock
                     Text="{Binding CreateEditDayVM.GlobalTemplatesVM.DateFrom}"
                     />
-                <TextBlock Margin="20,0,0,0" Text="To: "/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
+                <TextBlock Margin="20,0,0,0" Text="To: " Foreground="{StaticResource ColorTetBlockInList}"/>
                 <TextBlock
                     Text="{Binding CreateEditDayVM.GlobalTemplatesVM.DateTo}"
                     />

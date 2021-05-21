@@ -6,12 +6,12 @@
         xmlns:local="clr-namespace:TimeManager"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+    <Grid Background="{StaticResource BackgroundKey}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="20" />
+            <RowDefinition Height="25" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Menu>
+        <Menu Background="{StaticResource BackgroundKey}">
             <MenuItem Header="Daily tasks" Command="{Binding GoToDailyTasksCommand}" />
             <MenuItem Header="Global tasks" Command="{Binding GoToGlobalTasksCommand}" />
             <MenuItem Header="Statistic" Command="{Binding GoToStatisticCommand}" />
