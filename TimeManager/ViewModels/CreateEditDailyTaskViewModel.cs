@@ -15,11 +15,14 @@ namespace TimeManager.ViewModels
     [AddINotifyPropertyChangedInterface]
     public class CreateEditDailyTaskViewModel : CreateEditBaseViewModel
     {
+        private ComboBoxItem selectedType;
         public ComboBoxItem SelectedType
         {
+            get { return selectedType; }
             set
             {
-                if(value != null)
+                selectedType = value;
+                if (value != null)
                 {
                     DailyTask.Type = value.Content.ToString();
                 }
@@ -43,6 +46,7 @@ namespace TimeManager.ViewModels
         {
             DailyTask = task;
             NamePage = Texts.Edit;
+            SelectedType = Types.FirstOrDefault(x => x.Content.ToString() == task.Type.ToString());
         }
 
         public void SetGlobalTask(GlobalTaskModel globalTask)

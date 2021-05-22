@@ -46,7 +46,6 @@ namespace TimeManager.Models
         {
             if(index % 2 == 0)
             {
-                //RowColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ff363636"));
                 RowColor = new SolidColorBrush(Colors.Black);
             }
             SetValues(task);

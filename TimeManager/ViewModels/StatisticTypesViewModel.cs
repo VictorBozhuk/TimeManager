@@ -18,7 +18,7 @@ namespace TimeManager.ViewModels
         protected string selectedTypePeriod;
 
         public List<string> TypePeriods { get; set; } = new List<string>()
-            { Periods.Week, Periods.TwoWeeks, Periods.Month, Periods.Quarter, Periods.HalfYear, Periods.Year, Periods.OverYear};
+            { Periods.Week, Periods.Month, Periods.Quarter, Periods.Year, Periods.More};
 
         public string SelectedTypePeriod
         {
@@ -35,8 +35,10 @@ namespace TimeManager.ViewModels
 
         public ObservableCollection<StatisticType> Types { get; set; } = new ObservableCollection<StatisticType>();
 
-        public string DateFrom { get; set; }
-        public string DateTo { get; set; }
+        public string DateShortFrom { get; set; }
+        public string DateLongFrom { get; set; }
+        public string DateShortTo { get; set; }
+        public string DateLongTo { get; set; }
 
         public StatisticTypesViewModel(MainViewModel main, IDayStorage dayStorage, IDailyTaskStorage dailyTaskStorage, IGlobalTaskStorage globalTaskStorage)
             : base(main, dayStorage, dailyTaskStorage, globalTaskStorage)
@@ -61,7 +63,7 @@ namespace TimeManager.ViewModels
                 }
 
                 hours += minutes / 60;
-                newTypes.Add(new StatisticType(item.Key, $"{hours}:{minutes % 60}", sumHoursInProc));
+                newTypes.Add(new StatisticType(item.Key, hours.ToString(), (minutes % 60).ToString(), $"{hours}:{minutes % 60}", sumHoursInProc, newTypes.Count));
             }
 
             Types = new ObservableCollection<StatisticType>(newTypes);
@@ -101,25 +103,6 @@ namespace TimeManager.ViewModels
                     dailyTasks = _dailyTaskStorage.GetAllDailyTasks().Where(x => x.Day.Date < dateMin && x.Day.Date > dateLimit).Select(x => new DailyTaskModel(x)).ToList();
                     break;
 
-                case Periods.TwoWeeks:
-                    if (dateLimit.DayOfWeek == DayOfWeek.Monday)
-                    {
-                        dateLimit = dateLimit.AddDays(-1);
-                    }
-
-                    while (dateLimit.DayOfWeek != DayOfWeek.Monday)
-                    {
-                        dateLimit = dateLimit.AddDays(-1);
-                    }
-
-                    do
-                    {
-                        dateLimit = dateLimit.AddDays(-1);
-                    }
-                    while (dateLimit.DayOfWeek != DayOfWeek.Monday);
-                    dailyTasks = _dailyTaskStorage.GetAllDailyTasks().Where(x => x.Day.Date < dateMin && x.Day.Date > dateLimit).Select(x => new DailyTaskModel(x)).ToList();
-                    break;
-
                 case Periods.Month:
                     if (dateLimit.Day == 1)
                     {
@@ -152,25 +135,6 @@ namespace TimeManager.ViewModels
                     dailyTasks = _dailyTaskStorage.GetAllDailyTasks().Where(x => x.Day.Date < dateMin && x.Day.Date > dateLimit).Select(x => new DailyTaskModel(x)).ToList();
                     break;
 
-                case Periods.HalfYear:
-                    if (dateLimit.Month == 1 || dateLimit.Month == 7)
-                    {
-                        dateLimit = dateLimit.AddMonths(-5);
-                    }
-
-                    while (dateLimit.Month != 1 && dateLimit.Month != 7)
-                    {
-                        dateLimit = dateLimit.AddDays(-1);
-                    }
-
-                    while (dateLimit.Day != 1)
-                    {
-                        dateLimit = dateLimit.AddDays(-1);
-                    }
-
-                    dailyTasks = _dailyTaskStorage.GetAllDailyTasks().Where(x => x.Day.Date < dateMin && x.Day.Date > dateLimit).Select(x => new DailyTaskModel(x)).ToList();
-                    break;
-
                 case Periods.Year:
                     if (dateLimit.Day == 1 && dateLimit.Month == 1)
                     {
@@ -190,12 +154,14 @@ namespace TimeManager.ViewModels
                     dailyTasks = _dailyTaskStorage.GetAllDailyTasks().Where(x => x.Day.Date < dateMin && x.Day.Date > dateLimit).Select(x => new DailyTaskModel(x)).ToList();
                     break;
 
-                case Periods.OverYear:
+                case Periods.More:
                     dailyTasks = _dailyTaskStorage.GetAllDailyTasks().Where(x => x.Day.Date < dateMin && x.Day.Date > Periods.TemplateDateTime).Select(x => new DailyTaskModel(x)).ToList();
                     break;
             }
-            DateFrom = dateLimit.ToShortDateString();
-            DateTo = dateMin.ToShortDateString();
+            DateShortFrom = dateLimit.ToShortDateString();
+            DateLongFrom = dateLimit.ToLongDateString();
+            DateShortTo = dateMin.ToShortDateString();
+            DateLongTo = dateMin.ToLongDateString();
 
             CalculateTypes(dailyTasks.GroupBy(x => x.Type));
         }

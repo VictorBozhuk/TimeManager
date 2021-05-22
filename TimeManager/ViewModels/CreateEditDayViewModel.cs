@@ -41,7 +41,6 @@ namespace TimeManager.ViewModels
             DeleteDailyTaskCommand = new RelayCommand(DeleteDailyTask);
             EditDailyTaskCommand = new RelayCommand(EditDailyTask);
             SelectedTemplateTab = TemplateTabs.FirstOrDefault();
-            SelectedTaskTab = TaskTabs.FirstOrDefault();
             if (day == null)
             {
                 var h = dayStorage.GetAllDays();
@@ -69,6 +68,7 @@ namespace TimeManager.ViewModels
                     EditDailyTask();
                 }
             }
+            SelectedTaskTab = TaskTabs.FirstOrDefault();
         }
 
         public RelayCommand ShowDailyPlansCommand { get; set; }

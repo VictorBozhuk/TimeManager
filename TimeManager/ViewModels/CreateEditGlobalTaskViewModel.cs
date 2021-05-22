@@ -19,11 +19,13 @@ namespace TimeManager.ViewModels
     [AddINotifyPropertyChangedInterface]
     public class CreateEditGlobalTaskViewModel : CreateEditBaseViewModel
     {
-
+        private ComboBoxItem selectedType;
         public ComboBoxItem SelectedType
         {
+            get { return selectedType; }
             set
             {
+                selectedType = value;
                 if (value != null)
                 {
                     GlobalTask.Type = value.Content.ToString();
@@ -41,6 +43,7 @@ namespace TimeManager.ViewModels
                 GlobalTask = globalTask;
                 NamePage = Texts.Edit;
                 LoadTypes();
+                SelectedType = Types.FirstOrDefault(x => x.Content.ToString() == globalTask.Type);
             }
             else
             {
@@ -69,7 +72,7 @@ namespace TimeManager.ViewModels
             }
             else
             {
-                SetGlobalTask(Convert.ToDateTime($"{GlobalTask.DeadLineDate} {GlobalTask.DeadLineTime}"));
+                SetGlobalTask(Convert.ToDateTime($"{GlobalTask.DeadLineShortDate} {GlobalTask.DeadLineTime}"));
             }
 
             _main.GoToGlobalTasks();

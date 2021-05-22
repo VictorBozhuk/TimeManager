@@ -44,7 +44,7 @@
                                 <Image
                                     Width="30"
                                     Height="30"
-                                    Source="pack://application:,,,/TimeManager;component/Asserts/Delete.png" />
+                                    Source="pack://application:,,,/TimeManager;component/Asserts/DeleteGray.png" />
                             </Button>
                         </Grid>
 
@@ -134,7 +134,7 @@
                                                     <Image
                                                         Width="30"
                                                         Height="30"
-                                                        Source="pack://application:,,,/TimeManager;component/Asserts/Transfer.png" />
+                                                        Source="pack://application:,,,/TimeManager;component/Asserts/TransferGray.png" />
                                                 </Button>
                                                 <Button
                                                     Grid.Row="0"
@@ -148,7 +148,7 @@
                                                     <Image
                                                         Width="30"
                                                         Height="25"
-                                                        Source="pack://application:,,,/TimeManager;component/Asserts/Edit.png" />
+                                                        Source="pack://application:,,,/TimeManager;component/Asserts/EditGray.png" />
                                                 </Button>
                                                 <Button
                                                     Grid.Row="0"
@@ -162,7 +162,7 @@
                                                     <Image
                                                         Width="30"
                                                         Height="30"
-                                                        Source="pack://application:,,,/TimeManager;component/Asserts/Delete.png" />
+                                                        Source="pack://application:,,,/TimeManager;component/Asserts/DeleteGray.png" />
                                                 </Button>
                                             </StackPanel>
                                         </Grid>
@@ -251,7 +251,7 @@
                                                     <Image
                                                         Width="30"
                                                         Height="30"
-                                                        Source="pack://application:,,,/TimeManager;component/Asserts/Transfer.png" />
+                                                        Source="pack://application:,,,/TimeManager;component/Asserts/TransferGray.png" />
                                                 </Button>
                                                 <Button
                                                     Grid.Row="0"
@@ -265,7 +265,7 @@
                                                     <Image
                                                         Width="30"
                                                         Height="25"
-                                                        Source="pack://application:,,,/TimeManager;component/Asserts/Edit.png" />
+                                                        Source="pack://application:,,,/TimeManager;component/Asserts/EditGray.png" />
                                                 </Button>
                                                 <Button
                                                     Grid.Row="0"
@@ -279,7 +279,7 @@
                                                     <Image
                                                         Width="30"
                                                         Height="30"
-                                                        Source="pack://application:,,,/TimeManager;component/Asserts/Delete.png" />
+                                                        Source="pack://application:,,,/TimeManager;component/Asserts/DeleteGray.png" />
                                                 </Button>
                                             </StackPanel>
                                         </Grid>

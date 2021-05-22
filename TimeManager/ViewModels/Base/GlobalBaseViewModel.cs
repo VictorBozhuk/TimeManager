@@ -17,12 +17,14 @@ namespace TimeManager.ViewModels.Base
     {
         protected string selectedGlobalPeriod;
         public virtual List<string> GlobalPeriods { get; set; } = new List<string>()
-            { Periods.Week, Periods.TwoWeeks, Periods.Month, Periods.Quarter, Periods.HalfYear, Periods.Year, Periods.OverYear, Periods.Previous, Periods.Templates };
+            { Periods.Week, Periods.Month, Periods.Quarter, Periods.Year, Periods.More, Periods.Previous, Periods.Templates };
         public virtual string SelectedGlobalPeriod { get { return selectedGlobalPeriod; } set { selectedGlobalPeriod = value; SetGlobalTasks(value, true); } }
         public List<GlobalTaskModel> GlobalTasks { get; set; }
         public GlobalTaskModel SelectedGlobalTask { get; set; }
-        public string DateFrom { get; set; }
-        public string DateTo { get; set; }
+        public string DateShortFrom { get; set; }
+        public string DateLongFrom { get; set; }
+        public string DateShortTo { get; set; }
+        public string DateLongTo { get; set; }
         public GlobalBaseViewModel(MainViewModel main, IDayStorage dayStorage, IDailyTaskStorage dailyTaskStorage, IGlobalTaskStorage globalTaskStorage)
             : base(main, dayStorage, dailyTaskStorage, globalTaskStorage)
         {
@@ -43,6 +45,7 @@ namespace TimeManager.ViewModels.Base
             }
             var dateLimit = DateTime.Now;
             var dateMin = DateTime.Now;
+            var globalTasks = new List<GlobalTask>();
             switch (period)
             {
                 case Periods.Week:
@@ -55,26 +58,8 @@ namespace TimeManager.ViewModels.Base
                     {
                         dateLimit = dateLimit.AddDays(1 * mult);
                     }
-                    GlobalTasks = _globalTaskStorage.GetAllGlobalTasks().Where(x => CheckDates(x.DeadLine, dateMin, dateLimit)).Select(x => new GlobalTaskModel(x)).ToList();
-                    break;
-
-                case Periods.TwoWeeks:
-                    if (dateLimit.DayOfWeek == DayOfWeek.Monday)
-                    {
-                        dateLimit = dateLimit.AddDays(1 * mult);
-                    }
-
-                    while (dateLimit.DayOfWeek != DayOfWeek.Monday)
-                    {
-                        dateLimit = dateLimit.AddDays(1 * mult);
-                    }
-
-                    do
-                    {
-                        dateLimit = dateLimit.AddDays(1 * mult);
-                    }
-                    while (dateLimit.DayOfWeek != DayOfWeek.Monday);
-                    GlobalTasks = _globalTaskStorage.GetAllGlobalTasks().Where(x => CheckDates(x.DeadLine, dateMin, dateLimit)).Select(x => new GlobalTaskModel(x)).ToList();
+                    globalTasks = _globalTaskStorage.GetAllGlobalTasks().Where(x => CheckDates(x.DeadLine, dateMin, dateLimit)).ToList();
+                    GlobalTasks = globalTasks.Select(x => new GlobalTaskModel(x, globalTasks.IndexOf(x))).ToList();
                     break;
 
                 case Periods.Month:
@@ -87,7 +72,8 @@ namespace TimeManager.ViewModels.Base
                     {
                         dateLimit = dateLimit.AddDays(1 * mult);
                     }
-                    GlobalTasks = _globalTaskStorage.GetAllGlobalTasks().Where(x => CheckDates(x.DeadLine, dateMin, dateLimit)).Select(x => new GlobalTaskModel(x)).ToList();
+                    globalTasks = _globalTaskStorage.GetAllGlobalTasks().Where(x => CheckDates(x.DeadLine, dateMin, dateLimit)).ToList();
+                    GlobalTasks = globalTasks.Select(x => new GlobalTaskModel(x, globalTasks.IndexOf(x))).ToList();
                     break;
 
                 case Periods.Quarter:
@@ -105,27 +91,8 @@ namespace TimeManager.ViewModels.Base
                     {
                         dateLimit = dateLimit.AddDays(1 * mult);
                     }
-
-                    GlobalTasks = _globalTaskStorage.GetAllGlobalTasks().Where(x => CheckDates(x.DeadLine, dateMin, dateLimit)).Select(x => new GlobalTaskModel(x)).ToList();
-                    break;
-
-                case Periods.HalfYear:
-                    if (dateLimit.Month == 1 || dateLimit.Month == 7)
-                    {
-                        dateLimit = dateLimit.AddMonths(5 * mult);
-                    }
-
-                    while (dateLimit.Month != 1 && dateLimit.Month != 7)
-                    {
-                        dateLimit = dateLimit.AddDays(1 * mult);
-                    }
-
-                    while (dateLimit.Day != 1)
-                    {
-                        dateLimit = dateLimit.AddDays(1 * mult);
-                    }
-
-                    GlobalTasks = _globalTaskStorage.GetAllGlobalTasks().Where(x => CheckDates(x.DeadLine, dateMin, dateLimit)).Select(x => new GlobalTaskModel(x)).ToList();
+                    globalTasks = _globalTaskStorage.GetAllGlobalTasks().Where(x => CheckDates(x.DeadLine, dateMin, dateLimit)).ToList();
+                    GlobalTasks = globalTasks.Select(x => new GlobalTaskModel(x, globalTasks.IndexOf(x))).ToList();
                     break;
 
                 case Periods.Year:
@@ -143,37 +110,51 @@ namespace TimeManager.ViewModels.Base
                     {
                         dateLimit = dateLimit.AddMonths(1 * mult);
                     }
-
-                    GlobalTasks = _globalTaskStorage.GetAllGlobalTasks().Where(x => CheckDates(x.DeadLine, dateMin, dateLimit)).Select(x => new GlobalTaskModel(x)).ToList();
+                    globalTasks = _globalTaskStorage.GetAllGlobalTasks().Where(x => CheckDates(x.DeadLine, dateMin, dateLimit)).ToList();
+                    GlobalTasks = globalTasks.Select(x => new GlobalTaskModel(x, globalTasks.IndexOf(x))).ToList();
                     break;
 
-                case Periods.OverYear:
-                    GlobalTasks = _globalTaskStorage.GetAllGlobalTasks().Where(x => CheckDates(x.DeadLine, dateMin)).Select(x => new GlobalTaskModel(x)).ToList();
-                    DateFrom = dateMin.ToShortDateString();
-                    DateTo = Texts.Infinity;
+                case Periods.More:
+                    globalTasks = _globalTaskStorage.GetAllGlobalTasks().Where(x => CheckDates(x.DeadLine, dateMin)).ToList();
+                    GlobalTasks = globalTasks.Select(x => new GlobalTaskModel(x, globalTasks.IndexOf(x))).ToList();
+                    DateShortFrom = dateMin.ToShortDateString();
+                    DateLongFrom = dateMin.ToLongDateString();
+                    DateShortTo = Texts.Infinity;
+                    DateLongTo = Texts.Infinity;
                     return;
 
                 case Periods.Previous:
-                    GlobalTasks = _globalTaskStorage.GetAllGlobalTasks().Where(x => CheckDates(x.DeadLine, Periods.TemplateDateTime, dateMin)).Select(x => new GlobalTaskModel(x)).ToList();
-                    DateFrom = Periods.TemplateDateTime.ToShortDateString();
-                    DateTo = dateMin.ToShortDateString();
+                    globalTasks = _globalTaskStorage.GetAllGlobalTasks().Where(x => CheckDates(x.DeadLine, Periods.TemplateDateTime, dateMin)).ToList();
+                    GlobalTasks = globalTasks.Select(x => new GlobalTaskModel(x, globalTasks.IndexOf(x))).ToList();
+                    DateShortFrom = Periods.TemplateDateTime.ToShortDateString();
+                    DateLongFrom = Periods.TemplateDateTime.ToLongDateString();
+                    DateShortTo = dateMin.ToShortDateString();
+                    DateLongTo = dateMin.ToLongDateString();
                     return;
 
                 case Periods.Future:
-                    GlobalTasks = _globalTaskStorage.GetAllGlobalTasks().Where(x => x.DeadLine > dateMin).Select(x => new GlobalTaskModel(x)).ToList();
-                    DateFrom = Texts.Infinity;
-                    DateTo = dateMin.ToShortDateString();
+                    globalTasks = _globalTaskStorage.GetAllGlobalTasks().Where(x => x.DeadLine > dateMin).ToList();
+                    GlobalTasks = globalTasks.Select(x => new GlobalTaskModel(x, globalTasks.IndexOf(x))).ToList();
+                    DateShortFrom = Texts.Infinity;
+                    DateLongFrom = Texts.Infinity;
+                    DateShortTo = dateMin.ToShortDateString();
+                    DateLongTo = dateMin.ToLongDateString();
                     return;
 
                 case Periods.Templates:
-                    GlobalTasks = _globalTaskStorage.GetAllGlobalTasks().Where(x => x.DeadLine == Periods.TemplateDateTime).Select(x => new GlobalTaskModel(x)).ToList();
-                    DateFrom = Texts.None;
-                    DateTo = Texts.None;
+                    globalTasks = _globalTaskStorage.GetAllGlobalTasks().Where(x => x.DeadLine == Periods.TemplateDateTime).ToList();
+                    GlobalTasks = globalTasks.Select(x => new GlobalTaskModel(x, globalTasks.IndexOf(x))).ToList();
+                    DateShortFrom = Texts.None;
+                    DateLongFrom = Texts.None;
+                    DateShortTo = Texts.None;
+                    DateLongTo = Texts.None;
                     return;
             }
 
-            DateFrom = dateMin.ToShortDateString();
-            DateTo = dateLimit.ToShortDateString();
+            DateShortFrom = dateMin.ToShortDateString();
+            DateLongFrom = dateMin.ToLongDateString();
+            DateShortTo = dateLimit.ToShortDateString();
+            DateLongTo = dateLimit.ToLongDateString();
         }
 
         protected virtual bool CheckDates(DateTime deadLine, DateTime dateMin, DateTime dateLimit)

@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
+using TimeManager.Models.Abstracts;
 
 namespace TimeManager.Models
 {
@@ -17,11 +19,16 @@ namespace TimeManager.Models
         public string Type { get; set; }
         public bool IsPlan { get; set; }
         public string DeadLine { get; set; }
-        public string DeadLineDate { get; set; }
+        public string DeadLineShortDate { get; set; }
+        public string DeadLineLongDate { get; set; }
         public string DeadLineTime { get; set; }
+        public string DayOfWeek { get; set; }
+        public string Hours { get; set; }
+        public string Minutes { get; set; }
         public string TimeSpent { get; set; }
         public string TimeSpentByProcents { get; set; }
         public List<DailyTaskModel> DailyTasks { get; set; }
+        public Brush RowColor { get; set; }
 
         public GlobalTaskModel() { }
 
@@ -32,6 +39,10 @@ namespace TimeManager.Models
 
         public GlobalTaskModel(GlobalTask task, int index = 1)
         {
+            if (index % 2 == 0)
+            {
+                RowColor = new SolidColorBrush(Colors.Black);
+            }
             SetValues(task);
         }
 
@@ -43,9 +54,11 @@ namespace TimeManager.Models
             Type = task.Type;
             Status = task.Status;
             IsPlan = task.IsPlan;
-            DeadLineDate = task.DeadLine.ToShortDateString();
+            DeadLineShortDate = task.DeadLine.ToShortDateString();
+            DeadLineLongDate = task.DeadLine.ToLongDateString();
             DeadLineTime = task.DeadLine.ToShortTimeString();
-            DeadLine = $"{DeadLineDate} {DeadLineTime}";
+            DayOfWeek = DayParser.TranslateDayOfWeek(task.DeadLine.DayOfWeek.ToString());
+            DeadLine = $"{DeadLineShortDate} {DeadLineTime} {DayOfWeek}";
             DailyTasks = task.DailyTasks.Select(x => new DailyTaskModel(x)).ToList();
         }
     }

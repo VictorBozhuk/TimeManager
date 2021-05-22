@@ -18,7 +18,7 @@ namespace TimeManager.ViewModels
     public class StatisticGlobalTasksViewModel : GlobalBaseViewModel
     {
         public override List<string> GlobalPeriods { get; set; } = new List<string>()
-            { Periods.Week, Periods.TwoWeeks, Periods.Month, Periods.Quarter, Periods.HalfYear, Periods.Year, Periods.OverYear, Periods.Future, Periods.Templates };
+            { Periods.Week, Periods.Month, Periods.Quarter, Periods.Year, Periods.More, Periods.Future, Periods.Templates };
 
         public override string SelectedGlobalPeriod
         {
@@ -31,9 +31,13 @@ namespace TimeManager.ViewModels
                 selectedGlobalPeriod = value;
                 SetGlobalTasks(value, false);
 
-                var st = DateFrom;
-                DateFrom = DateTo;
-                DateTo = st;
+                var st = DateShortFrom;
+                DateShortFrom = DateShortTo;
+                DateShortTo = st;
+
+                st = DateLongFrom;
+                DateLongFrom = DateLongTo;
+                DateLongTo = st;
 
                 CalculateGlobalTasks(GlobalTasks);
             }
@@ -60,6 +64,8 @@ namespace TimeManager.ViewModels
                 }
 
                 hours += minutes / 60;
+                item.Hours = hours.ToString();
+                item.Minutes = (minutes % 60).ToString();
                 item.TimeSpent = $"{hours}:{minutes % 60}";
                 item.TimeSpentByProcents = sumHoursInProc;
             }

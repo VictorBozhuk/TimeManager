@@ -6,6 +6,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/SourceWeave.Controls;component/Themes/SWStyles.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/TimeManager;component/Styles/Style.xaml" />
 
                 <ResourceDictionary Source="pack://application:,,,/TimeManager;component/Styles/BlueTheme/Core.xaml"/>

@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
+using TimeManager.Models.Abstracts;
 
 namespace TimeManager.Models
 {
@@ -12,12 +14,13 @@ namespace TimeManager.Models
     {
         public Guid Id { get; set; }
         private DateTime date;
+        public Brush RowColor { get; set; }
 
         public DayModel(DateTime date)
         {
             Date = date;
         }
-        public DayModel(Day day)
+        public DayModel(Day day, int index = 1)
         {
             Id = day.Id;
             Date = day.Date;
@@ -25,6 +28,10 @@ namespace TimeManager.Models
             var tasks = day.DailyTasks.Where(x => !x.IsPlan).ToList();
             DailyPlans = plans.Select(x => new DailyTaskModel(x, plans.IndexOf(x))).ToList();
             DailyTasks = tasks.Select(x => new DailyTaskModel(x, tasks.IndexOf(x))).ToList();
+            if (index % 2 == 0)
+            {
+                RowColor = new SolidColorBrush(Colors.Black);
+            }
         }
         public string DateShortString { get; set; }
         public string DateLongString { get; set; }
@@ -37,7 +44,7 @@ namespace TimeManager.Models
                 date = value;
                 DateShortString = value.ToShortDateString();
                 DateLongString = value.ToLongDateString();
-                DayOfWeek = TranslateDayOfWeek(value.DayOfWeek.ToString());
+                DayOfWeek = DayParser.TranslateDayOfWeek(value.DayOfWeek.ToString());
             }
         }
         public List<DailyTaskModel> DailyPlans { get; set; }
@@ -46,29 +53,6 @@ namespace TimeManager.Models
         public override string ToString()
         {
             return DateShortString;
-        }
-
-        private string TranslateDayOfWeek(string day)
-        {
-            switch(day)
-            {
-                case "Monday":
-                    return "Понеділок";
-                case "Tuesday":
-                    return "Вівторок";
-                case "Wednesday":
-                    return "Середа";
-                case "Thursday":
-                    return "Четвер";
-                case "Friday":
-                    return "П'ятниця";
-                case "Saturday":
-                    return "Субота";
-                case "Sunday":
-                    return "Неділя";
-                default:
-                    return "None";
-            }
         }
     }
 }

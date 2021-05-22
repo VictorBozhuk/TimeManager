@@ -18,11 +18,14 @@ namespace TimeManager.ViewModels
     [AddINotifyPropertyChangedInterface]
     public class StatisticViewModel : BaseViewModel
     {
+        private ComboBoxItem selectedStatisticPage;
         public List<ComboBoxItem> StatisticPages { get; set; }
-        public ComboBoxItem SelectedStatisticPage 
-        { 
+        public ComboBoxItem SelectedStatisticPage
+        {
+            get { return selectedStatisticPage; }
             set 
-            { 
+            {
+                selectedStatisticPage = value;
                 if (value.Content.ToString() == Texts.GlobalTasks)
                 {
                     StatisticPage = new StatisticOfGlobalTasks(_main);
@@ -41,7 +44,7 @@ namespace TimeManager.ViewModels
         {
             StatisticGlobalTasksVM = new StatisticGlobalTasksViewModel(main, dayStorage, dailyTaskStorage, globalTaskStorage);
             StatisticTypesVM = new StatisticTypesViewModel(main, dayStorage, dailyTaskStorage, globalTaskStorage);
-            StatisticPages = new List<ComboBoxItem>() { new ComboBoxItem() { Content = Texts.GlobalTasks, IsSelected = true, }, new ComboBoxItem() { Content = Texts.Types } };
+            StatisticPages = new List<ComboBoxItem>() { new ComboBoxItem() { Content = Texts.GlobalTasks, }, new ComboBoxItem() { Content = Texts.Types } };
             SelectedStatisticPage = StatisticPages.First();
         }
     }

@@ -15,6 +15,7 @@ namespace TimeManager.Abstract
         public const string HalfYear = "Half year";
         public const string Year = "Year";
         public const string OverYear = "Over Year";
+        public const string More = "More";
         public const string Templates = "Templates";
         public const string Future = "Future";
         public const string Previous = "Previous";

@@ -1,10 +1,11 @@
-﻿using System.Windows;
+﻿using SourceWeave.Controls;
+using System.Windows;
 using TimeManager.Ioc;
 using TimeManager.ViewModels;
 
 namespace TimeManager
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow : SWWindow
     {
         public MainWindow()
         {

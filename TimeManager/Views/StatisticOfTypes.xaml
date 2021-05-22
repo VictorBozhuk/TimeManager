@@ -25,14 +25,14 @@
             </ListBox.ItemsPanel>
         </ListBox>
         <Grid Grid.Row="1">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <TextBlock Text="From: "/>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0">
+                <TextBlock Foreground="{StaticResource ColorTetBlockInList}" Text="From: "/>
                 <TextBlock
-                    Text="{Binding StatisticVM.StatisticTypesVM.DateFrom}"
+                    Text="{Binding StatisticVM.StatisticTypesVM.DateLongFrom}"
                     />
-                <TextBlock Margin="20,0,0,0" Text="To: "/>
+                <TextBlock Foreground="{StaticResource ColorTetBlockInList}" Margin="30,0,0,0" Text="To: "/>
                 <TextBlock
-                    Text="{Binding StatisticVM.StatisticTypesVM.DateTo}"
+                    Text="{Binding StatisticVM.StatisticTypesVM.DateLongTo}"
                     />
 
             </StackPanel>
@@ -46,29 +46,51 @@
                 <DataTemplate>
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="2"/>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="2" />
                         </Grid.RowDefinitions>
-                        <!--<Grid
-                                        Name="dofijv"
-                                            Grid.RowSpan="2"
-                                            Background="{Binding Path=RowColor}"
-                                            Opacity="0.1"
-                                            Margin="-10,0"
-                                            />-->
+                        <Grid
+                            Grid.RowSpan="2"
+                            Background="{Binding RowColor}"
+                            Opacity="{StaticResource OpasityListBoxItemBlackBackgound}"
+                            Margin="-10,-4"
+                            />
                         <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="auto"/>
-                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
                             </Grid.RowDefinitions>
-                            <TextBlock FontSize="20" TextWrapping="Wrap" Margin="5,0" Text="{Binding Path=Title}"/>
-                            <StackPanel Grid.Row="1" Orientation="Horizontal">
-                                <TextBlock Text="TimeSpent: "/>
-                                <TextBlock Text="{Binding TimeSpent}"/>
-                                <TextBlock Text="                           "/>
-                                <TextBlock Text="TimeSpentByProcents: "/>
-                                <TextBlock Text="{Binding TimeSpentByProcents}"/>
-                            </StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="100" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock
+                                    Margin="5,0"
+                                    FontSize="20"
+                                    Text="{Binding Path=Title}"
+                                    TextWrapping="Wrap" />
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Margin="5,0,0,0" Orientation="Horizontal">
+                                    <TextBlock Foreground="{StaticResource ColorTetBlockInList}" Text="Hours: " />
+                                    <TextBlock Text="{Binding Hours}" />
+                                </StackPanel>
+                                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                    <TextBlock Foreground="{StaticResource ColorTetBlockInList}" Text="Minutes: " />
+                                    <TextBlock Text="{Binding Minutes}" />
+                                </StackPanel>
+                                <StackPanel Grid.Column="2" Orientation="Horizontal">
+                                    <TextBlock Foreground="{StaticResource ColorTetBlockInList}" Text="TimeSpant: " />
+                                    <TextBlock Text="{Binding TimeSpentByProcents}" />
+                                </StackPanel>
+                            </Grid>
                         </Grid>
                     </Grid>
                 </DataTemplate>
