@@ -15,7 +15,7 @@ namespace TimeManager.Models
     [AddINotifyPropertyChangedInterface]
     public class DailyTaskModel
     {
-        public string Id { get; set; }
+        public Guid Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public string Status { get; set; }
@@ -24,7 +24,7 @@ namespace TimeManager.Models
         public string End { get; set; }
         public string Interval { get; set; }
         public Day Day { get; set; }
-        public string GlobalTaskId { get; set; }
+        public Guid? GlobalTaskId { get; set; }
         public Brush RowColor { get; set; }
 
         public double? HeightDescriptionBlock { get; set; } = null;
@@ -41,7 +41,7 @@ namespace TimeManager.Models
             Title = task.Title;
             Description = task.Description;
             Type = task.Type;
-            GlobalTaskId = task.Id.ToString();
+            GlobalTaskId = task.Id;
         }
 
         public DailyTaskModel(DailyTask task, int index = 1)
@@ -55,7 +55,7 @@ namespace TimeManager.Models
 
         private void SetValues(DailyTask task)
         {
-            Id = task.Id.ToString();
+            Id = task.Id;
             Title = task.Title;
             Description = task.Description;
             Type = task.Type;

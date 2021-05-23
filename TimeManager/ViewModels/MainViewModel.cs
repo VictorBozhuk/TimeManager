@@ -214,7 +214,7 @@ namespace TimeManager.ViewModels
             {
                 Id = Guid.NewGuid(),
                 IsPlan = true,
-                Status = Statuses.,
+                Status = Statuses.InProgress,
                 Type = "Type1",
                 Title = "Title1",
                 Start = "00:00",

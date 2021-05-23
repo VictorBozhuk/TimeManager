@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using TimeManager.Abstract;
+using TimeManager.Abstracts;
 using TimeManager.Models;
-using TimeManager.Storage.Arguments;
 using TimeManager.Storage.Storages;
 using TimeManager.Storage.Storages.Abstracts;
 using TimeManager.Views;
@@ -53,6 +53,7 @@ namespace TimeManager.ViewModels
             DeleteDailyTaskCommand = new RelayCommand(() => DeleteDailyTask(SelectedDailyTask, SelectedDay.DailyTasks, DailyTasks));
             EditDailyPlanCommand = new RelayCommand(() => EditDailyTask(true, SelectedDailyPlan));
             EditDailyTaskCommand = new RelayCommand(() => EditDailyTask(false, SelectedDailyTask));
+            TransferPlanCommand = new RelayCommand(TransferPlanToDoneTasks);
         }
 
         #region Commands
@@ -65,7 +66,8 @@ namespace TimeManager.ViewModels
         public RelayCommand DeleteDailyPlanCommand { get; set; }
         public RelayCommand EditDailyTaskCommand { get; set; }
         public RelayCommand DeleteDailyTaskCommand { get; set; }
-        public RelayCommand ShowEstimateOfPlanPanelCommand { get; set; }
+        public RelayCommand TransferPlanCommand { get; set; }
+        public RelayCommand TransferCommand { get; set; }
         #endregion
         private void ShowDailyTasksOfSelectedDay()
         {
@@ -83,7 +85,7 @@ namespace TimeManager.ViewModels
             _dailyTaskStorage.Delete(selectedTask.Id);
             if (_dayStorage.GetAllDays().FirstOrDefault(x => x.Date == selectedTask.Day.Date).DailyTasks.Count == 0)
             {
-                _dayStorage.Delete(selectedTask.Day.Id.ToString());
+                _dayStorage.Delete(selectedTask.Day.Id);
                 LoadDays();
             }
             else
@@ -93,9 +95,29 @@ namespace TimeManager.ViewModels
             }
         }
 
+        private void TransferPlanToDoneTasks()
+        {
+            var taskArgs = new DailyTask()
+            {
+                DayId = SelectedDailyPlan.Day.Id,
+                Description = SelectedDailyPlan.Description,
+                IsPlan = false,
+                Start = SelectedDailyPlan.Start,
+                End = SelectedDailyPlan.End,
+                Status = Statuses.Done,
+                Title = SelectedDailyPlan.Title,
+                Type = SelectedDailyPlan.Type,
+                GlobalTaskId = SelectedDailyPlan.GlobalTaskId,
+            };
+
+            _dailyTaskStorage.Create(taskArgs);
+            SelectedDay.DailyTasks = new DayModel(_dayStorage.GetDay(SelectedDay.Id)).DailyTasks;
+            DailyTasks = new ObservableCollection<DailyTaskModel>(SelectedDay.DailyTasks);
+        }
+
         private void DeleteDay()
         {
-            _dayStorage.Delete(SelectedDay.Id.ToString());
+            _dayStorage.Delete(SelectedDay.Id);
             LoadDays();
         }
 

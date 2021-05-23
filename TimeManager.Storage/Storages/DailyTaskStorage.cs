@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using TimeManager.Abstracts;
 using TimeManager.Models;
-using TimeManager.Storage.Arguments;
 using TimeManager.Storage.Storages.Abstracts;
 
 namespace TimeManager.Storage.Storages
@@ -19,34 +18,21 @@ namespace TimeManager.Storage.Storages
             _context = context;
         }
 
-        public void Create(DailyTaskArgs args)
+        public void Create(DailyTask args)
         {
-            var myTask = new DailyTask()
-            {
-                Id = Guid.NewGuid(),
-                Title = args.Title,
-                Description = args.Description,
-                Status = Statuses.InProgress,
-                Type = args.Type,
-                Start = args.Start,
-                End = args.End,
-                IsPlan = args.IsPlan,
-                DayId = args.DayId,
-                GlobalTaskId = args.GlobalTaskId,
-            };
-
-            _context.DailyTasks.Add(myTask);
+            args.Id = Guid.NewGuid();
+            _context.DailyTasks.Add(args);
             _context.SaveChanges();
         }
-        public DailyTask GetDailyTask(string id)
+        public DailyTask GetDailyTask(Guid id)
         {
-            return GetAllDailyTasks().FirstOrDefault(x => x.Id.ToString() == id);
+            return GetAllDailyTasks().FirstOrDefault(x => x.Id == id);
         }
         public List<DailyTask> GetAllDailyTasks()
         {
             return _context.DailyTasks.Include("Day").AsEnumerable().OrderBy(x => x.Day.Date).ToList();
         }
-        public void Edit(DailyTaskArgs args)
+        public void Edit(DailyTask args)
         {
             var myTask = GetDailyTask(args.Id);
             myTask.Title = args.Title;
@@ -59,7 +45,7 @@ namespace TimeManager.Storage.Storages
 
             _context.SaveChanges();
         }
-        public void Delete(string id)
+        public void Delete(Guid id)
         {
             var myTask = GetDailyTask(id);
             _context.DailyTasks.Remove(myTask);

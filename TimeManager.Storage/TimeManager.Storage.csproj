@@ -51,9 +51,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Arguments\DayArgs.cs" />
-    <Compile Include="Arguments\DailyTaskArgs.cs" />
-    <Compile Include="Arguments\GlobalTaskArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Storages\Abstracts\IDayStorage.cs" />
     <Compile Include="Storages\Abstracts\IDailyTaskStorage.cs" />

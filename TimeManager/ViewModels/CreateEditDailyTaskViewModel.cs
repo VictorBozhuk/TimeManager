@@ -6,7 +6,6 @@ using System.Windows.Controls;
 using TimeManager.Abstract;
 using TimeManager.Abstracts;
 using TimeManager.Models;
-using TimeManager.Storage.Arguments;
 using TimeManager.Storage.Storages.Abstracts;
 using TimeManager.ViewModels.Base;
 
@@ -90,7 +89,7 @@ namespace TimeManager.ViewModels
             }
             else
             {
-                var newDay = new DayArgs()
+                var newDay = new Day()
                 {
                     Date = _main.CreateEditDayVM.Day.Date,
                 };
@@ -101,9 +100,9 @@ namespace TimeManager.ViewModels
             }
         }
 
-        private DailyTaskArgs GetDailyTaskArgs()
+        private DailyTask GetDailyTaskArgs()
         {
-            return new DailyTaskArgs()
+            return new DailyTask()
             {
                 Title = DailyTask.Title,
                 Description = DailyTask.Description,
@@ -119,7 +118,7 @@ namespace TimeManager.ViewModels
 
         private void EditDailyTask()
         {
-            var taskArgs = new DailyTaskArgs()
+            var taskArgs = new DailyTask()
             {
                 Id = DailyTask.Id,
                 Title = DailyTask.Title,

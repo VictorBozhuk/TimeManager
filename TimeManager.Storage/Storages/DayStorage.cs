@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TimeManager.Models;
-using TimeManager.Storage.Arguments;
 using TimeManager.Storage.Storages.Abstracts;
 
 namespace TimeManager.Storage.Storages
@@ -18,26 +17,22 @@ namespace TimeManager.Storage.Storages
             _context = context;
         }
 
-        public void Create(DayArgs args)
+        public void Create(Day args)
         {
-            var day = new Day()
-            {
-                Id = Guid.NewGuid(),
-                Date = args.Date,
-            };
+            args.Id = Guid.NewGuid();
 
-            _context.Days.Add(day);
+            _context.Days.Add(args);
             _context.SaveChanges();
         }
-        public Day GetDay(string id)
+        public Day GetDay(Guid id)
         {
-            return _context.Days.First(x => x.Id.ToString() == id);
+            return _context.Days.First(x => x.Id == id);
         }
         public List<Day> GetAllDays()
         {
             return _context.Days.Include("DailyTasks").OrderByDescending(x => x.Date).ToList();
         }
-        public void Edit(DayArgs args)
+        public void Edit(Day args)
         {
             var day = GetDay(args.Id);
             day.DailyTasks = args.DailyTasks;
@@ -45,7 +40,7 @@ namespace TimeManager.Storage.Storages
 
             _context.SaveChanges();
         }
-        public void Delete(string id)
+        public void Delete(Guid id)
         {
             var day = GetDay(id);
             _context.Days.Remove(day);

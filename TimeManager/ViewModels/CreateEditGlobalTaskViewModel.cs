@@ -10,7 +10,6 @@ using System.Windows.Controls;
 using TimeManager.Abstract;
 using TimeManager.Abstracts;
 using TimeManager.Models;
-using TimeManager.Storage.Arguments;
 using TimeManager.Storage.Storages.Abstracts;
 using TimeManager.ViewModels.Base;
 
@@ -104,7 +103,7 @@ namespace TimeManager.ViewModels
 
         private void CreateGlobalTask(DateTime deadLine)
         {
-            var taskArgs = new GlobalTaskArgs()
+            var taskArgs = new GlobalTask()
             {
                 Title = GlobalTask.Title,
                 Type = GlobalTask.Type,
@@ -118,9 +117,9 @@ namespace TimeManager.ViewModels
 
         private void EditGlobalTask(DateTime deadLine)
         {
-            var taskArgs = new GlobalTaskArgs()
+            var taskArgs = new GlobalTask()
             {
-                Id = GlobalTask.Id.ToString(),
+                Id = GlobalTask.Id,
                 Title = GlobalTask.Title,
                 Status = GlobalTask.Status,
                 Type = GlobalTask.Type,

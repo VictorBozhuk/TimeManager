@@ -146,7 +146,7 @@ namespace TimeManager.ViewModels
             _dailyTaskStorage.Delete(SelectedDailyTask.Id);
             if(_dayStorage.GetAllDays().FirstOrDefault(x => x.Date == SelectedDailyTask.Day.Date).DailyTasks.Count == 0)
             {
-                _dayStorage.Delete(SelectedDailyTask.Day.Id.ToString());
+                _dayStorage.Delete(SelectedDailyTask.Day.Id);
             }
             ShowDailyTasks();
         }

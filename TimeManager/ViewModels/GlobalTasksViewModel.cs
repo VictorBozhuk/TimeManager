@@ -28,7 +28,7 @@ namespace TimeManager.ViewModels
 
         private void DeleteGlobalTask()
         {
-            _globalTaskStorage.Delete(SelectedGlobalTask.Id.ToString());
+            _globalTaskStorage.Delete(SelectedGlobalTask.Id);
             LoadGlobalTasks();
         }
 

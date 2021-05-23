@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using TimeManager.Abstracts;
 using TimeManager.Models;
-using TimeManager.Storage.Arguments;
 using TimeManager.Storage.Storages.Abstracts;
 
 namespace TimeManager.Storage.Storages
@@ -19,31 +18,22 @@ namespace TimeManager.Storage.Storages
             _context = context;
         }
 
-        public void Create(GlobalTaskArgs args)
+        public void Create(GlobalTask args)
         {
-            var myTask = new GlobalTask()
-            {
-                Id = Guid.NewGuid(),
-                Title = args.Title,
-                Description = args.Description,
-                Status = Statuses.InProgress,
-                Type = args.Type,
-                IsPlan = args.IsPlan,
-                DeadLine = args.DeadLine,
-            };
+            args.Id = Guid.NewGuid();
 
-            _context.GlobalTasks.Add(myTask);
+            _context.GlobalTasks.Add(args);
             _context.SaveChanges();
         }
-        public GlobalTask GetGlobalTask(string id)
+        public GlobalTask GetGlobalTask(Guid? id)
         {
-            return GetAllGlobalTasks().FirstOrDefault(x => x.Id.ToString() == id);
+            return GetAllGlobalTasks().FirstOrDefault(x => x.Id == id);
         }
         public List<GlobalTask> GetAllGlobalTasks()
         {
             return _context.GlobalTasks.Include("DailyTasks").AsEnumerable().OrderBy(x => x.DeadLine).ToList();
         }
-        public void Edit(GlobalTaskArgs args)
+        public void Edit(GlobalTask args)
         {
             var myTask = GetGlobalTask(args.Id);
             myTask.Title = args.Title;
@@ -55,7 +45,7 @@ namespace TimeManager.Storage.Storages
 
             _context.SaveChanges();
         }
-        public void Delete(string id)
+        public void Delete(Guid id)
         {
             var myTask = GetGlobalTask(id);
             _context.GlobalTasks.Remove(myTask);
