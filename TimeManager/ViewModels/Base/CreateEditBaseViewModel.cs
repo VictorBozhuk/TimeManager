@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using TimeManager.Abstract;
+using TimeManager.Abstracts;
 using TimeManager.Storage.Storages.Abstracts;
 
 namespace TimeManager.ViewModels.Base
@@ -31,6 +32,14 @@ namespace TimeManager.ViewModels.Base
 
         public string NamePage { get; set; } = Texts.Create;
         public ObservableCollection<ComboBoxItem> Types { get; set; }
+        public ObservableCollection<ComboBoxItem> TaskStatuses { get; set; }
+            = new ObservableCollection<ComboBoxItem>()
+            {
+                new ComboBoxItem() { Content = Statuses.InProgress, },
+                new ComboBoxItem() { Content = Statuses.Done, },
+                new ComboBoxItem() { Content = Statuses.NotDone, },
+            };
+
 
         protected void LoadTypes()
         {

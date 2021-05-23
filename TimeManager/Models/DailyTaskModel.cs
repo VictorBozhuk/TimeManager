@@ -27,6 +27,8 @@ namespace TimeManager.Models
         public string GlobalTaskId { get; set; }
         public Brush RowColor { get; set; }
 
+        public double? HeightDescriptionBlock { get; set; } = null;
+
         public DailyTaskModel() { }
 
         public DailyTaskModel(DailyTask task)
@@ -62,6 +64,11 @@ namespace TimeManager.Models
             End = task.End;
             Day = task.Day;
             Interval = $"{Start} - {End}";
+
+            if (string.IsNullOrEmpty(Description))
+            {
+                HeightDescriptionBlock = 0;
+            }
         }
     }
 }

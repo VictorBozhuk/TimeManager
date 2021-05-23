@@ -20,6 +20,7 @@ namespace TimeManager.ViewModels
     public class CreateEditGlobalTaskViewModel : CreateEditBaseViewModel
     {
         private ComboBoxItem selectedType;
+        private ComboBoxItem selectedStatus;
         public ComboBoxItem SelectedType
         {
             get { return selectedType; }
@@ -34,6 +35,15 @@ namespace TimeManager.ViewModels
         }
         public bool IsTemplateChecked { get; set; }
         public GlobalTaskModel GlobalTask { get; set; }
+        public ComboBoxItem SelectedStatus
+        {
+            get { return selectedStatus; }
+            set
+            {
+                selectedStatus = value;
+                GlobalTask.Status = value.Content.ToString();
+            }
+        }
         public CreateEditGlobalTaskViewModel(MainViewModel main, IDayStorage dayStorage, IDailyTaskStorage dailyTaskStorage, IGlobalTaskStorage globalTaskStorage, GlobalTaskModel globalTask = null, bool isTemplate = false)
             : base(main, dayStorage, dailyTaskStorage, globalTaskStorage)
         {
@@ -43,10 +53,12 @@ namespace TimeManager.ViewModels
                 GlobalTask = globalTask;
                 NamePage = Texts.Edit;
                 LoadTypes();
+                SelectedStatus = TaskStatuses.FirstOrDefault(x => x.Content.ToString() == globalTask.Status);
                 SelectedType = Types.FirstOrDefault(x => x.Content.ToString() == globalTask.Type);
             }
             else
             {
+                SelectedStatus = TaskStatuses.FirstOrDefault();
                 Load();
                 NamePage = Texts.Create;
             }
@@ -99,7 +111,7 @@ namespace TimeManager.ViewModels
                 IsPlan = true,
                 Description = GlobalTask.Description,
                 DeadLine = deadLine,
-                Status = Statuses.InProgress,
+                Status = GlobalTask.Status,
             };
             _globalTaskStorage.Create(taskArgs);
         }

@@ -16,6 +16,8 @@ namespace TimeManager.ViewModels
     public class CreateEditDailyTaskViewModel : CreateEditBaseViewModel
     {
         private ComboBoxItem selectedType;
+        private ComboBoxItem selectedStatus;
+
         public ComboBoxItem SelectedType
         {
             get { return selectedType; }
@@ -28,7 +30,15 @@ namespace TimeManager.ViewModels
                 }
             }
         }
-
+        public ComboBoxItem SelectedStatus
+        {
+            get { return selectedStatus; }
+            set
+            {
+                selectedStatus = value;
+                DailyTask.Status = value.Content.ToString();
+            }
+        }
         public DailyTaskModel DailyTask { get; set; }
 
         public CreateEditDailyTaskViewModel(MainViewModel main, IDayStorage dayStorage, IDailyTaskStorage dailyTaskStorage, IGlobalTaskStorage globalTaskStorage)
@@ -47,6 +57,7 @@ namespace TimeManager.ViewModels
             DailyTask = task;
             NamePage = Texts.Edit;
             SelectedType = Types.FirstOrDefault(x => x.Content.ToString() == task.Type.ToString());
+            SelectedStatus = TaskStatuses.FirstOrDefault(x => x.Content.ToString() == task.Status);
         }
 
         public void SetGlobalTask(GlobalTaskModel globalTask)
@@ -127,6 +138,7 @@ namespace TimeManager.ViewModels
         {
             NamePage = Texts.Create;
             DailyTask = new DailyTaskModel();
+            SelectedStatus = TaskStatuses.FirstOrDefault(x => x.Content.ToString() == Statuses.InProgress);
             LoadTypes();
         }
 

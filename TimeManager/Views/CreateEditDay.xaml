@@ -30,7 +30,7 @@
                     Margin="10,0,0,0"
                     Text="{Binding CreateEditDayVM.Day.DayOfWeek}"/>
             </StackPanel>
-            <DatePicker FontSize="16" VerticalAlignment="Center" Background="{StaticResource BackgroundKey}" Grid.Column="1" SelectedDate="{Binding CreateEditDayVM.PickeredDate}"/>
+            <DatePicker FontSize="16" Margin="0,0,5,0" VerticalAlignment="Center" Background="{StaticResource BackgroundKey}" Grid.Column="1" SelectedDate="{Binding CreateEditDayVM.PickeredDate}"/>
         </Grid>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
@@ -134,7 +134,7 @@
                                             <TextBlock Text="{Binding Type}" />
                                         </StackPanel>
                                     </WrapPanel>
-                                    <StackPanel Grid.Row="2" Orientation="Horizontal">
+                                    <StackPanel Grid.Row="2" Orientation="Horizontal" Height="{Binding HeightDescriptionBlock}">
                                         <TextBlock Foreground="{StaticResource ColorTetBlockInList}" Text="Description: " />
                                         <TextBlock Text="{Binding Description}" TextWrapping="Wrap" />
                                     </StackPanel>

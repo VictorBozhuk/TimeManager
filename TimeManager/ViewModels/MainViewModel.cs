@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using TimeManager.Abstracts;
 using TimeManager.Models;
 using TimeManager.Storage;
 using TimeManager.Storage.Storages;
@@ -172,7 +173,7 @@ namespace TimeManager.ViewModels
             {
                 Id = Guid.NewGuid(),
                 IsPlan = false,
-                Status = "Status1",
+                Status = Statuses.InProgress,
                 Type = "Type2",
                 Title = "Title1",
                 Start = "00:00",
@@ -187,7 +188,7 @@ namespace TimeManager.ViewModels
             {
                 Id = Guid.NewGuid(),
                 IsPlan = false,
-                Status = "Status1",
+                Status = Statuses.InProgress,
                 Type = "Type2",
                 Title = "Title1",
                 DeadLine = DateTime.Now.AddDays(days),
@@ -200,7 +201,7 @@ namespace TimeManager.ViewModels
             {
                 Id = Guid.NewGuid(),
                 IsPlan = true,
-                Status = "Status1",
+                Status = Statuses.InProgress,
                 Type = "Type2",
                 Title = "Title1",
                 DeadLine = DateTime.Now.AddDays(days),
@@ -213,7 +214,7 @@ namespace TimeManager.ViewModels
             {
                 Id = Guid.NewGuid(),
                 IsPlan = true,
-                Status = "Status1",
+                Status = Statuses.,
                 Type = "Type1",
                 Title = "Title1",
                 Start = "00:00",

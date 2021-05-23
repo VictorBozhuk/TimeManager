@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using TimeManager.Abstracts;
 using TimeManager.Models.Abstracts;
 
 namespace TimeManager.Models
@@ -29,6 +30,8 @@ namespace TimeManager.Models
         public string TimeSpentByProcents { get; set; }
         public List<DailyTaskModel> DailyTasks { get; set; }
         public Brush RowColor { get; set; }
+        public Brush StatusColor { get; set; }
+        public double? HeightDescriptionBlock { get; set; } = null;
 
         public GlobalTaskModel() { }
 
@@ -60,6 +63,24 @@ namespace TimeManager.Models
             DayOfWeek = DayParser.TranslateDayOfWeek(task.DeadLine.DayOfWeek.ToString());
             DeadLine = $"{DeadLineShortDate} {DeadLineTime} {DayOfWeek}";
             DailyTasks = task.DailyTasks.Select(x => new DailyTaskModel(x)).ToList();
+
+            if(Status == Statuses.Done)
+            {
+                StatusColor = Statuses.ColorDone;
+            }
+            else if (Status == Statuses.InProgress)
+            {
+                StatusColor = Statuses.ColorInProgress;
+            }
+            else if (Status == Statuses.NotDone)
+            {
+                StatusColor = Statuses.ColorNotDone;
+            }
+
+            if (string.IsNullOrEmpty(Description))
+            {
+                HeightDescriptionBlock = 0;
+            }
         }
     }
 }

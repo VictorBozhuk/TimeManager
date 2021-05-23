@@ -177,7 +177,7 @@
                                                 <TextBlock Text="{Binding Type}" />
                                             </StackPanel>
                                         </WrapPanel>
-                                        <StackPanel Grid.Row="2" Orientation="Horizontal">
+                                        <StackPanel Grid.Row="2" Orientation="Horizontal" Height="{Binding HeightDescriptionBlock}">
                                             <TextBlock Foreground="{StaticResource ColorTetBlockInList}" Text="Description: " />
                                             <TextBlock Text="{Binding Description}" TextWrapping="Wrap" />
                                         </StackPanel>
@@ -294,7 +294,7 @@
                                                 <TextBlock Text="{Binding Type}" />
                                             </StackPanel>
                                         </WrapPanel>
-                                        <StackPanel Grid.Row="2" Orientation="Horizontal">
+                                        <StackPanel Grid.Row="2" Orientation="Horizontal" Height="{Binding HeightDescriptionBlock}">
                                             <TextBlock Foreground="{StaticResource ColorTetBlockInList}" Text="Description: " />
                                             <TextBlock Text="{Binding Description}" TextWrapping="Wrap" />
                                         </StackPanel>

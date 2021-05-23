@@ -29,6 +29,32 @@
         <TextBlock Grid.Row="1" Margin="0,8" HorizontalAlignment="Right" VerticalAlignment="Top" Text="Description: " />
         <TextBox Grid.Row="1" AcceptsReturn="True"  Grid.Column="1" Margin="10,5" VerticalAlignment="Stretch" Text="{Binding CreateEditGlobalTaskVM.GlobalTask.Description}" Height="Auto" />
 
+        <TextBlock Grid.Row="2" Margin="0,8" HorizontalAlignment="Right" VerticalAlignment="Top" Text="Status: " />
+
+
+
+        <Grid Grid.Row="2" Grid.Column="1" Margin="10,5" VerticalAlignment="Center" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <ComboBox
+                Margin="0,0,10,0"
+                Grid.Column="0"
+                ItemsSource="{Binding CreateEditGlobalTaskVM.TaskStatuses}"
+                SelectedItem="{Binding CreateEditGlobalTaskVM.SelectedStatus}" />
+            <CheckBox 
+                Grid.Column="1" 
+                Margin="10,0,0,0" 
+                VerticalAlignment="Center" 
+                IsChecked="{Binding CreateEditGlobalTaskVM.IsTemplateChecked}" 
+                Content="Is template"/>
+        </Grid>
+
+
+        
+
         <TextBlock Margin="0,11" Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Right" Text="Date: " />
         <Grid Grid.Row="3" Grid.Column="1" Margin="10,5" VerticalAlignment="Center" >
             <Grid.ColumnDefinitions>
@@ -55,13 +81,12 @@
                 ItemsSource="{Binding CreateEditGlobalTaskVM.Types}"
                 SelectedItem="{Binding CreateEditGlobalTaskVM.SelectedType}" />
         </Grid>
-        <CheckBox Grid.Row="2" Grid.Column="1" Margin="10,0,0,0" VerticalAlignment="Center" IsChecked="{Binding CreateEditGlobalTaskVM.IsTemplateChecked}" Content="Is template"/>
         <StackPanel Grid.Row="5" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Center" Orientation="Horizontal">
             <Button
                 FontSize="16"
                 Width="100"
                 Margin="10"
-                Command="{Binding CreateEditDayVM.CreateEditDailyTaskVM.CancelCommand}"
+                Command="{Binding CreateEditGlobalTaskVM.CancelCommand}"
                 Content="Cancel" />
             <Button
                 Width="100"
