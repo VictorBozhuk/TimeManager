@@ -57,8 +57,8 @@ namespace TimeManager.ViewModels
             }
             else
             {
-                SelectedStatus = TaskStatuses.FirstOrDefault();
                 Load();
+                SelectedStatus = TaskStatuses.FirstOrDefault();
                 NamePage = Texts.Create;
             }
 
