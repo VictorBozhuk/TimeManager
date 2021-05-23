@@ -11,13 +11,8 @@ using TimeManager.Models.Abstracts;
 namespace TimeManager.Models
 {
     [AddINotifyPropertyChangedInterface]
-    public class GlobalTaskModel
+    public class GlobalTaskModel : BaseModel
     {
-        public Guid Id { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public string Status { get; set; }
-        public string Type { get; set; }
         public bool IsPlan { get; set; }
         public string DeadLine { get; set; }
         public string DeadLineShortDate { get; set; }
@@ -29,9 +24,6 @@ namespace TimeManager.Models
         public string TimeSpent { get; set; }
         public string TimeSpentByProcents { get; set; }
         public List<DailyTaskModel> DailyTasks { get; set; }
-        public Brush RowColor { get; set; }
-        public Brush StatusColor { get; set; }
-        public double? HeightDescriptionBlock { get; set; } = null;
 
         public GlobalTaskModel() { }
 
@@ -40,12 +32,9 @@ namespace TimeManager.Models
             SetValues(task);
         }
 
-        public GlobalTaskModel(GlobalTask task, int index = 1)
+        public GlobalTaskModel(GlobalTask task, int index = 1) : base(index)
         {
-            if (index % 2 == 0)
-            {
-                RowColor = new SolidColorBrush(Colors.Black);
-            }
+
             SetValues(task);
         }
 
@@ -64,18 +53,7 @@ namespace TimeManager.Models
             DeadLine = $"{DeadLineShortDate} {DeadLineTime} {DayOfWeek}";
             DailyTasks = task.DailyTasks.Select(x => new DailyTaskModel(x)).ToList();
 
-            if(Status == Statuses.Done)
-            {
-                StatusColor = Statuses.ColorDone;
-            }
-            else if (Status == Statuses.InProgress)
-            {
-                StatusColor = Statuses.ColorInProgress;
-            }
-            else if (Status == Statuses.NotDone)
-            {
-                StatusColor = Statuses.ColorNotDone;
-            }
+            SetStatusColor();
 
             if (string.IsNullOrEmpty(Description))
             {

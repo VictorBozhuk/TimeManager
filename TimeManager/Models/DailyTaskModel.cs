@@ -8,26 +8,20 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
 using TimeManager.Abstract;
+using TimeManager.Abstracts;
+using TimeManager.Models.Abstracts;
 using TimeManager.ViewModels;
 
 namespace TimeManager.Models
 {
     [AddINotifyPropertyChangedInterface]
-    public class DailyTaskModel
+    public class DailyTaskModel : BaseModel
     {
-        public Guid Id { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public string Status { get; set; }
-        public string Type { get; set; }
         public string Start { get; set; }
         public string End { get; set; }
         public string Interval { get; set; }
         public Day Day { get; set; }
         public Guid? GlobalTaskId { get; set; }
-        public Brush RowColor { get; set; }
-
-        public double? HeightDescriptionBlock { get; set; } = null;
 
         public DailyTaskModel() { }
 
@@ -44,12 +38,8 @@ namespace TimeManager.Models
             GlobalTaskId = task.Id;
         }
 
-        public DailyTaskModel(DailyTask task, int index = 1)
+        public DailyTaskModel(DailyTask task, int index = 1) : base(index)
         {
-            if(index % 2 == 0)
-            {
-                RowColor = new SolidColorBrush(Colors.Black);
-            }
             SetValues(task);
         }
 
@@ -64,6 +54,8 @@ namespace TimeManager.Models
             End = task.End;
             Day = task.Day;
             Interval = $"{Start} - {End}";
+
+            SetStatusColor();
 
             if (string.IsNullOrEmpty(Description))
             {

@@ -42,8 +42,8 @@
                                 BorderBrush="{x:Null}"
                                 Command="{Binding Path=DataContext.DailyTasksVM.DeleteDayCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}">
                                 <Image
-                                    Width="30"
-                                    Height="30"
+                                    Width="{StaticResource WidthAndHightOfImages}"
+                                    Height="{StaticResource WidthAndHightOfImages}"
                                     Source="pack://application:,,,/TimeManager;component/Asserts/DeleteGray.png" />
                             </Button>
                         </Grid>
@@ -132,8 +132,8 @@
                                                     Command="{Binding Path=DataContext.DailyTasksVM.TransferPlanCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
                                                     ToolTip="Transfer">
                                                     <Image
-                                                        Width="30"
-                                                        Height="30"
+                                                        Width="{StaticResource WidthAndHightOfImages}"
+                                                        Height="{StaticResource WidthAndHightOfImages}"
                                                         Source="pack://application:,,,/TimeManager;component/Asserts/TransferGray.png" />
                                                 </Button>
                                                 <Button
@@ -146,8 +146,8 @@
                                                     Command="{Binding Path=DataContext.DailyTasksVM.EditDailyPlanCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
                                                     ToolTip="Edit">
                                                     <Image
-                                                        Width="30"
-                                                        Height="25"
+                                                        Width="{StaticResource WidthAndHightOfImages}"
+                                                        Height="{StaticResource HightEditImage}"
                                                         Source="pack://application:,,,/TimeManager;component/Asserts/EditGray.png" />
                                                 </Button>
                                                 <Button
@@ -160,8 +160,8 @@
                                                     Command="{Binding Path=DataContext.DailyTasksVM.DeleteDailyPlanCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
                                                     ToolTip="Delete">
                                                     <Image
-                                                        Width="30"
-                                                        Height="30"
+                                                        Width="{StaticResource WidthAndHightOfImages}"
+                                                        Height="{StaticResource WidthAndHightOfImages}"
                                                         Source="pack://application:,,,/TimeManager;component/Asserts/DeleteGray.png" />
                                                 </Button>
                                             </StackPanel>
@@ -249,8 +249,8 @@
                                                     Command="{Binding Path=DataContext.DailyTasksVM.ShowEstimateOfPlanPanelCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
                                                     ToolTip="Transfer">
                                                     <Image
-                                                        Width="30"
-                                                        Height="30"
+                                                        Width="{StaticResource WidthAndHightOfImages}"
+                                                        Height="{StaticResource WidthAndHightOfImages}"
                                                         Source="pack://application:,,,/TimeManager;component/Asserts/TransferGray.png" />
                                                 </Button>
                                                 <Button
@@ -263,8 +263,8 @@
                                                     Command="{Binding Path=DataContext.DailyTasksVM.EditDailyPlanCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
                                                     ToolTip="Edit">
                                                     <Image
-                                                        Width="30"
-                                                        Height="25"
+                                                        Width="{StaticResource WidthAndHightOfImages}"
+                                                        Height="{StaticResource HightEditImage}"
                                                         Source="pack://application:,,,/TimeManager;component/Asserts/EditGray.png" />
                                                 </Button>
                                                 <Button
@@ -277,8 +277,8 @@
                                                     Command="{Binding Path=DataContext.DailyTasksVM.DeleteDailyPlanCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
                                                     ToolTip="Delete">
                                                     <Image
-                                                        Width="30"
-                                                        Height="30"
+                                                        Width="{StaticResource WidthAndHightOfImages}"
+                                                        Height="{StaticResource WidthAndHightOfImages}"
                                                         Source="pack://application:,,,/TimeManager;component/Asserts/DeleteGray.png" />
                                                 </Button>
                                             </StackPanel>

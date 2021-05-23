@@ -158,6 +158,7 @@
     <Compile Include="Ioc\IocConfiguration.cs" />
     <Compile Include="Ioc\IocKernel.cs" />
     <Compile Include="Ioc\ViewModelLocator.cs" />
+    <Compile Include="Models\Abstracts\BaseModel.cs" />
     <Compile Include="Models\Abstracts\DayParser.cs" />
     <Compile Include="Models\DayModel.cs" />
     <Compile Include="Models\GlobalTaskModel.cs" />

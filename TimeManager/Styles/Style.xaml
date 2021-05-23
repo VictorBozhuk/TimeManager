@@ -9,6 +9,9 @@
     <Sys:Double x:Key="OpasityListBoxItemBlackBackgound">0.3</Sys:Double>
     <Sys:Double x:Key="FontSizeMain">16</Sys:Double>
 
+    <Sys:Double x:Key="WidthAndHightOfImages">20</Sys:Double>
+    <Sys:Double x:Key="HightEditImage">15</Sys:Double>
+
 
     <Style x:Key="NameOfFields" TargetType="{x:Type TextBlock}">
         <Setter Property="Foreground" Value="Gray" />

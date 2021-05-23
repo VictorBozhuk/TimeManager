@@ -35,10 +35,9 @@
         </ListBox>
         <Grid Grid.Row="1">
             <StackPanel Margin="5,0,0,0" Orientation="Horizontal">
-                <TextBox Width="200"/>
                 <ComboBox
                     Width="150"
-                    Margin="10,0,10,0"
+                    Margin="0,0,10,0"
                     ItemsSource="{Binding GlobalTasksVM.TaskStatuses}"
                     SelectedItem="{Binding GlobalTasksVM.SelectedStatus}" />
             </StackPanel>
@@ -104,8 +103,8 @@
                                         Command="{Binding Path=DataContext.GlobalTasksVM.EditTaskCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
                                         ToolTip="Edit">
                                         <Image
-                                            Width="30"
-                                            Height="25"
+                                            Width="{StaticResource WidthAndHightOfImages}"
+                                            Height="{StaticResource HightEditImage}"
                                             Source="pack://application:,,,/TimeManager;component/Asserts/EditGray.png" />
                                     </Button>
                                     <Button
@@ -118,8 +117,8 @@
                                         Command="{Binding Path=DataContext.GlobalTasksVM.DeleteGlobalTaskCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
                                         ToolTip="Delete">
                                         <Image
-                                            Width="30"
-                                            Height="30"
+                                            Width="{StaticResource WidthAndHightOfImages}"
+                                            Height="{StaticResource WidthAndHightOfImages}"
                                             Source="pack://application:,,,/TimeManager;component/Asserts/DeleteGray.png" />
                                     </Button>
                                 </StackPanel>

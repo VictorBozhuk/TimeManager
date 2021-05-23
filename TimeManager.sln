@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeManager.Abstracts", "Ti
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SourceWeave.Controls", "SourceWeave.Controls\SourceWeave.Controls.csproj", "{7286E3A4-21F9-45DA-A0CD-2B2037289F99}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeManager.Tests", "TimeManager.Tests\TimeManager.Tests.csproj", "{EC525710-3396-4BB7-A737-253796920D1C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{7286E3A4-21F9-45DA-A0CD-2B2037289F99}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7286E3A4-21F9-45DA-A0CD-2B2037289F99}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7286E3A4-21F9-45DA-A0CD-2B2037289F99}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC525710-3396-4BB7-A737-253796920D1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC525710-3396-4BB7-A737-253796920D1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC525710-3396-4BB7-A737-253796920D1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC525710-3396-4BB7-A737-253796920D1C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
