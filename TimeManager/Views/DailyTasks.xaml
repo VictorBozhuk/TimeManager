@@ -114,7 +114,7 @@
                                                 <ColumnDefinition Width="100" />
                                             </Grid.ColumnDefinitions>
                                             <TextBlock
-                                                Margin="5,0"
+                                                Margin="5,5"
                                                 FontSize="20"
                                                 Text="{Binding Path=Title}"
                                                 TextWrapping="Wrap" />
@@ -169,12 +169,12 @@
                                         <WrapPanel Grid.Row="1">
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBlock Foreground="{StaticResource ColorTetBlockInList}" Text="Interval: " />
-                                                <TextBlock Text="{Binding Interval}" />
+                                                <TextBlock Foreground="{StaticResource ColorTetBlockInList}" Text="{Binding Interval}" />
                                             </StackPanel>
                                             <Grid Width="100" />
                                             <StackPanel Width="150" Orientation="Horizontal">
                                                 <TextBlock Foreground="{StaticResource ColorTetBlockInList}" Text="Type: " />
-                                                <TextBlock Text="{Binding Type}" />
+                                                <TextBlock Foreground="{StaticResource ColorTetBlockInList}" Text="{Binding Type}" />
                                             </StackPanel>
                                         </WrapPanel>
                                         <StackPanel Grid.Row="2" Orientation="Horizontal" Height="{Binding HeightDescriptionBlock}">
@@ -231,7 +231,7 @@
                                                 <ColumnDefinition Width="100" />
                                             </Grid.ColumnDefinitions>
                                             <TextBlock
-                                                Margin="5,0"
+                                                Margin="5,5"
                                                 FontSize="20"
                                                 Text="{Binding Path=Title}"
                                                 TextWrapping="Wrap" />
@@ -246,7 +246,7 @@
                                                     Background="{x:Null}"
                                                     BorderBrush="{x:Null}"
                                                     Click="SelecteRow"
-                                                    Command="{Binding Path=DataContext.DailyTasksVM.ShowEstimateOfPlanPanelCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
+                                                    Command="{Binding Path=DataContext.DailyTasksVM.ShowEstimateOfTaskPanelCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
                                                     ToolTip="Transfer">
                                                     <Image
                                                         Width="{StaticResource WidthAndHightOfImages}"
@@ -260,7 +260,7 @@
                                                     Background="{x:Null}"
                                                     BorderBrush="{x:Null}"
                                                     Click="SelecteRow"
-                                                    Command="{Binding Path=DataContext.DailyTasksVM.EditDailyPlanCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
+                                                    Command="{Binding Path=DataContext.DailyTasksVM.EditDailyTaskCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
                                                     ToolTip="Edit">
                                                     <Image
                                                         Width="{StaticResource WidthAndHightOfImages}"
@@ -274,7 +274,7 @@
                                                     Background="{x:Null}"
                                                     BorderBrush="{x:Null}"
                                                     Click="SelecteRow"
-                                                    Command="{Binding Path=DataContext.DailyTasksVM.DeleteDailyPlanCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
+                                                    Command="{Binding Path=DataContext.DailyTasksVM.DeleteDailyTaskCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
                                                     ToolTip="Delete">
                                                     <Image
                                                         Width="{StaticResource WidthAndHightOfImages}"
@@ -286,12 +286,12 @@
                                         <WrapPanel Grid.Row="1">
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBlock Foreground="{StaticResource ColorTetBlockInList}" Text="Interval: " />
-                                                <TextBlock Text="{Binding Interval}" />
+                                                <TextBlock Foreground="{StaticResource ColorTetBlockInList}" Text="{Binding Interval}" />
                                             </StackPanel>
                                             <Grid Width="100" />
                                             <StackPanel Width="150" Orientation="Horizontal">
                                                 <TextBlock Foreground="{StaticResource ColorTetBlockInList}" Text="Type: " />
-                                                <TextBlock Text="{Binding Type}" />
+                                                <TextBlock Foreground="{StaticResource ColorTetBlockInList}" Text="{Binding Type}" />
                                             </StackPanel>
                                         </WrapPanel>
                                         <StackPanel Grid.Row="2" Orientation="Horizontal" Height="{Binding HeightDescriptionBlock}">

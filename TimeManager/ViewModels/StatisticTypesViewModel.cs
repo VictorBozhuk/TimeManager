@@ -155,8 +155,14 @@ namespace TimeManager.ViewModels
                     break;
 
                 case Periods.More:
-                    dailyTasks = _dailyTaskStorage.GetAllDailyTasks().Where(x => x.Day.Date < dateMin && x.Day.Date > Periods.TemplateDateTime).Select(x => new DailyTaskModel(x)).ToList();
-                    break;
+                    dailyTasks = _dailyTaskStorage.GetAllDailyTasks().Where(x => x.Day.Date > dateMin).Select(x => new DailyTaskModel(x)).ToList();
+                    DateShortFrom = dateLimit.ToShortDateString();
+                    DateLongFrom = dateLimit.ToLongDateString();
+                    DateShortTo = Texts.Infinity;
+                    DateLongTo = Texts.Infinity;
+
+                    CalculateTypes(dailyTasks.GroupBy(x => x.Type));
+                    return;
             }
             DateShortFrom = dateLimit.ToShortDateString();
             DateLongFrom = dateLimit.ToLongDateString();

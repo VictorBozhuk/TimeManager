@@ -32,18 +32,18 @@
         </ListBox>
         <Grid Grid.Row="1" VerticalAlignment="Center" Margin="0,0,10,0">
             <ComboBox
-                Width="150"
+                Width="120"
                 HorizontalAlignment="Left"
                 ItemsSource="{Binding CreateEditDayVM.GlobalTemplatesVM.TaskStatuses}"
                 SelectedItem="{Binding CreateEditDayVM.GlobalTemplatesVM.SelectedStatus}" />
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <TextBlock Text="From: " Foreground="{StaticResource ColorTetBlockInList}"/>
                 <TextBlock
-                    Text="{Binding CreateEditDayVM.GlobalTemplatesVM.DateLongFrom}"
+                    Text="{Binding CreateEditDayVM.GlobalTemplatesVM.DateShortFrom}"
                     />
                 <TextBlock Margin="20,0,0,0" Text="To: " Foreground="{StaticResource ColorTetBlockInList}"/>
                 <TextBlock
-                    Text="{Binding CreateEditDayVM.GlobalTemplatesVM.DateLongTo}"
+                    Text="{Binding CreateEditDayVM.GlobalTemplatesVM.DateShortTo}"
                     />
 
             </StackPanel>
@@ -85,6 +85,7 @@
                                     TextWrapping="Wrap" />
                                 <StackPanel
                                     Grid.Column="1"
+                                    Margin="0,0,5,0"
                                     HorizontalAlignment="Right"
                                     Orientation="Horizontal">
                                     <Button
@@ -110,16 +111,16 @@
                                 </Grid.ColumnDefinitions>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Foreground="{StaticResource ColorTetBlockInList}" Text="DeadLine: " />
-                                    <TextBlock Text="{Binding DeadLine}" />
+                                    <TextBlock Foreground="{StaticResource ColorTetBlockInList}" Text="{Binding DeadLine}" />
                                 </StackPanel>
                                 <StackPanel Grid.Column="1" Margin="-10,0,0,0" Orientation="Horizontal">
                                     <TextBlock Foreground="{StaticResource ColorTetBlockInList}" Text="Type: " />
-                                    <TextBlock Text="{Binding Type}" />
+                                    <TextBlock Foreground="{StaticResource ColorTetBlockInList}" Text="{Binding Type}" />
                                 </StackPanel>
                             </Grid>
                             <StackPanel Grid.Row="2" Orientation="Horizontal" Height="{Binding HeightDescriptionBlock}">
                                 <TextBlock Foreground="{StaticResource ColorTetBlockInList}" Text="Description: " />
-                                <TextBlock Text="{Binding Description}" TextWrapping="Wrap" />
+                                <TextBlock Foreground="{StaticResource ColorTetBlockInList}" Text="{Binding Description}" TextWrapping="Wrap" />
                             </StackPanel>
                         </Grid>
                     </Grid>

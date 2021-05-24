@@ -49,8 +49,8 @@ namespace TimeManager.ViewModels
             CreateEditDailyPlanCommand = new RelayCommand(() => EditDailyTasksOfDay(true));
             CreateEditDailyTaskCommand = new RelayCommand(() => EditDailyTasksOfDay(false));
             DeleteDayCommand = new RelayCommand(DeleteDay);
-            DeleteDailyPlanCommand = new RelayCommand(() => DeleteDailyTask(SelectedDailyPlan, SelectedDay.DailyPlans, DailyPlans));
-            DeleteDailyTaskCommand = new RelayCommand(() => DeleteDailyTask(SelectedDailyTask, SelectedDay.DailyTasks, DailyTasks));
+            DeleteDailyTaskCommand = new RelayCommand(DeleteDailyTask);
+            DeleteDailyPlanCommand = new RelayCommand(DeleteDailyPlan);
             EditDailyPlanCommand = new RelayCommand(() => EditDailyTask(true, SelectedDailyPlan));
             EditDailyTaskCommand = new RelayCommand(() => EditDailyTask(false, SelectedDailyTask));
             TransferPlanCommand = new RelayCommand(TransferPlanToDoneTasks);
@@ -80,18 +80,33 @@ namespace TimeManager.ViewModels
             _main.CreateEditDayVM = new CreateEditDayViewModel(_main, _dayStorage, _dailyTaskStorage, _globalTaskStorage, SelectedDay, isPlans, task);
         }
 
-        private void DeleteDailyTask(DailyTaskModel selectedTask, List<DailyTaskModel> myTaskModelsFromDay, ObservableCollection<DailyTaskModel> myTaskModels)
+        private void DeleteDailyTask()
         {
-            _dailyTaskStorage.Delete(selectedTask.Id);
-            if (_dayStorage.GetAllDays().FirstOrDefault(x => x.Date == selectedTask.Day.Date).DailyTasks.Count == 0)
+            _dailyTaskStorage.Delete(SelectedDailyTask.Id);
+            if (_dayStorage.GetAllDays().FirstOrDefault(x => x.Date == SelectedDailyTask.Day.Date).DailyTasks.Count == 0)
             {
-                _dayStorage.Delete(selectedTask.Day.Id);
+                _dayStorage.Delete(SelectedDailyTask.Day.Id);
                 LoadDays();
             }
             else
             {
-                myTaskModelsFromDay.RemoveAll(x => x.Id == selectedTask.Id);
-                myTaskModels.Remove(selectedTask);
+                SelectedDay.DailyTasks.RemoveAll(x => x.Id == SelectedDailyTask.Id);
+                DailyTasks.Remove(SelectedDailyTask);
+            }
+        }
+
+        private void DeleteDailyPlan()
+        {
+            _dailyTaskStorage.Delete(SelectedDailyPlan.Id);
+            if (_dayStorage.GetAllDays().FirstOrDefault(x => x.Date == SelectedDailyPlan.Day.Date).DailyTasks.Count == 0)
+            {
+                _dayStorage.Delete(SelectedDailyPlan.Day.Id);
+                LoadDays();
+            }
+            else
+            {
+                SelectedDay.DailyTasks.RemoveAll(x => x.Id == SelectedDailyPlan.Id);
+                DailyPlans.Remove(SelectedDailyPlan);
             }
         }
 

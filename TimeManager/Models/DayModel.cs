@@ -24,8 +24,8 @@ namespace TimeManager.Models
         {
             Id = day.Id;
             Date = day.Date;
-            var plans = day.DailyTasks.Where(x => x.IsPlan).ToList();
-            var tasks = day.DailyTasks.Where(x => !x.IsPlan).ToList();
+            var plans = day.DailyTasks.Where(x => x.IsPlan).OrderBy(x => SortTime(x.Start, 0)).ThenBy(x => SortTime(x.Start, 1)).ToList();
+            var tasks = day.DailyTasks.Where(x => !x.IsPlan).OrderBy(x => SortTime(x.Start, 0)).ThenBy(x => SortTime(x.Start, 1)).ToList();
             DailyPlans = plans.Select(x => new DailyTaskModel(x, plans.IndexOf(x))).ToList();
             DailyTasks = tasks.Select(x => new DailyTaskModel(x, tasks.IndexOf(x))).ToList();
             if (index % 2 == 0)
@@ -53,6 +53,24 @@ namespace TimeManager.Models
         public override string ToString()
         {
             return DateShortString;
+        }
+
+        private int SortTime(string start, int index)
+        {
+            if(index == 1 && start.Split(':')[1] == "00")
+            {
+                return 0;
+            }
+            var hour = Convert.ToInt32(start.Split(':')[index]);
+
+            if(hour < 6)
+            {
+                return 25;
+            }
+            else
+            {
+                return hour;
+            }
         }
     }
 }
