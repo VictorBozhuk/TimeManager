@@ -55,9 +55,11 @@
     <Compile Include="Storages\Abstracts\IDayStorage.cs" />
     <Compile Include="Storages\Abstracts\IDailyTaskStorage.cs" />
     <Compile Include="Storages\Abstracts\IGlobalTaskStorage.cs" />
+    <Compile Include="Storages\Abstracts\IUserStorage.cs" />
     <Compile Include="Storages\DayStorage.cs" />
     <Compile Include="Storages\DailyTaskStorage.cs" />
     <Compile Include="Storages\GlobalTaskStorage.cs" />
+    <Compile Include="Storages\UserStorage.cs" />
     <Compile Include="TimeManagerDbContext.cs" />
   </ItemGroup>
   <ItemGroup>

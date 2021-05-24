@@ -8,17 +8,9 @@
         mc:Ignorable="d"
         Title="" Height="450" Width="800">
     <Grid Background="{StaticResource BackgroundKey}">
-        <Menu Margin="0,-26,0,0" HorizontalAlignment="Left" Background="{StaticResource BackgroundKey}">
-            <MenuItem Header="Daily tasks" Command="{Binding GoToDailyTasksCommand}" />
-            <MenuItem Header="Global tasks" Command="{Binding GoToGlobalTasksCommand}" />
-            <MenuItem Header="Statistic" Command="{Binding GoToStatisticCommand}" />
-            <MenuItem Header="Settings" />
-            <MenuItem Header="About" />
-            <MenuItem Header="Help" />
-        </Menu>
         <Frame 
             Name="MainFrame"
-            Content="{Binding MainFrame, UpdateSourceTrigger=PropertyChanged}"
+            Content="{Binding ContentFrame, UpdateSourceTrigger=PropertyChanged}"
 			NavigationUIVisibility="Hidden"
             />
     </Grid>

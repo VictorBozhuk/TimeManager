@@ -22,28 +22,40 @@ namespace TimeManager.ViewModels
         private IDayStorage _dayStorage;
         private IDailyTaskStorage _dailyTaskStorage;
         private IGlobalTaskStorage _globalTaskStorage;
+        private IUserStorage _userStorage;
+        public UserModel User { get; set; }
         public DailyTasksViewModel DailyTasksVM { get; set; }
         public GlobalTasksViewModel GlobalTasksVM { get; set; }
         public CreateEditDayViewModel CreateEditDayVM { get; set; }
         public CreateEditGlobalTaskViewModel CreateEditGlobalTaskVM { get; set; }
         public StatisticViewModel StatisticVM { get; set; }
+        public LoginViewModel LoginVM { get; set; }
+        public RegistrationViewModel RegistrationVM { get; set; }
 
         public Page MainFrame { get; set; }
+        public Page ContentFrame { get; set; }
         public MainViewModel()
         {
             _dbContext = new TimeManagerDbContext();
             _dayStorage = new DayStorage(_dbContext);
             _dailyTaskStorage = new DailyTaskStorage(_dbContext);
             _globalTaskStorage = new GlobalTaskStorage(_dbContext);
+            _userStorage = new UserStorage(_dbContext);
             Initializer();
-            MainFrame = new DailyTasks(this);
+            if(true)
+            {
+                ContentFrame = new Login(this);
+            }
             DailyTasksVM = new DailyTasksViewModel(this, _dayStorage, _dailyTaskStorage, _globalTaskStorage);
             GlobalTasksVM = new GlobalTasksViewModel(this, _dayStorage, _dailyTaskStorage, _globalTaskStorage);
+            LoginVM = new LoginViewModel(this, _userStorage);
             CreateDayCommand = new RelayCommand(GoToCreateDay);
             GoToDailyTasksCommand = new RelayCommand(GoToDailyTasks);
             GoToGlobalTasksCommand = new RelayCommand(GoToGlobalTasks);
             CreateGlobalTaskCommand = new RelayCommand(GoToCreateGlobalTask);
             GoToStatisticCommand = new RelayCommand(GoToStatistic);
+            GoToRegisterCommand = new RelayCommand(GoToRegister);
+            GoToLoginCommand = new RelayCommand(GoToLogin);
         }
 
         public RelayCommand GoToDailyTasksCommand { get; set; }
@@ -52,11 +64,24 @@ namespace TimeManager.ViewModels
         public RelayCommand CreateEditDayCommand { get; set; }
         public RelayCommand CreateDayCommand { get; set; }
         public RelayCommand CreateGlobalTaskCommand { get; set; }
+        public RelayCommand GoToRegisterCommand { get; set; }
+        public RelayCommand GoToLoginCommand { get; set; }
 
         private void GoToCreateDay()
         {
             MainFrame = new CreateEditDay(this);
             CreateEditDayVM = new CreateEditDayViewModel(this, _dayStorage, _dailyTaskStorage, _globalTaskStorage);
+        }
+        private void GoToRegister()
+        {
+            ContentFrame = new Registration(this);
+            RegistrationVM = new RegistrationViewModel(this, _userStorage);
+        }
+
+        private void GoToLogin()
+        {
+            ContentFrame = new Login(this);
+            LoginVM = new LoginViewModel(this, _userStorage);
         }
 
         private void GoToEditDay()
@@ -65,8 +90,9 @@ namespace TimeManager.ViewModels
             CreateEditDayVM = new CreateEditDayViewModel(this, _dayStorage, _dailyTaskStorage, _globalTaskStorage);
         }
 
-        private void GoToDailyTasks()
+        public void GoToDailyTasks()
         {
+            ContentFrame = new Content(this);
             MainFrame = new DailyTasks(this);
             DailyTasksVM.LoadDays();
         }
@@ -86,71 +112,93 @@ namespace TimeManager.ViewModels
             MainFrame = new Statistic(this);
             StatisticVM = new StatisticViewModel(this, _dayStorage, _dailyTaskStorage, _globalTaskStorage);
         }
+        private User user;
         private void Initializer()
         {
             if(_dayStorage.GetAllDays().Count == 0)
             {
+                user = new User()
+                {
+                    Login = "yanStyle",
+                    Password = "123456",
+                    Id = Guid.NewGuid(),
+                };
+
+                _userStorage.Create(user);
+
                 var day1 = new Day()
                 {
+                    UserId = user.Id,
                     Date = DateTime.Now,
                     Id = Guid.NewGuid(),
                 };
                 var day2 = new Day()
                 {
+                    UserId = user.Id,
                     Date = DateTime.Now.AddDays(-1),
                     Id = Guid.NewGuid(),
                 };
                 var day3 = new Day()
                 {
+                    UserId = user.Id,
                     Date = DateTime.Now.AddDays(-2),
                     Id = Guid.NewGuid(),
                 };
 
                 var day31 = new Day()
                 {
+                    UserId = user.Id,
                     Date = DateTime.Now.AddDays(-3),
                     Id = Guid.NewGuid(),
                 };
 
                 var day32 = new Day()
                 {
+                    UserId = user.Id,
                     Date = DateTime.Now.AddDays(-4),
                     Id = Guid.NewGuid(),
                 };
                 var day33 = new Day()
                 {
+                    UserId = user.Id,
                     Date = DateTime.Now.AddDays(-5),
                     Id = Guid.NewGuid(),
                 };
 
                 var day21 = new Day()
                 {
+                    UserId = user.Id,
                     Date = DateTime.Now.AddDays(-6),
                     Id = Guid.NewGuid(),
                 };
                 var day22 = new Day()
                 {
+                    UserId = user.Id,
                     Date = DateTime.Now.AddDays(-7),
                     Id = Guid.NewGuid(),
                 };
                 var day23 = new Day()
                 {
+                    UserId = user.Id,
                     Date = DateTime.Now.AddDays(-8),
                     Id = Guid.NewGuid(),
                 };
 
                 var day11 = new Day()
                 {
+                    UserId = user.Id,
                     Date = DateTime.Now.AddDays(-9),
                     Id = Guid.NewGuid(),
                 };
                 var day12 = new Day()
                 {
+                    UserId = user.Id,
                     Date = DateTime.Now.AddDays(-10),
                     Id = Guid.NewGuid(),
                 };
                 var day13 = new Day()
                 {
+                    UserId = user.Id,
                     Date = DateTime.Now.AddDays(-11),
                     Id = Guid.NewGuid(),
                 };
@@ -458,6 +506,7 @@ namespace TimeManager.ViewModels
         {
             return new DailyTask()
             {
+                UserId = user.Id,
                 Id = Guid.NewGuid(),
                 IsPlan = false,
                 Status = Statuses.InProgress,
@@ -473,6 +522,7 @@ namespace TimeManager.ViewModels
         {
             return new GlobalTask()
             {
+                UserId = user.Id,
                 Id = Guid.NewGuid(),
                 IsPlan = false,
                 Status = Statuses.Done,
@@ -486,6 +536,7 @@ namespace TimeManager.ViewModels
         {
             return new GlobalTask()
             {
+                UserId = user.Id,
                 Id = Guid.NewGuid(),
                 IsPlan = true,
                 Status = Statuses.InProgress,
@@ -499,6 +550,7 @@ namespace TimeManager.ViewModels
         {
             return new DailyTask()
             {
+                UserId = user.Id,
                 Id = Guid.NewGuid(),
                 IsPlan = true,
                 Status = Statuses.InProgress,

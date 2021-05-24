@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace TimeManager.Models
 {
-    public class Day
+    public class User
     {
         public Guid Id { get; set; }
-        public DateTime Date { get; set; }
+        public string Login { get; set; }
+        public string Password { get; set; }
         public List<DailyTask> DailyTasks { get; set; }
-        public Guid UserId { get; set; }
-        public User User { get; set; }
+        public List<GlobalTask> GlobalTasks { get; set; }
+        public List<Day> Days { get; set; }
     }
 }

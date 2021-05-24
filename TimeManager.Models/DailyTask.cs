@@ -18,6 +18,8 @@ namespace TimeManager.Models
         public string Start { get; set; }
         public string End { get; set; }
         public Guid DayId { get; set; }
+        public Guid UserId { get; set; }
+        public User User { get; set; }
         public Day Day { get; set; }
         public Guid? GlobalTaskId { get; set; }
         public GlobalTask GlobalTask { get; set; }

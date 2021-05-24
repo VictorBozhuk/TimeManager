@@ -20,5 +20,7 @@ namespace TimeManager.Models
         public bool IsPlan { get; set; }
         public DateTime DeadLine { get; set; }
         public ICollection<DailyTask> DailyTasks { get; set; }
+        public Guid UserId { get; set; }
+        public User User { get; set; }
     }
 }
